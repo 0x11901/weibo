@@ -10,6 +10,8 @@
 		A1F1497AE640661F985E41F8 /* Pods_weiBo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */; };
 		F826FD491DE99E44002F90C2 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD481DE99E44002F90C2 /* common.swift */; };
 		F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */; };
+		F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */; };
+		F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
 		F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621031DE723160062E2EB /* WBComposeViewController.swift */; };
@@ -64,6 +66,8 @@
 		F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F826FD481DE99E44002F90C2 /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = common.swift; path = Category/common.swift; sourceTree = "<group>"; };
 		F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WJKAddition.swift"; sourceTree = "<group>"; };
+		F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+WJKAddition.swift"; sourceTree = "<group>"; };
+		F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621031DE723160062E2EB /* WBComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeViewController.swift; sourceTree = "<group>"; };
@@ -183,9 +187,11 @@
 		F8E620FE1DE723160062E2EB /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */,
-				F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */,
+				F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */,
 				F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */,
+				F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */,
+				F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */,
+				F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -470,6 +476,7 @@
 				F8E621421DE727530062E2EB /* ConstraintConfig.swift in Sources */,
 				F8E621581DE727530062E2EB /* ConstraintRelation.swift in Sources */,
 				F8E621471DE727530062E2EB /* ConstraintInsetTarget.swift in Sources */,
+				F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */,
 				F8E6215A1DE727530062E2EB /* ConstraintView.swift in Sources */,
 				F8E621551DE727530062E2EB /* ConstraintOffsetTarget.swift in Sources */,
 				F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */,
@@ -488,6 +495,7 @@
 				F8E621601DE727530062E2EB /* UILayoutSupport+Extensions.swift in Sources */,
 				F8E621461DE727530062E2EB /* ConstraintInsets.swift in Sources */,
 				F8E6214C1DE727530062E2EB /* ConstraintLayoutSupport.swift in Sources */,
+				F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */,
 				F8E621431DE727530062E2EB /* ConstraintConstantTarget.swift in Sources */,
 				F8E621411DE727530062E2EB /* ConstraintAttributes.swift in Sources */,
 				F8E6215B1DE727530062E2EB /* ConstraintViewDSL.swift in Sources */,

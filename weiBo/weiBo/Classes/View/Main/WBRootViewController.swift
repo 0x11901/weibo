@@ -25,12 +25,12 @@ class WBRootViewController: UITabBarController {
 
 // MARK: - UI相关
 extension WBRootViewController {
-    func setupUI() {
+    fileprivate func setupUI() {
         view.backgroundColor = UIColor.randomColor()
         setupTabBar()
     }
     
-    func setupTabBar() {
+    fileprivate func setupTabBar() {
         if let url = Bundle.main.url(forResource: "main", withExtension: "json"){
             if let json = try? Data(contentsOf: url){
                 if let array = try? JSONSerialization.jsonObject(with: json, options: []) as! [[String : Any]] {
@@ -46,10 +46,10 @@ extension WBRootViewController {
         }
     }
     
-    func addChildViewController(childController: String, title: String?, image: String?){
+    fileprivate func addChildViewController(childController: String, title: String?, image: String?){
         if let vcClass = NSClassFromString(Bundle.main.infoDictionary?["CFBundleName"] as! String + "." + childController) as? UIViewController.Type{
             let controller = vcClass.init()
-           
+            
             if let title = title {
                 controller.title = title
             }
@@ -63,7 +63,7 @@ extension WBRootViewController {
         }
     }
     
-    func addComposeButton() {
+    fileprivate func addComposeButton() {
         tabBar.addSubview(composeButton)
         composeButton.center = CGPoint(x: tabBar.center.x, y: tabBar.bounds.size.height * 0.5)
         composeButton.sizeToFit()
