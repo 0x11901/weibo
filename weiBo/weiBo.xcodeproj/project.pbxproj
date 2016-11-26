@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A1F1497AE640661F985E41F8 /* Pods_weiBo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */; };
+		F826FD491DE99E44002F90C2 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD481DE99E44002F90C2 /* common.swift */; };
+		F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
 		F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621031DE723160062E2EB /* WBComposeViewController.swift */; };
@@ -60,6 +62,8 @@
 		21ED7276F9C3C5200691EC62 /* Pods-weiBo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.debug.xcconfig"; sourceTree = "<group>"; };
 		DB84290A49061CCBE0A9BCD5 /* Pods-weiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.release.xcconfig"; sourceTree = "<group>"; };
 		F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F826FD481DE99E44002F90C2 /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = common.swift; path = Category/common.swift; sourceTree = "<group>"; };
+		F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621031DE723160062E2EB /* WBComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 		F8E620FD1DE723160062E2EB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F826FD481DE99E44002F90C2 /* common.swift */,
 				F8E620FE1DE723160062E2EB /* Category */,
 			);
 			path = Utilities;
@@ -180,6 +185,7 @@
 			children = (
 				F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */,
 				F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */,
+				F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -453,6 +459,7 @@
 				F8E6214F1DE727530062E2EB /* ConstraintMakerEditable.swift in Sources */,
 				F8E621401DE727530062E2EB /* Constraint.swift in Sources */,
 				F8E621181DE723170062E2EB /* WBBaseViewController.swift in Sources */,
+				F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */,
 				F8E621571DE727530062E2EB /* ConstraintRelatableTarget.swift in Sources */,
 				F8E621591DE727530062E2EB /* ConstraintView+Extensions.swift in Sources */,
 				F8E621501DE727530062E2EB /* ConstraintMakerExtendable.swift in Sources */,
@@ -486,6 +493,7 @@
 				F8E6215B1DE727530062E2EB /* ConstraintViewDSL.swift in Sources */,
 				F8E6214A1DE727530062E2EB /* ConstraintLayoutGuide.swift in Sources */,
 				F8E621511DE727530062E2EB /* ConstraintMakerFinalizable.swift in Sources */,
+				F826FD491DE99E44002F90C2 /* common.swift in Sources */,
 				F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */,
 				F8E621441DE727530062E2EB /* ConstraintDescription.swift in Sources */,
 				F8E621561DE727530062E2EB /* ConstraintPriorityTarget.swift in Sources */,
