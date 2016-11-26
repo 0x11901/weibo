@@ -10,7 +10,24 @@ import UIKit
 
 class WBBaseViewController: UIViewController {
     lazy var tableView: UITableView = UITableView(frame: self.view.bounds, style: .plain)
-    var visitorView: WBVisitorView?
+    var model: WBVisitorModel?
+    var visitorView: WBVisitorView?{
+        didSet{
+            if let message = model?.message {
+                visitorView?.textLable.text = message
+            }
+            if let imageName = model?.imageName {
+                visitorView?.iconImage.image = UIImage(named: imageName)
+            }
+            if let anima = model?.isAnima {
+                if anima == true {
+                    visitorView?.circleImage.isHidden = !anima
+                }else{
+                    visitorView?.circleImage.isHidden = !anima
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +57,7 @@ extension WBBaseViewController {
 
     func setupVisitorView () {
         visitorView = WBVisitorView(frame: self.view.bounds)
+        visitorView?.delegate = self
         view.addSubview(visitorView!)
     }
 
@@ -57,4 +75,11 @@ extension WBBaseViewController: UITableViewDataSource {
 
 extension WBBaseViewController: UITableViewDelegate {
     
+}
+
+extension WBBaseViewController: WBVisitorViewDelegate {
+    func didClickedLogin() {
+        
+//        present(web, animated: true, completion: nil)
+    }
 }

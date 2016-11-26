@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol WBVisitorViewDelegate {
+    func didClickedLogin()
+}
+
 class WBVisitorView: UIView {
+    var delegate:WBVisitorViewDelegate? = nil
     
     /// 大图标
     lazy var iconImage: UIImageView = UIImageView(imageName: "visitordiscover_feed_image_house")
@@ -103,7 +108,7 @@ extension WBVisitorView {
 // MARK: - 响应事件
 extension WBVisitorView {
     @objc fileprivate func loginAction() {
-        print("hello world")
+        delegate?.didClickedLogin()
     }
     
     @objc fileprivate func registerAction() {

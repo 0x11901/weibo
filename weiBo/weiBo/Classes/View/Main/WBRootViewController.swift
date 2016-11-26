@@ -38,7 +38,12 @@ extension WBRootViewController {
                         if let clsName = dict["clsName"] as? String{
                             let title = dict["title"] as? String
                             let image = dict["imageName"] as? String
-                            addChildViewController(childController: clsName, title: title, image: image)
+                            let dict = dict["visitorInfo"] as? [String : Any]
+                            var anima = false
+                            if clsName == "WBHomeViewController" {
+                                anima = true
+                            }
+                            addChildViewController(childController: clsName, title: title, image: image, dictionary: dict, isAnimation: anima)
                         }
                     }
                 }
@@ -46,8 +51,8 @@ extension WBRootViewController {
         }
     }
     
-    fileprivate func addChildViewController(childController: String, title: String?, image: String?){
-        if let vcClass = NSClassFromString(Bundle.main.infoDictionary?["CFBundleName"] as! String + "." + childController) as? UIViewController.Type{
+    fileprivate func addChildViewController(childController: String, title: String?, image: String?, dictionary: [String : Any]?, isAnimation: Bool){
+        if let vcClass = NSClassFromString(Bundle.main.infoDictionary?["CFBundleName"] as! String + "." + childController) as? WBBaseViewController.Type{
             let controller = vcClass.init()
             
             if let title = title {
@@ -58,6 +63,15 @@ extension WBRootViewController {
                 controller.tabBarItem.image = UIImage(named: image)?.withRenderingMode(.alwaysOriginal)
                 controller.tabBarItem.selectedImage = UIImage(named: image + "_selected")?.withRenderingMode(.alwaysOriginal)
             }
+            
+            if let dictionary = dictionary {
+                let model = WBVisitorModel(dictionary: dictionary)
+                if isAnimation == true {
+                    model.isAnima = true
+                }
+                controller.model = model
+            }
+            
             addChildViewController(UINavigationController(rootViewController: controller))
             addComposeButton()
         }

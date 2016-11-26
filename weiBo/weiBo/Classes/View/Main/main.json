@@ -3,7 +3,7 @@
     "clsName" : "WBHomeViewController",
     "title" : "首页",
     "visitorInfo" : {
-      "imageName" : "",
+      "imageName" : "visitordiscover_feed_image_house",
       "message" : "关注一些人，回这里看看有什么惊喜"
     },
     "imageName" : "home"
