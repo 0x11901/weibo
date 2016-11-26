@@ -231,8 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				F8E621091DE723160062E2EB /* main.json */,
-				F8E6210A1DE723160062E2EB /* WBBaseViewController.swift */,
 				F8E6210B1DE723160062E2EB /* WBRootViewController.swift */,
+				F8E6210A1DE723160062E2EB /* WBBaseViewController.swift */,
 				F8E6210C1DE723160062E2EB /* WBVisitorView.swift */,
 			);
 			path = Main;

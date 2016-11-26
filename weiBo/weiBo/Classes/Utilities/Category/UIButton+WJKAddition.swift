@@ -9,7 +9,8 @@
 import UIKit
 
 extension UIButton {
-    convenience init(title: String?, fontSize: CGFloat = 13, color: UIColor = UIColor.darkGray,image: String? = nil,bgImage: String? = nil) {
+
+    convenience init(title: String?, fontSize: CGFloat = 13, color: UIColor = UIColor.darkGray,image: String? = nil,bgImage: String? = nil,target: Any?, action: Selector? = nil, forEvents: UIControlEvents = .touchUpInside) {
         self.init()
         if let title = title {
             self.setTitle(title, for: .normal)
@@ -19,8 +20,10 @@ extension UIButton {
         
         if let image = image {
             self.setImage(UIImage(named: image), for: .normal)
+            
             let hlightImage = "\(image)_hlighted"
             if let hlightImage = UIImage(named: hlightImage) {
+                print(hlightImage)
                 self.setImage(hlightImage, for: .highlighted)
             }
             let selectedImage = "\(image)_selected"
@@ -40,5 +43,10 @@ extension UIButton {
                 self.setImage(selectedImage, for: .selected)
             }
         }
+        
+        if let target = target,let action = action {
+            self.addTarget(target, action: action, for: forEvents)
+        }
     }
+
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 // 全局颜色
-let globalColor = UIColor.orange
+let globalColor = UIColor.colorWithHex(hex: 0xF98200)
 
 // 屏幕的宽度
 let screenWidth = UIScreen.main.bounds.size.width

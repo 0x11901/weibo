@@ -9,8 +9,17 @@
 import UIKit
 
 class WBRootViewController: UITabBarController {
+    fileprivate lazy var composeButton: UIButton = UIButton(title: nil,image: "tabbar_compose_icon_add", bgImage: "tabbar_compose_button", target: self, action: #selector(pushCompose))
+    
     override func viewDidLoad() {
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBar.bringSubview(toFront: composeButton)
+        composeButton.sizeThatFits(CGSize(width: tabBar.itemWidth, height: tabBar.bounds.size.height))
+        print(tabBar.itemWidth,tabBar.bounds.size.height,composeButton)
     }
 }
 
@@ -35,7 +44,6 @@ extension WBRootViewController {
                 }
             }
         }
-        
     }
     
     func addChildViewController(childController: String, title: String?, image: String?){
@@ -51,10 +59,21 @@ extension WBRootViewController {
                 controller.tabBarItem.selectedImage = UIImage(named: image + "_selected")?.withRenderingMode(.alwaysOriginal)
             }
             addChildViewController(UINavigationController(rootViewController: controller))
+            addComposeButton()
         }
     }
     
-    func add() {
-        <#function body#>
+    func addComposeButton() {
+        tabBar.addSubview(composeButton)
+        composeButton.center = CGPoint(x: tabBar.center.x, y: tabBar.bounds.size.height * 0.5)
+        composeButton.sizeToFit()
+    }
+}
+
+
+// MARK: - 响应事件
+extension WBRootViewController {
+    @objc fileprivate func pushCompose() {
+        print("hello world")
     }
 }
