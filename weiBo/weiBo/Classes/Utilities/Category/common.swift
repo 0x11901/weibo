@@ -19,3 +19,8 @@ let screenHeight = UIScreen.main.bounds.size.height
 
 //分辨率的倍数
 let screenScale = UIScreen.main.scale
+
+//OAuth
+let appKey = "469365216"
+let appSecrect = "e48bbe54548acda95d19fffdd73aa011"
+let redirectURI = "http://steamcommunity.com/id/wjk930726/"

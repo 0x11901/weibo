@@ -14,6 +14,7 @@
 		F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */; };
 		F8496AB31DE9C64B00F2FDA5 /* WBVisitorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB21DE9C64B00F2FDA5 /* WBVisitorModel.swift */; };
 		F8496AB51DE9D2D000F2FDA5 /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB41DE9D2D000F2FDA5 /* NetworkTool.swift */; };
+		F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
 		F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621031DE723160062E2EB /* WBComposeViewController.swift */; };
@@ -72,6 +73,7 @@
 		F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8496AB21DE9C64B00F2FDA5 /* WBVisitorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBVisitorModel.swift; sourceTree = "<group>"; };
 		F8496AB41DE9D2D000F2FDA5 /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
+		F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBOAuthViewController.swift; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621031DE723160062E2EB /* WBComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		F8496AB61DE9DE2900F2FDA5 /* OAuthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */,
+			);
+			path = OAuthViewController;
+			sourceTree = "<group>";
+		};
 		F8E620FA1DE723160062E2EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +222,7 @@
 		F8E621011DE723160062E2EB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F8496AB61DE9DE2900F2FDA5 /* OAuthViewController */,
 				F8E621021DE723160062E2EB /* Compose */,
 				F8E621041DE723160062E2EB /* Discover */,
 				F8E621061DE723160062E2EB /* Home */,
@@ -483,6 +494,7 @@
 				F8E621571DE727530062E2EB /* ConstraintRelatableTarget.swift in Sources */,
 				F8E621591DE727530062E2EB /* ConstraintView+Extensions.swift in Sources */,
 				F8E621501DE727530062E2EB /* ConstraintMakerExtendable.swift in Sources */,
+				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,
 				F8E621151DE723170062E2EB /* WBDiscoverViewController.swift in Sources */,
 				F8E6214D1DE727530062E2EB /* ConstraintLayoutSupportDSL.swift in Sources */,

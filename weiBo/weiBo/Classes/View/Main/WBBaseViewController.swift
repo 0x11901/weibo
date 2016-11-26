@@ -79,7 +79,8 @@ extension WBBaseViewController: UITableViewDelegate {
 
 extension WBBaseViewController: WBVisitorViewDelegate {
     func didClickedLogin() {
-        
-//        present(web, animated: true, completion: nil)
+        let web = WBOAuthViewController()
+        let navi = UINavigationController(rootViewController: web)
+        present(navi, animated: true, completion: nil)
     }
 }
