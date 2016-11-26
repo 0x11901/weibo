@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WBHomeViewController: WBRootViewController {
+class WBHomeViewController: WBBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WBComposeViewController: WBRootViewController {
+class WBComposeViewController: WBBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

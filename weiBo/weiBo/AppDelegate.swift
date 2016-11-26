@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let root = WBRootViewController()
         window?.rootViewController = root
         window?.makeKeyAndVisible()
+        
+        
         return true
     }
     
