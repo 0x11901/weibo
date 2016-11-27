@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		A1F1497AE640661F985E41F8 /* Pods_weiBo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */; };
+		F81B923E1DEAF1BF00110999 /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B923D1DEAF1BF00110999 /* NetworkTool.swift */; };
+		F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */; };
 		F826FD491DE99E44002F90C2 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD481DE99E44002F90C2 /* common.swift */; };
 		F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */; };
 		F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */; };
 		F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */; };
 		F8496AB31DE9C64B00F2FDA5 /* WBVisitorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB21DE9C64B00F2FDA5 /* WBVisitorModel.swift */; };
-		F8496AB51DE9D2D000F2FDA5 /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB41DE9D2D000F2FDA5 /* NetworkTool.swift */; };
 		F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
@@ -67,12 +68,13 @@
 		21ED7276F9C3C5200691EC62 /* Pods-weiBo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.debug.xcconfig"; sourceTree = "<group>"; };
 		DB84290A49061CCBE0A9BCD5 /* Pods-weiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.release.xcconfig"; sourceTree = "<group>"; };
 		F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F81B923D1DEAF1BF00110999 /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
+		F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkTool+request.swift"; sourceTree = "<group>"; };
 		F826FD481DE99E44002F90C2 /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = common.swift; path = Category/common.swift; sourceTree = "<group>"; };
 		F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WJKAddition.swift"; sourceTree = "<group>"; };
 		F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+WJKAddition.swift"; sourceTree = "<group>"; };
 		F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8496AB21DE9C64B00F2FDA5 /* WBVisitorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBVisitorModel.swift; sourceTree = "<group>"; };
-		F8496AB41DE9D2D000F2FDA5 /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
 		F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBOAuthViewController.swift; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
@@ -154,6 +156,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F81B923C1DEAF1BF00110999 /* NetworkTool */ = {
+			isa = PBXGroup;
+			children = (
+				F81B923D1DEAF1BF00110999 /* NetworkTool.swift */,
+				F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */,
+			);
+			path = NetworkTool;
+			sourceTree = "<group>";
+		};
 		F8496AB11DE9C62100F2FDA5 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,8 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				F826FD481DE99E44002F90C2 /* common.swift */,
-				F8496AB41DE9D2D000F2FDA5 /* NetworkTool.swift */,
 				F8E620FE1DE723160062E2EB /* Category */,
+				F81B923C1DEAF1BF00110999 /* NetworkTool */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -495,6 +506,7 @@
 				F8E621591DE727530062E2EB /* ConstraintView+Extensions.swift in Sources */,
 				F8E621501DE727530062E2EB /* ConstraintMakerExtendable.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
+				F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,
 				F8E621151DE723170062E2EB /* WBDiscoverViewController.swift in Sources */,
 				F8E6214D1DE727530062E2EB /* ConstraintLayoutSupportDSL.swift in Sources */,
@@ -518,10 +530,10 @@
 				F8E6215C1DE727530062E2EB /* Debugging.swift in Sources */,
 				F8E6211C1DE723170062E2EB /* WBProfileViewController.swift in Sources */,
 				F8E6211B1DE723170062E2EB /* WBMessageViewController.swift in Sources */,
-				F8496AB51DE9D2D000F2FDA5 /* NetworkTool.swift in Sources */,
 				F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */,
 				F8E621601DE727530062E2EB /* UILayoutSupport+Extensions.swift in Sources */,
 				F8E621461DE727530062E2EB /* ConstraintInsets.swift in Sources */,
+				F81B923E1DEAF1BF00110999 /* NetworkTool.swift in Sources */,
 				F8E6214C1DE727530062E2EB /* ConstraintLayoutSupport.swift in Sources */,
 				F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */,
 				F8E621431DE727530062E2EB /* ConstraintConstantTarget.swift in Sources */,

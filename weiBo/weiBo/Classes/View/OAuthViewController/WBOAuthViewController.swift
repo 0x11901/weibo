@@ -53,16 +53,20 @@ extension WBOAuthViewController: UIWebViewDelegate {
                 if let query = request.url?.query {
                     if query.hasPrefix("code=") {
                         let code = query.substring(from: "code=".endIndex)
-                        let parameters = ["client_id": appKey,
-                                          "client_secret": appSecrect,
-                                          "grant_type": "authorization_code",
-                                          "code": code,
-                                          "redirect_uri": redirectURI]
-                        
-                        NetworkTool.shared.POST(URLString: "https://api.weibo.com/oauth2/access_token", parameters: parameters, success: { (response) in
-                            print(response!)
-                        }, failure: { (error) in
-                            print(error)
+                        NetworkTool.shared.requestForAccessToken(code: code, success: { (obj) in
+                            guard let dictionary = obj as? [String : Any], let access_token = dictionary["access_token"],let uid = dictionary["uid"] else{
+                                print("没有获得正确的access_token信息")
+                                self.cancel()
+                                return
+                            }
+                            let parameters = ["access_token": access_token,"uid": uid]
+                            NetworkTool.shared.requestForUserInfo(parameters: parameters, success: { (obj) in
+                                print(obj!)
+                            }, failure: { (err) in
+                                print(err)
+                            })
+                        }, failure: { (err) in
+                            print(err)
                         })
                         cancel()
                     }else{
