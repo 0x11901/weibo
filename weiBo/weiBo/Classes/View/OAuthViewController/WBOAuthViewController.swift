@@ -61,7 +61,16 @@ extension WBOAuthViewController: UIWebViewDelegate {
                             }
                             let parameters = ["access_token": access_token,"uid": uid]
                             NetworkTool.shared.requestForUserInfo(parameters: parameters, success: { (obj) in
-                                print(obj!)
+                                guard var responseObject: [String : Any] = obj as? [String : Any] else{
+                                    print("没有获得正确的userAccount信息")
+                                    self.cancel()
+                                    return
+                                }
+                                for (key,value) in dictionary {
+                                    responseObject[key] = value
+                                }
+                                
+                                WBUserAccountModel.shared.saveAccount(dictionary: responseObject)
                             }, failure: { (err) in
                                 print(err)
                             })

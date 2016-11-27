@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UITabBar.appearance().tintColor = globalColor
         UINavigationBar.appearance().tintColor = globalColor
+        
+        print(NSHomeDirectory())
         return true
     }
     
