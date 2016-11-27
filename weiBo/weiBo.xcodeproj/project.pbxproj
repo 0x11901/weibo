@@ -11,6 +11,8 @@
 		F81B923E1DEAF1BF00110999 /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B923D1DEAF1BF00110999 /* NetworkTool.swift */; };
 		F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */; };
 		F81B92431DEAFD4F00110999 /* WBUserAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B92421DEAFD4F00110999 /* WBUserAccountModel.swift */; };
+		F81B92461DEB17B600110999 /* WBNewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B92451DEB17B600110999 /* WBNewFeatureView.swift */; };
+		F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B92471DEB17D200110999 /* WBWelcomeView.swift */; };
 		F826FD491DE99E44002F90C2 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD481DE99E44002F90C2 /* common.swift */; };
 		F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */; };
 		F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */; };
@@ -72,6 +74,8 @@
 		F81B923D1DEAF1BF00110999 /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
 		F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkTool+request.swift"; sourceTree = "<group>"; };
 		F81B92421DEAFD4F00110999 /* WBUserAccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBUserAccountModel.swift; sourceTree = "<group>"; };
+		F81B92451DEB17B600110999 /* WBNewFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBNewFeatureView.swift; sourceTree = "<group>"; };
+		F81B92471DEB17D200110999 /* WBWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBWelcomeView.swift; sourceTree = "<group>"; };
 		F826FD481DE99E44002F90C2 /* common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = common.swift; path = Category/common.swift; sourceTree = "<group>"; };
 		F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WJKAddition.swift"; sourceTree = "<group>"; };
 		F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+WJKAddition.swift"; sourceTree = "<group>"; };
@@ -173,6 +177,15 @@
 				F81B92421DEAFD4F00110999 /* WBUserAccountModel.swift */,
 			);
 			path = UserAccount;
+			sourceTree = "<group>";
+		};
+		F81B92441DEB175C00110999 /* NewFeature */ = {
+			isa = PBXGroup;
+			children = (
+				F81B92451DEB17B600110999 /* WBNewFeatureView.swift */,
+				F81B92471DEB17D200110999 /* WBWelcomeView.swift */,
+			);
+			path = NewFeature;
 			sourceTree = "<group>";
 		};
 		F8496AB11DE9C62100F2FDA5 /* Main */ = {
@@ -281,6 +294,7 @@
 		F8E621081DE723160062E2EB /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				F81B92441DEB175C00110999 /* NewFeature */,
 				F8E621091DE723160062E2EB /* main.json */,
 				F8E6210B1DE723160062E2EB /* WBRootViewController.swift */,
 				F8E6210A1DE723160062E2EB /* WBBaseViewController.swift */,
@@ -515,6 +529,7 @@
 				F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */,
 				F8E621571DE727530062E2EB /* ConstraintRelatableTarget.swift in Sources */,
 				F8E621591DE727530062E2EB /* ConstraintView+Extensions.swift in Sources */,
+				F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */,
 				F8E621501DE727530062E2EB /* ConstraintMakerExtendable.swift in Sources */,
 				F81B92431DEAFD4F00110999 /* WBUserAccountModel.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
@@ -527,6 +542,7 @@
 				F8E621581DE727530062E2EB /* ConstraintRelation.swift in Sources */,
 				F8E621471DE727530062E2EB /* ConstraintInsetTarget.swift in Sources */,
 				F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */,
+				F81B92461DEB17B600110999 /* WBNewFeatureView.swift in Sources */,
 				F8E6215A1DE727530062E2EB /* ConstraintView.swift in Sources */,
 				F8E621551DE727530062E2EB /* ConstraintOffsetTarget.swift in Sources */,
 				F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */,

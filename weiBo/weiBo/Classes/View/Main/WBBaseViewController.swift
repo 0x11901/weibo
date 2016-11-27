@@ -34,6 +34,7 @@ class WBBaseViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(whenLoginIsSucess), name: NSNotification.Name(rawValue: loginSuccess), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,12 +42,18 @@ class WBBaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
+// MARK: - UI相关
 extension WBBaseViewController {
     func setupUI () {
         setupTableView()
-        setupVisitorView()
+        if WBUserAccountModel.shared.isLogin != true {
+            setupVisitorView ()
+        }
     }
     
     func setupTableView () {
@@ -63,6 +70,19 @@ extension WBBaseViewController {
 
 }
 
+// MARK: - 响应事件
+extension WBBaseViewController {
+    
+    @objc fileprivate func whenLoginIsSucess() {
+        if let visitorView = visitorView{
+            visitorView.removeFromSuperview()
+        }
+        visitorView = nil
+    }
+    
+}
+
+// MARK: - UITableViewDataSource
 extension WBBaseViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 0
@@ -73,10 +93,12 @@ extension WBBaseViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension WBBaseViewController: UITableViewDelegate {
     
 }
 
+// MARK: - WBVisitorViewDelegate
 extension WBBaseViewController: WBVisitorViewDelegate {
     func didClickedLogin() {
         let web = WBOAuthViewController()
@@ -84,3 +106,4 @@ extension WBBaseViewController: WBVisitorViewDelegate {
         present(navi, animated: true, completion: nil)
     }
 }
+

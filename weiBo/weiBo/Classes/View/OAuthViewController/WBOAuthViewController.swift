@@ -26,6 +26,10 @@ class WBOAuthViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension WBOAuthViewController {
@@ -71,6 +75,7 @@ extension WBOAuthViewController: UIWebViewDelegate {
                                 }
                                 
                                 WBUserAccountModel.shared.saveAccount(dictionary: responseObject)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: loginSuccess), object: self)
                             }, failure: { (err) in
                                 print(err)
                             })

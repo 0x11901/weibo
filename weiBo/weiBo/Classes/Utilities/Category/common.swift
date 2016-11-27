@@ -26,4 +26,8 @@ let appSecrect = "e48bbe54548acda95d19fffdd73aa011"
 let redirectURI = "http://steamcommunity.com/id/wjk930726/"
 
 //Account
+let loginSuccess = "loginSuccess"
 let accountKey = "accountKey"
+
+//new feature
+let isNewFeatureKey = "isNewFeature"

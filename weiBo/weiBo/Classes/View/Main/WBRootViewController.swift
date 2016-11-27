@@ -10,6 +10,8 @@ import UIKit
 
 class WBRootViewController: UITabBarController {
     fileprivate lazy var composeButton: UIButton = UIButton(title: nil,image: "tabbar_compose_icon_add", bgImage: "tabbar_compose_button", target: self, action: #selector(pushCompose))
+    fileprivate lazy var newFeatureView: WBNewFeatureView = WBNewFeatureView()
+    fileprivate lazy var welcomeView: WBWelcomeView = WBWelcomeView()
     
     override func viewDidLoad() {
         setupUI()
@@ -26,8 +28,21 @@ class WBRootViewController: UITabBarController {
 // MARK: - UI相关
 extension WBRootViewController {
     fileprivate func setupUI() {
-        view.backgroundColor = UIColor.randomColor()
         setupTabBar()
+        if Bundle.isNewFeature() {
+            setupNewFeature()
+        }
+        if WBUserAccountModel.shared.isLogin {
+            setupWelcome()
+        }
+    }
+    
+    fileprivate func setupNewFeature() {
+        view.addSubview(newFeatureView)
+    }
+    
+    fileprivate func setupWelcome() {
+        view.addSubview(welcomeView)
     }
     
     fileprivate func setupTabBar() {

@@ -25,8 +25,11 @@ class WBUserAccountModel: NSObject {
         return access_token != nil && expires_date?.compare(Date()) == .orderedDescending
     }
     
-    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+    override init() {
+        super.init()
+        self.loadAccount()
     }
+
 }
 
 extension WBUserAccountModel {
@@ -34,6 +37,15 @@ extension WBUserAccountModel {
         self.setValuesForKeys(dictionary)
         let dict = dictionaryWithValues(forKeys: ["access_token","uid","screen_name","avatar_large","expires_date"])
         UserDefaults.standard.set(dict, forKey: accountKey)
+    }
+    
+    fileprivate func loadAccount() {
+        if let dictionary: [String : Any] = UserDefaults.standard.value(forKey: accountKey) as? [String : Any] {
+            self.setValuesForKeys(dictionary)
+        }
+    }
+    
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
     }
 }
 
