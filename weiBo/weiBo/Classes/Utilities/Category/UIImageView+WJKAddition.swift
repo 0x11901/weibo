@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 extension UIImageView {
     
@@ -16,5 +17,17 @@ extension UIImageView {
     convenience init(imageName: String) {
         self.init()
         self.image = UIImage(named: imageName)
+    }
+}
+
+extension UIImageView {
+    public func wjk_setImageWith(urlStr: String, placeHolderName: String?) {
+        if let url = URL(string: urlStr) {
+            if let placeHolder = placeHolderName {
+                sd_setImage(with: url, placeholderImage: UIImage(named: placeHolder))
+            } else {
+                sd_setImage(with: url)
+            }
+        }
     }
 }
