@@ -7,7 +7,17 @@
 //
 
 import UIKit
+import YYModel
 
 class WBStatusModel: NSObject {
-
+    var created_at: String?
+    var id: Int = 0
+    var text: String?
+    var user: WBUser?
+    var source: String?
+    var retweeted_status: WBStatusModel?
+//    var pic_urls: Array?
+    override var description: String{
+        return yy_modelDescription()
+    }
 }

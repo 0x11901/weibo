@@ -31,4 +31,17 @@ extension NetworkTool {
             failure(error)
         })
     }
+    
+    public func requestForHomeStatus(sinceId: Int = 0,maxId: Int = 0,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
+        if let access_token = WBUserAccountModel.shared.access_token {
+            let parameters = ["access_token": access_token,
+                              "since_id": NSNumber(value: sinceId),
+                              "max_id": NSNumber(value: maxId)] as [String : Any]
+            self.GET(URLString: "https://api.weibo.com/2/statuses/home_timeline.json", parameters: parameters, success:{ (response) in
+                success(response)
+            }, failure: { (error) in
+                failure(error)
+            })
+        }
+    }
 }
