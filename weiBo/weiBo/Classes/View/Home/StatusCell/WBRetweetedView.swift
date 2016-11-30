@@ -11,8 +11,8 @@ import UIKit
 class WBRetweetedView: UIView {
     var retweetedStatus: WBStatusViewModel? {
         didSet{
-            textLabel.text = retweetedStatus?.status.retweeted_status?.text
-            guard let count = retweetedStatus?.status.retweeted_status?.text?.characters.count, count > 0 else {
+            textLabel.text = retweetedStatus?.retweetedString
+            guard let count = retweetedStatus?.retweetedString?.characters.count, count > 0 else {
                 textLabel.snp.updateConstraints { (make) in
                     make.top.equalTo(self).offset(0)
                     make.bottom.equalTo(self).offset(0)

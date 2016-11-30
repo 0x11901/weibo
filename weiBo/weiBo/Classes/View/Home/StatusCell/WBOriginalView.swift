@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class WBOriginalView: UIView {
     var status: WBStatusViewModel?{
@@ -15,11 +16,16 @@ class WBOriginalView: UIView {
                 print("模型传值错误")
                 return
             }
-            iconImageView.wjk_setImageWith(urlStr: iconSring, placeHolderName: "avatar_default_big")
+            let url = URL(string: iconSring)
+            SDWebImageManager.shared().downloadImage(with: url, options: [], progress: nil) { (downloadImage, err, _, _, _) in
+                downloadImage?.createCornerImage(size: CGSize(width: 35, height: 35), callBack: { (image) in
+                    self.iconImageView.image = image
+                })
+            }
             userNameLabel.text = model.status.user?.screen_name
             levelIcon.image = model.verifiedLevel
             vipIcon.image = model.verifiedType
-            timeLabel.text = model.timeSring
+            timeLabel.text = model.timeString
             sourceLabel.text = model.sourceString
             textLable.text = model.status.text
         }
@@ -54,6 +60,10 @@ extension WBOriginalView {
         addSubview(timeLabel)
         addSubview(sourceLabel)
         addSubview(textLable)
+        
+        UIImage(named: "avatar_default_big")?.createCornerImage(size: CGSize(width: 35, height: 35), callBack: { (image) in
+            self.iconImageView.image = image
+        })
         
         iconImageView.snp.makeConstraints { (make) in
             make.leading.top.equalTo(12)

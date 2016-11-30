@@ -13,7 +13,8 @@ class WBStatusViewModel: NSObject {
     var verifiedType: UIImage?
     var verifiedLevel: UIImage?
     var sourceString: String?
-    var timeSring: String?
+    var timeString: String?
+    var retweetedString: String?
     override var description: String{
         return yy_modelDescription()
     }
@@ -25,16 +26,23 @@ class WBStatusViewModel: NSObject {
         getLevel()
         dealWithSource()
         dealWithTime()
+        dealWithRetweetedText()
     }
 }
 
 extension WBStatusViewModel {
+    fileprivate func dealWithRetweetedText() {
+        if let text = status.retweeted_status?.text,text.characters.count > 0,let userName = status.retweeted_status?.user?.screen_name {
+            retweetedString = "@\(userName):\(text)"
+        }
+    }
+    
     fileprivate func dealWithTime() {
         guard let sinaTime = status.created_at else {
             return
         }
         let date = Date.dateFromSinaFormat(sinaDateString: sinaTime)
-        timeSring = date.requiredTimeString()
+        timeString = date.requiredTimeString()
     }
     
     fileprivate func getType() {
