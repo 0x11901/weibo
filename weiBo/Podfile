@@ -10,5 +10,6 @@ pod 'AFNetworking'
 pod 'MJRefresh'
 pod 'YYModel'
 pod 'SDWebImage'
+pod 'SnapKit'
 pod 'SVProgressHUD'
 end

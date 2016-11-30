@@ -9,7 +9,8 @@
 import UIKit
 
 class WBHomeViewController: WBBaseViewController {
-    lazy var dateSource: [WBStatusViewModel] = []
+    lazy var dataSource: [WBStatusViewModel] = []
+    let cellReuseIdentifier = "dasfsdfsfsf"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ extension WBHomeViewController {
                 arrM.append(WBStatusViewModel(status: obj))
             }
             
-            self.dateSource += arrM
+            self.dataSource += arrM
             self.tableView.reloadData()
         }, failure: {
             (err: Error) in
@@ -55,13 +56,20 @@ extension WBHomeViewController {
 // MARK: - reloadData
 extension WBHomeViewController {
     
-    setup
+    override func setupTableView() {
+        super.setupTableView()
+        tableView.register(WBStatusCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dateSource.count
+        return dataSource.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! WBStatusCell
+        cell.status = dataSource[indexPath.row]
+        return cell
     }
 }
