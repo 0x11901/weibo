@@ -24,10 +24,19 @@ class WBStatusViewModel: NSObject {
         getType()
         getLevel()
         dealWithSource()
+        dealWithTime()
     }
 }
 
 extension WBStatusViewModel {
+    fileprivate func dealWithTime() {
+        guard let sinaTime = status.created_at else {
+            return
+        }
+        let date = Date.dateFromSinaFormat(sinaDateString: sinaTime)
+        timeSring = date.requiredTimeString()
+    }
+    
     fileprivate func getType() {
         if let type = status.user?.verified_type {
             switch type {

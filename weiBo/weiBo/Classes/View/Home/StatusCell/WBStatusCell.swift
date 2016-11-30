@@ -12,6 +12,7 @@ class WBStatusCell: UITableViewCell {
     var status: WBStatusViewModel?{
         didSet{
             originView.status = status
+            retweetedView.retweetedStatus = status
         }
     }
     fileprivate lazy var originView: WBOriginalView = WBOriginalView()
@@ -34,12 +35,17 @@ extension WBStatusCell {
     fileprivate func setupCell() {
         contentView.backgroundColor = UIColor.lightGray
         contentView.addSubview(originView)
-//        contentView.addSubview(retweetedView)
+        contentView.addSubview(retweetedView)
 //        contentView.addSubview(toolView)
 //        contentView.addSubview(pictureView)
         
         originView.snp.makeConstraints { (make) in
             make.top.equalTo(10)
+            make.leading.trailing.equalTo(contentView)
+        }
+        
+        retweetedView.snp.makeConstraints { (make) in
+            make.top.equalTo(originView.snp.bottom)
             make.leading.trailing.equalTo(contentView)
             make.bottom.equalTo(contentView)
         }
