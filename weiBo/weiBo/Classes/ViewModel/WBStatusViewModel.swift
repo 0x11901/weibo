@@ -15,6 +15,7 @@ class WBStatusViewModel: NSObject {
     var sourceString: String?
     var timeString: String?
     var retweetedString: String?
+    var rowHeight: CGFloat = 0
     override var description: String{
         return yy_modelDescription()
     }
@@ -27,10 +28,26 @@ class WBStatusViewModel: NSObject {
         dealWithSource()
         dealWithTime()
         dealWithRetweetedText()
+        calculateRowHeight()
     }
 }
 
 extension WBStatusViewModel {
+    
+    fileprivate func calculateRowHeight() {
+        var height = 0
+        if let origin = status.pic_urls?.count {
+            height = origin
+        }else if let retweeted = status.retweeted_status?.pic_urls?.count {
+            height = retweeted
+        }
+        if height != 0 {
+            height = (height - 1) / 3 + 1
+            let heightf = CGFloat(height)
+            rowHeight = widthHeight * heightf + margin * (heightf - 1.0)
+        }
+    }
+    
     fileprivate func dealWithRetweetedText() {
         if let text = status.retweeted_status?.text,text.characters.count > 0,let userName = status.retweeted_status?.user?.screen_name {
             retweetedString = "@\(userName):\(text)"

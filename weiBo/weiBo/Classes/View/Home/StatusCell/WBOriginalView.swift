@@ -16,6 +16,22 @@ class WBOriginalView: UIView {
                 print("模型传值错误")
                 return
             }
+            
+            if let pictures = status?.status.pic_urls, pictures.count > 0, let height = status?.rowHeight{
+//                pictureView.snp.updateConstraints { (make) in
+//                    make.top.equalTo(textLable.snp.bottom).offset(12)
+//                    make.size.equalTo(CGSize(width: screenWidth - 24, height: height))
+//                }
+                print(height)
+                pictureView.pictures = pictures
+            }else{
+//                pictureView.snp.updateConstraints { (make) in
+//                    make.top.equalTo(textLable.snp.bottom).offset(0)
+//                    make.size.equalTo(CGSize.zero)
+//                }
+            }
+            
+
             let url = URL(string: iconSring)
             SDWebImageManager.shared().downloadImage(with: url, options: [], progress: nil) { (downloadImage, err, _, _, _) in
                 downloadImage?.createCornerImage(size: CGSize(width: 35, height: 35), callBack: { (image) in
@@ -37,6 +53,7 @@ class WBOriginalView: UIView {
     lazy var timeLabel: UILabel = UILabel(title: "", fontSize: 10, fontColor: UIColor.lightGray)
     lazy var sourceLabel: UILabel = UILabel(title: "", fontSize: 10, fontColor: UIColor.lightGray)
     lazy var textLable: UILabel = UILabel(title: "", fontSize: 15)
+    lazy var pictureView: WBPictureView = WBPictureView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,6 +77,7 @@ extension WBOriginalView {
         addSubview(timeLabel)
         addSubview(sourceLabel)
         addSubview(textLable)
+        addSubview(pictureView)
         
         UIImage(named: "avatar_default_big")?.createCornerImage(size: CGSize(width: 35, height: 35), callBack: { (image) in
             self.iconImageView.image = image
@@ -94,7 +112,13 @@ extension WBOriginalView {
             make.top.equalTo(iconImageView.snp.bottom).offset(12)
             make.leading.equalTo(self).offset(12)
             make.trailing.equalTo(self).offset(-12)
+        }
+        pictureView.snp.makeConstraints { (make) in
+            make.top.equalTo(textLable.snp.bottom).offset(12)
+            make.leading.equalTo(self).offset(12)
+            make.trailing.equalTo(self).offset(-12)
             make.bottom.equalTo(self).offset(-12)
+            make.size.equalTo(CGSize(width: screenWidth - 24, height: screenWidth - 24))
         }
     }
     

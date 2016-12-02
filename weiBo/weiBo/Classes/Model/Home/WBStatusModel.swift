@@ -16,8 +16,13 @@ class WBStatusModel: NSObject {
     var user: WBUser?
     var source: String?
     var retweeted_status: WBStatusModel?
-//    var pic_urls: Array?
+    var pic_urls: [WBPicUrlsModel]?
+    
     override var description: String{
         return yy_modelDescription()
+    }
+    
+    class func modelContainerPropertyGenericClass () -> [String: Any] {
+        return ["pic_urls": WBPicUrlsModel.self]
     }
 }

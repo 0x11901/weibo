@@ -29,6 +29,7 @@
 		F849AA6C1DED8FC900810833 /* WBStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */; };
 		F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */; };
 		F84C5A191DEEF7A300EC4F0A /* UIImage+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */; };
+		F8A63AA41DEF0D6C00EC93B0 /* WBPicUrlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
 		F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621031DE723160062E2EB /* WBComposeViewController.swift */; };
@@ -69,6 +70,7 @@
 		F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBStatusViewModel.swift; sourceTree = "<group>"; };
 		F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+WJKAddition.swift"; sourceTree = "<group>"; };
 		F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+WJKAddition.swift"; sourceTree = "<group>"; };
+		F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPicUrlsModel.swift; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621031DE723160062E2EB /* WBComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				F849AA671DED8F3000810833 /* WBStatusModel.swift */,
 				F849AA691DED8F7000810833 /* WBUser.swift */,
+				F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				F81B92461DEB17B600110999 /* WBNewFeatureView.swift in Sources */,
 				F849AA641DED8E5000810833 /* WBVisitorModel.swift in Sources */,
 				F825C2C41DEDB4A10083836F /* WBToolView.swift in Sources */,
+				F8A63AA41DEF0D6C00EC93B0 /* WBPicUrlsModel.swift in Sources */,
 				F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */,
 				F8E621161DE723170062E2EB /* WBHomeViewController.swift in Sources */,
 				F8E6211A1DE723170062E2EB /* WBVisitorView.swift in Sources */,

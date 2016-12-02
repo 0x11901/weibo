@@ -8,26 +8,30 @@
 
 import UIKit
 
-// 全局颜色
+/// 全局颜色
 let globalColor = UIColor.colorWithHex(hex: 0xF98200)
 
-// 屏幕的宽度
+/// 屏幕的宽度
 let screenWidth = UIScreen.main.bounds.size.width
 
-//屏幕的高度
+///屏幕的高度
 let screenHeight = UIScreen.main.bounds.size.height
 
-//分辨率的倍数
+///分辨率的倍数
 let screenScale = UIScreen.main.scale
 
-//OAuth
+///OAuth
 let appKey = "469365216"
 let appSecrect = "e48bbe54548acda95d19fffdd73aa011"
 let redirectURI = "http://steamcommunity.com/id/wjk930726/"
 
-//Account
+///Account
 let loginSuccess = "loginSuccess"
 let accountKey = "accountKey"
 
-//new feature
+///new feature
 let isNewFeatureKey = "isNewFeature"
+
+/// 边距
+let margin: CGFloat = 12.0
+let widthHeight = (screenWidth - 4 * margin) / CGFloat(3)

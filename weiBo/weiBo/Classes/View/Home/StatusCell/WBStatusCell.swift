@@ -18,7 +18,6 @@ class WBStatusCell: UITableViewCell {
     fileprivate lazy var originView: WBOriginalView = WBOriginalView()
     fileprivate lazy var retweetedView: WBRetweetedView = WBRetweetedView()
     fileprivate lazy var toolView: WBToolView = WBToolView()
-    fileprivate lazy var pictureView: WBPictureView = WBPictureView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,7 +36,6 @@ extension WBStatusCell {
         contentView.addSubview(originView)
         contentView.addSubview(retweetedView)
 //        contentView.addSubview(toolView)
-//        contentView.addSubview(pictureView)
         
         originView.snp.makeConstraints { (make) in
             make.top.equalTo(10)
