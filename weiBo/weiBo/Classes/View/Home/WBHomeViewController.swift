@@ -16,8 +16,13 @@ class WBHomeViewController: WBBaseViewController {
         super.viewDidLoad()
         loadStatus(isPull: true)
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectedAnImage(sender:)), name: clickThumbImage, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
 }
 
 // MARK: - 读取数据
@@ -63,4 +68,12 @@ extension WBHomeViewController {
     override func footerRefresh() {
         loadStatus(isPull: false)
     }
+}
+
+extension WBHomeViewController {
+    
+    @objc fileprivate func didSelectedAnImage(sender: Notification) {
+        print(sender)
+    }
+    
 }

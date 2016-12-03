@@ -11,18 +11,8 @@ import UIKit
 class WBPictureView: UIView {
     var viewModel: WBStatusViewModel? {
         didSet{
-            guard let vm = viewModel else {
+            guard let vm = viewModel,let pictures = vm.pic_urls else {
                 print("vm not exist")
-                return
-            }
-            var pictureArr: [WBPicUrlsModel]?
-            if vm.isPictureInOrigin {
-                pictureArr = vm.status.pic_urls
-            }else{
-                pictureArr = vm.status.retweeted_status?.pic_urls
-            }
-            guard let pictures = pictureArr else {
-                print("pictureArr not exist")
                 return
             }
             for obj in subviews {
@@ -83,9 +73,32 @@ extension WBPictureView {
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.tag = i
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageAction(tap:))))
             addSubview(imageView)
         }
     }
     
 }
 
+extension WBPictureView {
+    
+    @objc fileprivate func imageAction(tap:UITapGestureRecognizer) {
+        guard var index = tap.view?.tag,let picArr = viewModel?.pic_urls else{
+            print("image tag beyond bounds")
+            return
+        }
+        if viewModel?.pic_urls?.count == 4,index > 2 {
+            index -= 1
+        }
+        
+        let ocArr = picArr as NSArray
+        print(ocArr)
+        if let urls = ocArr.value(forKeyPath: "middle_pic") as? [String]{
+            let userinfo:[AnyHashable : Any] = [indexKey : index,urlsKey : urls]
+            NotificationCenter.default.post(name: clickThumbImage, object: self, userInfo: userinfo)
+        }
+        
+    }
+    
+}

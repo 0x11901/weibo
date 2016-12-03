@@ -32,6 +32,11 @@ let accountKey = "accountKey"
 ///new feature
 let isNewFeatureKey = "isNewFeature"
 
-/// 边距
+///边距
 let margin: CGFloat = 12.0
 let widthHeight = (screenWidth - 4 * margin) / CGFloat(3)
+
+///通知
+let clickThumbImage: NSNotification.Name = NSNotification.Name(rawValue: "clickSamllImage")
+let indexKey = "indexKey"
+let urlsKey = "urlsKey"

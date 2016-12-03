@@ -18,7 +18,6 @@ class WBStatusViewModel: NSObject {
     var retweetedString: String?
     var rowHeight: CGFloat = 0
     var firstImageSize: CGSize = CGSize.zero
-    var isPictureInOrigin: Bool = true
     var pic_urls: [WBPicUrlsModel]?
     override var description: String{
         return yy_modelDescription()
@@ -44,27 +43,6 @@ extension WBStatusViewModel {
         }
         if let pics = status.retweeted_status?.pic_urls{
             pic_urls = pics
-        }
-        
-        if let origin = status.pic_urls?.count ,origin != 0 {
-//            height = origin
-//            if height == 1 {
-//                group.enter()
-//                calculate1ImageSize(url:(status.pic_urls?.first?.thumbnail_pic!)!,callBack: {
-//                    group.leave()
-//                })
-//                return
-//            }
-        }else if let retweeted = status.retweeted_status?.pic_urls?.count ,retweeted != 0{
-//            height = retweeted
-            isPictureInOrigin = false
-//            if height == 1 {
-//                group.enter()
-//                calculate1ImageSize(url:(status.retweeted_status?.pic_urls?.first?.thumbnail_pic!)!,callBack: {
-//                    group.leave()
-//                })
-//                return
-//            }
         }
         
         if var height = pic_urls?.count,height != 0 {

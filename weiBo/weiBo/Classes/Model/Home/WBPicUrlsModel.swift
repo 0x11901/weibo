@@ -9,7 +9,12 @@
 import UIKit
 
 class WBPicUrlsModel: NSObject {
-    var thumbnail_pic: String?
+    var thumbnail_pic: String?{
+        didSet{
+            middle_pic = thumbnail_pic?.replacingOccurrences(of: "/thumbnail/", with: "/bmiddle/")
+        }
+    }
+    var middle_pic: String?
     override var description: String{
         return yy_modelDescription()
     }
