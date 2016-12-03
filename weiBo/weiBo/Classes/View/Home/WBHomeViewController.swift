@@ -73,7 +73,29 @@ extension WBHomeViewController {
 extension WBHomeViewController {
     
     @objc fileprivate func didSelectedAnImage(sender: Notification) {
-        print(sender)
+        
+        if let index = sender.userInfo?[indexKey] as? NSNumber,let urls = sender.userInfo?[urlsKey] as? [String] {
+            let browser = WBPhotoBrowserViewController(index: index.intValue, images: urls)
+            present(browser, animated: false, completion: nil)
+        }
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

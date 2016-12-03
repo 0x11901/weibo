@@ -93,7 +93,7 @@ extension WBPictureView {
         }
         
         let ocArr = picArr as NSArray
-        print(ocArr)
+        
         if let urls = ocArr.value(forKeyPath: "middle_pic") as? [String]{
             let userinfo:[AnyHashable : Any] = [indexKey : index,urlsKey : urls]
             NotificationCenter.default.post(name: clickThumbImage, object: self, userInfo: userinfo)

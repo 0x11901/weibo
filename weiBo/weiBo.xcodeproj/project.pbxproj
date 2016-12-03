@@ -31,6 +31,9 @@
 		F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */; };
 		F84C5A191DEEF7A300EC4F0A /* UIImage+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */; };
 		F8A63AA41DEF0D6C00EC93B0 /* WBPicUrlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */; };
+		F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */; };
+		F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */; };
+		F8B3C4461DF2FD05005C7434 /* WBComposeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
 		F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621031DE723160062E2EB /* WBComposeViewController.swift */; };
@@ -73,6 +76,9 @@
 		F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+WJKAddition.swift"; sourceTree = "<group>"; };
 		F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPicUrlsModel.swift; sourceTree = "<group>"; };
+		F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoViewer.swift; sourceTree = "<group>"; };
+		F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeTextView.swift; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621031DE723160062E2EB /* WBComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +189,15 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		F8B3C4401DF2E589005C7434 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */,
+				F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */,
+			);
+			path = PhotoBrowser;
+			sourceTree = "<group>";
+		};
 		F8E620FA1DE723160062E2EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +254,7 @@
 		F8E621011DE723160062E2EB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F8B3C4401DF2E589005C7434 /* PhotoBrowser */,
 				F8496AB61DE9DE2900F2FDA5 /* OAuthViewController */,
 				F8E621021DE723160062E2EB /* Compose */,
 				F8E621041DE723160062E2EB /* Discover */,
@@ -254,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				F8E621031DE723160062E2EB /* WBComposeViewController.swift */,
+				F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";
@@ -470,7 +487,9 @@
 				F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */,
 				F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */,
 				F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */,
+				F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */,
 				F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */,
+				F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
 				F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,
@@ -497,6 +516,7 @@
 				F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */,
 				F825C2BE1DEDB45E0083836F /* WBOriginalView.swift in Sources */,
 				F826FD491DE99E44002F90C2 /* common.swift in Sources */,
+				F8B3C4461DF2FD05005C7434 /* WBComposeTextView.swift in Sources */,
 				F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */,
 				F825C2C01DEDB4750083836F /* WBPictureView.swift in Sources */,
 			);

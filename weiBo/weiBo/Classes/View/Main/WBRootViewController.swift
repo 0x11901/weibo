@@ -20,8 +20,6 @@ class WBRootViewController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBar.bringSubview(toFront: composeButton)
-        composeButton.sizeThatFits(CGSize(width: tabBar.itemWidth, height: tabBar.bounds.size.height))
-        print(tabBar.itemWidth,tabBar.bounds.size.height,composeButton)
     }
 }
 
@@ -95,7 +93,9 @@ extension WBRootViewController {
     fileprivate func addComposeButton() {
         tabBar.addSubview(composeButton)
         composeButton.center = CGPoint(x: tabBar.center.x, y: tabBar.bounds.size.height * 0.5)
-        composeButton.sizeToFit()
+//        composeButton.sizeToFit()
+        let frame = tabBar.bounds
+        composeButton.frame = frame.insetBy(dx: screenWidth/5 * 2 - 1, dy: 5)
     }
 }
 
@@ -103,6 +103,8 @@ extension WBRootViewController {
 // MARK: - 响应事件
 extension WBRootViewController {
     @objc fileprivate func pushCompose() {
-        print("hello world")
+        let composeController = WBComposeViewController()
+        let composeNav = UINavigationController(rootViewController: composeController)
+        present(composeNav, animated: true, completion: nil)
     }
 }
