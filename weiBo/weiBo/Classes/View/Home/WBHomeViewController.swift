@@ -9,12 +9,12 @@
 import UIKit
 
 class WBHomeViewController: WBBaseViewController {
-    lazy var dataSource: [WBStatusViewModel] = []
+    lazy var listViewModel = WBStatusListViewModel()
     let cellReuseIdentifier = "dasfsdfsfsf"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadStatus()
+        loadStatus(isPull: true)
         // Do any additional setup after loading the view.
     }
 
@@ -22,34 +22,17 @@ class WBHomeViewController: WBBaseViewController {
 
 // MARK: - 读取数据
 extension WBHomeViewController {
-    fileprivate func loadStatus() {
-        NetworkTool.shared.requestForHomeStatus(success: { (response) in
-            guard let dictionary = response as? [String : Any],let json = dictionary["statuses"] else{
-                print("获取json错误")
-                return
+    fileprivate func loadStatus(isPull: Bool) {
+        listViewModel.loadDate(isPull: isPull) { (success) in
+            if success {
+                if isPull {
+                    self.header.endRefreshing()
+                }else{
+                    self.footer.endRefreshing()
+                }
+                self.tableView.reloadData()
             }
-            
-            guard let status = NSArray.yy_modelArray(with: WBStatusModel.self, json: json) else{
-                print("json转模型错误")
-                return
-            }
-            
-            guard let statues = status as? [WBStatusModel] else{
-                print("statues类型错误")
-                return
-            }
-            
-            var arrM: [WBStatusViewModel] = []
-            for obj in statues {
-                arrM.append(WBStatusViewModel(status: obj))
-            }
-            
-            self.dataSource += arrM
-            self.tableView.reloadData()
-        }, failure: {
-            (err: Error) in
-            print(err)
-        })
+        }
     }
 }
 
@@ -64,12 +47,20 @@ extension WBHomeViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return listViewModel.dataSource.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! WBStatusCell
-        cell.status = dataSource[indexPath.row]
+        cell.status = listViewModel.dataSource[indexPath.row]
         return cell
+    }
+    
+    override func headerRefresh() {
+        loadStatus(isPull: true)
+    }
+    
+    override func footerRefresh() {
+        loadStatus(isPull: false)
     }
 }

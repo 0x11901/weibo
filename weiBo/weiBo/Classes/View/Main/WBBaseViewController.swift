@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class WBBaseViewController: UIViewController {
     lazy var tableView: UITableView = UITableView(frame: self.view.bounds, style: .plain)
@@ -28,6 +29,8 @@ class WBBaseViewController: UIViewController {
             }
         }
     }
+    lazy var header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
+    lazy var footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefresh))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +61,11 @@ extension WBBaseViewController {
     
     func setupTableView () {
         view.addSubview(tableView)
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.mj_header = header
+        tableView.mj_footer = footer
     }
 
     func setupVisitorView () {
@@ -78,6 +84,12 @@ extension WBBaseViewController {
             visitorView.removeFromSuperview()
         }
         visitorView = nil
+    }
+    
+    @objc func headerRefresh() {
+    }
+    
+    @objc func footerRefresh() {
     }
     
 }

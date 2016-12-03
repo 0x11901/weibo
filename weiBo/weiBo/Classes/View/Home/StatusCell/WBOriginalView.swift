@@ -18,17 +18,16 @@ class WBOriginalView: UIView {
             }
             
             if let pictures = status?.status.pic_urls, pictures.count > 0, let height = status?.rowHeight{
-//                pictureView.snp.updateConstraints { (make) in
-//                    make.top.equalTo(textLable.snp.bottom).offset(12)
-//                    make.size.equalTo(CGSize(width: screenWidth - 24, height: height))
-//                }
-                print(height)
-                pictureView.pictures = pictures
+                pictureView.snp.updateConstraints { (make) in
+                    make.top.equalTo(textLabel.snp.bottom).offset(12)
+                    make.size.equalTo(CGSize(width: screenWidth - 24, height: height))
+                }
+                pictureView.viewModel = status
             }else{
-//                pictureView.snp.updateConstraints { (make) in
-//                    make.top.equalTo(textLable.snp.bottom).offset(0)
-//                    make.size.equalTo(CGSize.zero)
-//                }
+                pictureView.snp.updateConstraints { (make) in
+                    make.top.equalTo(textLabel.snp.bottom).offset(0)
+                    make.size.equalTo(CGSize.zero)
+                }
             }
             
 
@@ -43,7 +42,7 @@ class WBOriginalView: UIView {
             vipIcon.image = model.verifiedType
             timeLabel.text = model.timeString
             sourceLabel.text = model.sourceString
-            textLable.text = model.status.text
+            textLabel.text = model.status.text
         }
     }
     lazy var iconImageView: UIImageView = UIImageView()
@@ -52,7 +51,7 @@ class WBOriginalView: UIView {
     lazy var vipIcon: UIImageView  = UIImageView()
     lazy var timeLabel: UILabel = UILabel(title: "", fontSize: 10, fontColor: UIColor.lightGray)
     lazy var sourceLabel: UILabel = UILabel(title: "", fontSize: 10, fontColor: UIColor.lightGray)
-    lazy var textLable: UILabel = UILabel(title: "", fontSize: 15)
+    lazy var textLabel: UILabel = UILabel(title: "", fontSize: 15)
     lazy var pictureView: WBPictureView = WBPictureView()
     
     override init(frame: CGRect) {
@@ -76,7 +75,7 @@ extension WBOriginalView {
         addSubview(vipIcon)
         addSubview(timeLabel)
         addSubview(sourceLabel)
-        addSubview(textLable)
+        addSubview(textLabel)
         addSubview(pictureView)
         
         UIImage(named: "avatar_default_big")?.createCornerImage(size: CGSize(width: 35, height: 35), callBack: { (image) in
@@ -108,15 +107,14 @@ extension WBOriginalView {
             make.leading.equalTo(timeLabel.snp.trailing).offset(10)
             make.bottom.equalTo(timeLabel)
         }
-        textLable.snp.makeConstraints { (make) in
+        textLabel.snp.makeConstraints { (make) in
             make.top.equalTo(iconImageView.snp.bottom).offset(12)
             make.leading.equalTo(self).offset(12)
             make.trailing.equalTo(self).offset(-12)
         }
         pictureView.snp.makeConstraints { (make) in
-            make.top.equalTo(textLable.snp.bottom).offset(12)
+            make.top.equalTo(textLabel.snp.bottom).offset(12)
             make.leading.equalTo(self).offset(12)
-            make.trailing.equalTo(self).offset(-12)
             make.bottom.equalTo(self).offset(-12)
             make.size.equalTo(CGSize(width: screenWidth - 24, height: screenWidth - 24))
         }

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIButton {
 
-    convenience init(title: String?, fontSize: CGFloat = 13, color: UIColor = UIColor.darkGray,image: String? = nil,bgImage: String? = nil,target: Any?, action: Selector? = nil, forEvents: UIControlEvents = .touchUpInside) {
+    convenience init(title: String?, fontSize: CGFloat = 13, color: UIColor = UIColor.darkGray,image: String? = nil,bgImage: String? = nil,target: Any? = nil, action: Selector? = nil, forEvents: UIControlEvents = .touchUpInside) {
         self.init()
         if let title = title {
             self.setTitle(title, for: .normal)

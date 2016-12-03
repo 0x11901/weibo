@@ -21,6 +21,7 @@
 		F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */; };
 		F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */; };
 		F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */; };
+		F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82780901DF1B3680093A1A7 /* WBStatusListViewModel.swift */; };
 		F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */; };
 		F849AA641DED8E5000810833 /* WBVisitorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA611DED8E5000810833 /* WBVisitorModel.swift */; };
 		F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA631DED8E5000810833 /* WBUserAccountModel.swift */; };
@@ -62,6 +63,7 @@
 		F826FD4A1DE99EA7002F90C2 /* UIButton+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WJKAddition.swift"; sourceTree = "<group>"; };
 		F826FD4C1DE9B824002F90C2 /* Bundle+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+WJKAddition.swift"; sourceTree = "<group>"; };
 		F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+WJKAddition.swift"; sourceTree = "<group>"; };
+		F82780901DF1B3680093A1A7 /* WBStatusListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBStatusListViewModel.swift; sourceTree = "<group>"; };
 		F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBOAuthViewController.swift; sourceTree = "<group>"; };
 		F849AA611DED8E5000810833 /* WBVisitorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBVisitorModel.swift; sourceTree = "<group>"; };
 		F849AA631DED8E5000810833 /* WBUserAccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBUserAccountModel.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */,
+				F82780901DF1B3680093A1A7 /* WBStatusListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */,
 				F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */,
 				F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */,
+				F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
 				F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,

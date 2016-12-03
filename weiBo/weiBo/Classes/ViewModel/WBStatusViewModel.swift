@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class WBStatusViewModel: NSObject {
     var status: WBStatusModel
@@ -16,6 +17,9 @@ class WBStatusViewModel: NSObject {
     var timeString: String?
     var retweetedString: String?
     var rowHeight: CGFloat = 0
+    var firstImageSize: CGSize = CGSize.zero
+    var isPictureInOrigin: Bool = true
+    var pic_urls: [WBPicUrlsModel]?
     override var description: String{
         return yy_modelDescription()
     }
@@ -35,13 +39,35 @@ class WBStatusViewModel: NSObject {
 extension WBStatusViewModel {
     
     fileprivate func calculateRowHeight() {
-        var height = 0
-        if let origin = status.pic_urls?.count {
-            height = origin
-        }else if let retweeted = status.retweeted_status?.pic_urls?.count {
-            height = retweeted
+        if let pics = status.pic_urls {
+            pic_urls = pics
         }
-        if height != 0 {
+        if let pics = status.retweeted_status?.pic_urls{
+            pic_urls = pics
+        }
+        
+        if let origin = status.pic_urls?.count ,origin != 0 {
+//            height = origin
+//            if height == 1 {
+//                group.enter()
+//                calculate1ImageSize(url:(status.pic_urls?.first?.thumbnail_pic!)!,callBack: {
+//                    group.leave()
+//                })
+//                return
+//            }
+        }else if let retweeted = status.retweeted_status?.pic_urls?.count ,retweeted != 0{
+//            height = retweeted
+            isPictureInOrigin = false
+//            if height == 1 {
+//                group.enter()
+//                calculate1ImageSize(url:(status.retweeted_status?.pic_urls?.first?.thumbnail_pic!)!,callBack: {
+//                    group.leave()
+//                })
+//                return
+//            }
+        }
+        
+        if var height = pic_urls?.count,height != 0 {
             height = (height - 1) / 3 + 1
             let heightf = CGFloat(height)
             rowHeight = widthHeight * heightf + margin * (heightf - 1.0)
@@ -84,7 +110,6 @@ extension WBStatusViewModel {
     }
     
     fileprivate func dealWithSource() {
-        //source = "<a href="http://app.weibo.com/t/feed/6vtZb0" rel="nofollow">微博 weibo.com</a>"
         if let count = (status.source?.characters.count),count > 0,let start = status.source?.range(of: "\">")?.upperBound,let end = status.source?.range(of: "</a>")?.lowerBound {
             let range = start ..< end
             sourceString = status.source?.substring(with: range)

@@ -35,7 +35,7 @@ extension WBStatusCell {
         contentView.backgroundColor = UIColor.lightGray
         contentView.addSubview(originView)
         contentView.addSubview(retweetedView)
-//        contentView.addSubview(toolView)
+        contentView.addSubview(toolView)
         
         originView.snp.makeConstraints { (make) in
             make.top.equalTo(10)
@@ -45,13 +45,14 @@ extension WBStatusCell {
         retweetedView.snp.makeConstraints { (make) in
             make.top.equalTo(originView.snp.bottom)
             make.leading.trailing.equalTo(contentView)
+        }
+        
+        toolView.snp.makeConstraints { (make) in
+            make.top.equalTo(retweetedView.snp.bottom)
+            make.leading.trailing.equalTo(contentView)
+            make.height.equalTo(36)
             make.bottom.equalTo(contentView)
         }
-//        toolView.snp.makeConstraints { (make) in
-//            make.leading.trailing.bottom.equalTo(contentView)
-//            make.top.equalTo(originView.snp.bottom)
-//            make.height.equalTo(44)
-//        }
     }
     
 }
