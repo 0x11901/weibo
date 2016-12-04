@@ -18,8 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow()
-        let root = WBRootViewController()
-        window?.rootViewController = root
+//        let root = WBRootViewController()
+//        window?.rootViewController = root
+        let composeController = WBComposeViewController()
+        let composeNav = UINavigationController(rootViewController: composeController)
+        window?.rootViewController = composeNav
         window?.makeKeyAndVisible()
 
         UITabBar.appearance().tintColor = globalColor
