@@ -9,16 +9,31 @@
 import UIKit
 
 class WBComposeTextView: UITextView {
+    override var font: UIFont?{
+        didSet{
+            placeHolderLabel.font = font
+        }
+    }
     
-    lazy var placeHolder: UILabel = {
-        let ph = UILabel(title: "请输入你想说的话", fontSize: 14, fontColor: UIColor.lightText)
-        ph.backgroundColor = UIColor.black
+    var placeHolder: String?{
+        didSet{
+            placeHolderLabel.text = placeHolder
+        }
+    }
+    
+    fileprivate lazy var placeHolderLabel: UILabel = {
+        let ph = UILabel(title: "请输入你想说的话", fontSize: 14, fontColor: UIColor.darkGray)
         return ph
     }()
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
         setupView()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,11 +45,43 @@ class WBComposeTextView: UITextView {
 extension WBComposeTextView {
     
     fileprivate func setupView() {
-        backgroundColor = UIColor.yellow
-        addSubview(placeHolder)
-        placeHolder.translatesAutoresizingMaskIntoConstraints = false
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-5-[ph]-5-|", options: [], metrics: nil, views: ["ph" : placeHolder]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[ph]", options: [], metrics: nil, views: ["ph" : placeHolder]))
+        backgroundColor = UIColor.white
+        alwaysBounceVertical = true
+        keyboardDismissMode = .onDrag
+        setupTextField()
+    }
+    
+    fileprivate func setupTextField() {
+        addSubview(placeHolderLabel)
+        placeHolderLabel.translatesAutoresizingMaskIntoConstraints = false
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-5-[ph]-5-|", options: [], metrics: nil, views: ["ph" : placeHolderLabel]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[ph]", options: [], metrics: nil, views: ["ph" : placeHolderLabel]))
+    }
+}
+
+extension WBComposeTextView {
+    
+    @objc fileprivate func textDidChange() {
+        placeHolderLabel.isHidden = text.characters.count > 0
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
