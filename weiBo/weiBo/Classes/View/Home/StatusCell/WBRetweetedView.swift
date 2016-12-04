@@ -15,14 +15,18 @@ class WBRetweetedView: UIView {
                 pictureView.snp.updateConstraints { (make) in
                     make.top.equalTo(textLabel.snp.bottom).offset(12)
                     make.bottom.equalTo(self).offset(-12)
-                    make.size.equalTo(CGSize(width: screenWidth - 24, height: height))
+                    make.height.equalTo(height).priority(999)
+//                    make.height.equalTo(height)
+                    make.width.equalTo(screenWidth - 24)
                 }
                 pictureView.viewModel = retweetedStatus
             }else{
                 pictureView.snp.updateConstraints { (make) in
                     make.top.equalTo(textLabel.snp.bottom).offset(0)
                     make.bottom.equalTo(self).offset(0)
-                    make.size.equalTo(CGSize.zero)
+                    make.height.equalTo(0).priority(999)
+//                    make.height.equalTo(0)
+                    make.width.equalTo(0)
                 }
             }
             
@@ -66,7 +70,10 @@ extension WBRetweetedView {
             make.top.equalTo(textLabel.snp.bottom).offset(12)
             make.leading.equalTo(self).offset(12)
             make.bottom.equalTo(self).offset(-12)
-            make.size.equalTo(CGSize(width: screenWidth - 24, height: screenWidth - 24))
+
+            make.height.equalTo(screenWidth - 24).priority(999)
+//            make.height.equalTo(screenWidth - 24)
+            make.width.equalTo(screenWidth - 24)
         }
     }
     
