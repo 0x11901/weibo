@@ -17,7 +17,7 @@ class WBEmotionKeyBoardLayout: UICollectionViewFlowLayout {
         minimumInteritemSpacing = 0
         scrollDirection = .horizontal
         
-        itemSize = CGSize(width: screenWidth, height: 258-37-20)
+        itemSize = CGSize(width: screenWidth, height: 216 - 37)
     }
     
 }
@@ -110,13 +110,6 @@ extension WBEmotionKeyBoard: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemReuseIdentifier, for: indexPath)  as! WBEmotionKeyboardCell
         cell.backgroundColor = UIColor.randomColor()
-        
-        cell.contentView.viewWithTag(199993)?.removeFromSuperview()
-        
-        let label = UILabel(title: "section: \(indexPath.section); item: \(indexPath.item)", fontSize: 30)
-        label.tag = 199993
-        cell.contentView.addSubview(label)
-        label.frame = CGRect(x: 20, y: 40, width: 300, height: 150)
         
         return cell
     }

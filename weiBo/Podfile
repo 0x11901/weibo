@@ -12,4 +12,5 @@ pod 'YYModel'
 pod 'SDWebImage'
 pod 'SnapKit'
 pod 'SVProgressHUD'
+pod 'FMDB'
 end

@@ -76,7 +76,7 @@ extension WBEmotionToolBar {
         sender.isSelected = true
         selectedButton = sender
         
-        delegate?.emotionToolBar(self, didSelectedAtIndex: sender.tag)
+        delegate?.emotionToolBar(self, didSelectedAtIndex: sender.tag - baseTag)
     }
     
 }
