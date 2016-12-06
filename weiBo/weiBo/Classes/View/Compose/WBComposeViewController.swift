@@ -9,6 +9,7 @@
 import UIKit
 
 private let collectionViewItemReuseIdentifier = "asdfsdfgsgsgsg"
+private let maxPhoto = 9
 
 class WBPhotoPikerLayout: UICollectionViewFlowLayout {
     private let margin: CGFloat = 10.0
@@ -79,9 +80,15 @@ class WBComposeViewController: UIViewController {
         return cv
     }()
     
+    fileprivate lazy var emoji = WBEmotionKeyBoard(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+    
     var isShowAnima: Bool = true
     
     var isDefaultKeyboard: Bool = true
+    
+    var dataSource: [UIImage] = []
+    
+    var selectedRow: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,7 +138,7 @@ extension WBComposeViewController {
     
     fileprivate func setupPicker() {
         photoPicker.backgroundColor = UIColor.randomColor()
-        photoPicker.register(UICollectionViewCell.self, forCellWithReuseIdentifier: collectionViewItemReuseIdentifier)
+        photoPicker.register(WBComposeCell.self, forCellWithReuseIdentifier: collectionViewItemReuseIdentifier)
     }
     
     fileprivate func setToolBar() {
@@ -150,7 +157,14 @@ extension WBComposeViewController {
     }
     
     @objc fileprivate func compose() {
-        print("hello world")
+        let status = textView.text
+        let image = dataSource.first
+        NetworkTool.shared.postStatus(status: status!, image: image, success: { (response) in
+            print(response!)
+        }) { (err) in
+            print(err)
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     @objc fileprivate func emotionKeyboard() {
@@ -158,7 +172,6 @@ extension WBComposeViewController {
         textView.resignFirstResponder()
         isShowAnima = true
         if isDefaultKeyboard {
-            let emoji = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
             emoji.backgroundColor = UIColor.randomColor()
             textView.inputView = emoji
             isDefaultKeyboard = false
@@ -198,11 +211,21 @@ extension WBComposeViewController: UITextViewDelegate {
 extension WBComposeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return 9
+        return dataSource.count < maxPhoto ? dataSource.count + 1 : maxPhoto
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewItemReuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewItemReuseIdentifier, for: indexPath) as! WBComposeCell
+        cell.delegate = self
+        if dataSource.count >= maxPhoto {
+            cell.photo = dataSource[indexPath.row]
+        }else{
+            if indexPath.row == dataSource.count {
+                cell.photo = nil
+            }else{
+                cell.photo = dataSource[indexPath.row]
+            }
+        }
         cell.backgroundColor = UIColor.randomColor()
         return cell
     }
@@ -212,3 +235,69 @@ extension WBComposeViewController: UICollectionViewDataSource{
 extension WBComposeViewController: UICollectionViewDelegate{
     
 }
+
+extension WBComposeViewController: WBComposeCellDelegate{
+    
+    func composeCell(_ composeCell: WBComposeCell, addOrChangePhotoAtIndex index: Int) {
+        
+        guard let indexPath = photoPicker.indexPath(for: composeCell)?.row else{
+            return
+        }
+        selectedRow = indexPath
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
+        
+    }
+    
+    func composeCell(_ composeCell: WBComposeCell, deletePhotoAtIndex index: Int) {
+        if let indexPath = photoPicker.indexPath(for: composeCell)?.row {
+            dataSource.remove(at: indexPath)
+        }
+        photoPicker.reloadData()
+    }
+    
+}
+
+extension WBComposeViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            OperationQueue().addOperation {
+                let imageRect = CGRect(x: 0, y: 0, width: 100, height: 100)
+                UIGraphicsBeginImageContext(imageRect.size)
+                UIColor.clear.setFill()
+                UIRectFill(imageRect)
+                originImage.draw(in: imageRect)
+                let wantedImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                if let wantedImage = wantedImage,let selectedRow = self.selectedRow {
+                    if selectedRow == self.dataSource.count {
+                        self.dataSource.append(wantedImage)
+                    }else{
+                        self.dataSource[selectedRow] = wantedImage
+                    }
+                }
+                OperationQueue.main.addOperation {
+                    self.photoPicker.reloadData()
+                }
+            }
+            
+            
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+

@@ -46,4 +46,36 @@ class NetworkTool: AFHTTPSessionManager {
         }
         self.post(URLString, parameters: parameters, progress: nil, success: success, failure: failure)
     }
+    
+    func POST(URLString: String, parameters: Any?,image: UIImage,
+              success: @escaping (_ responseObject: Any?)->(),
+              failure: @escaping (_ error: Error) -> ()) {
+        self.post(URLString, parameters: parameters, constructingBodyWith: { (formData) in
+            guard let data = UIImagePNGRepresentation(image) else{
+                print("picture tansform to binary error")
+                return
+            }
+            formData.appendPart(withFileData: data, name: "pic", fileName: "helloWorld.wjk", mimeType: "application/octet-stream")
+        }, progress: nil, success: { (_, response) in
+            success(response)
+        }, failure: { (_, error) in
+            failure(error)
+        })
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

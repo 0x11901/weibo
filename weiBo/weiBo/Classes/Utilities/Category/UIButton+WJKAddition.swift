@@ -23,7 +23,6 @@ extension UIButton {
             
             let hlightImage = "\(image)_hlighted"
             if let hlightImage = UIImage(named: hlightImage) {
-                print(hlightImage)
                 self.setImage(hlightImage, for: .highlighted)
             }
             let selectedImage = "\(image)_selected"
@@ -34,13 +33,13 @@ extension UIButton {
         
         if let bgImage = bgImage {
             self.setBackgroundImage(UIImage(named: bgImage), for: .normal)
-            let hlightImage = "\(image)_hlighted"
+            let hlightImage = "\(bgImage)_hlighted"
             if let hlightImage = UIImage(named: hlightImage) {
-                self.setImage(hlightImage, for: .highlighted)
+                self.setBackgroundImage(hlightImage, for: .highlighted)
             }
-            let selectedImage = "\(image)_selected"
+            let selectedImage = "\(bgImage)_selected"
             if let selectedImage = UIImage(named: selectedImage) {
-                self.setImage(selectedImage, for: .selected)
+                self.setBackgroundImage(selectedImage, for: .selected)
             }
         }
         

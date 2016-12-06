@@ -34,6 +34,11 @@
 		F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */; };
 		F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */; };
 		F8B3C4461DF2FD05005C7434 /* WBComposeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */; };
+		F8E012661DF57F760036DD4D /* WBComposeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012651DF57F760036DD4D /* WBComposeCell.swift */; };
+		F8E012681DF57F990036DD4D /* WBEmotionKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012671DF57F990036DD4D /* WBEmotionKeyBoard.swift */; };
+		F8E0126A1DF57FB50036DD4D /* WBEmotionToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012691DF57FB50036DD4D /* WBEmotionToolBar.swift */; };
+		F8E0126C1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E0126B1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift */; };
+		F8E0126E1DF580340036DD4D /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F8E0126D1DF580340036DD4D /* Emoticons.bundle */; };
 		F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */; };
 		F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */; };
 		F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621031DE723160062E2EB /* WBComposeViewController.swift */; };
@@ -79,6 +84,11 @@
 		F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoViewer.swift; sourceTree = "<group>"; };
 		F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeTextView.swift; sourceTree = "<group>"; };
+		F8E012651DF57F760036DD4D /* WBComposeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeCell.swift; sourceTree = "<group>"; };
+		F8E012671DF57F990036DD4D /* WBEmotionKeyBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionKeyBoard.swift; sourceTree = "<group>"; };
+		F8E012691DF57FB50036DD4D /* WBEmotionToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionToolBar.swift; sourceTree = "<group>"; };
+		F8E0126B1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionKeyboardCell.swift; sourceTree = "<group>"; };
+		F8E0126D1DF580340036DD4D /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
 		F8E620FF1DE723160062E2EB /* UIColor+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WJKAddition.swift"; sourceTree = "<group>"; };
 		F8E621031DE723160062E2EB /* WBComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +208,17 @@
 			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
+		F8E012641DF57F540036DD4D /* EmotionKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				F8E0126D1DF580340036DD4D /* Emoticons.bundle */,
+				F8E012671DF57F990036DD4D /* WBEmotionKeyBoard.swift */,
+				F8E012691DF57FB50036DD4D /* WBEmotionToolBar.swift */,
+				F8E0126B1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift */,
+			);
+			path = EmotionKeyboard;
+			sourceTree = "<group>";
+		};
 		F8E620FA1DE723160062E2EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,8 +290,10 @@
 		F8E621021DE723160062E2EB /* Compose */ = {
 			isa = PBXGroup;
 			children = (
+				F8E012641DF57F540036DD4D /* EmotionKeyboard */,
 				F8E621031DE723160062E2EB /* WBComposeViewController.swift */,
 				F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */,
+				F8E012651DF57F760036DD4D /* WBComposeCell.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";
@@ -423,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8E621171DE723170062E2EB /* main.json in Resources */,
+				F8E0126E1DF580340036DD4D /* Emoticons.bundle in Resources */,
 				F8ED11221DE7151600ED5AA8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +515,7 @@
 				F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */,
 				F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
+				F8E0126C1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift in Sources */,
 				F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,
 				F8E621151DE723170062E2EB /* WBDiscoverViewController.swift in Sources */,
@@ -498,9 +523,11 @@
 				F825C2C61DEDB4BC0083836F /* WBStatusCell.swift in Sources */,
 				F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */,
 				F81B92461DEB17B600110999 /* WBNewFeatureView.swift in Sources */,
+				F8E0126A1DF57FB50036DD4D /* WBEmotionToolBar.swift in Sources */,
 				F849AA641DED8E5000810833 /* WBVisitorModel.swift in Sources */,
 				F825C2C41DEDB4A10083836F /* WBToolView.swift in Sources */,
 				F8A63AA41DEF0D6C00EC93B0 /* WBPicUrlsModel.swift in Sources */,
+				F8E012661DF57F760036DD4D /* WBComposeCell.swift in Sources */,
 				F8E621121DE723170062E2EB /* UIColor+WJKAddition.swift in Sources */,
 				F8E621161DE723170062E2EB /* WBHomeViewController.swift in Sources */,
 				F8E6211A1DE723170062E2EB /* WBVisitorView.swift in Sources */,
@@ -516,6 +543,7 @@
 				F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */,
 				F825C2BE1DEDB45E0083836F /* WBOriginalView.swift in Sources */,
 				F826FD491DE99E44002F90C2 /* common.swift in Sources */,
+				F8E012681DF57F990036DD4D /* WBEmotionKeyBoard.swift in Sources */,
 				F8B3C4461DF2FD05005C7434 /* WBComposeTextView.swift in Sources */,
 				F8E621131DE723170062E2EB /* UILabel+WJKAddition.swift in Sources */,
 				F825C2C01DEDB4750083836F /* WBPictureView.swift in Sources */,
