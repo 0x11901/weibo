@@ -21,7 +21,6 @@ class WBOriginalView: UIView {
                 pictureView.snp.updateConstraints { (make) in
                     make.top.equalTo(textLabel.snp.bottom).offset(12)
                     make.height.equalTo(height).priority(999)
-//                    make.height.equalTo(height)
                     make.width.equalTo(screenWidth - 24)
                 }
                 pictureView.viewModel = status
@@ -29,7 +28,6 @@ class WBOriginalView: UIView {
                 pictureView.snp.updateConstraints { (make) in
                     make.top.equalTo(textLabel.snp.bottom).offset(0)
                     make.height.equalTo(0).priority(999)
-//                    make.height.equalTo(0)
                     make.width.equalTo(0)
                 }
             }
@@ -55,7 +53,7 @@ class WBOriginalView: UIView {
     lazy var vipIcon: UIImageView  = UIImageView()
     lazy var timeLabel: UILabel = UILabel(title: "", fontSize: 10, fontColor: UIColor.lightGray)
     lazy var sourceLabel: UILabel = UILabel(title: "", fontSize: 10, fontColor: UIColor.lightGray)
-    lazy var textLabel: UILabel = UILabel(title: "", fontSize: 15)
+    lazy var textLabel: AXLabel = AXLabel(title: "", fontSize: 15)
     lazy var pictureView: WBPictureView = WBPictureView()
     
     override init(frame: CGRect) {
@@ -121,7 +119,6 @@ extension WBOriginalView {
             make.leading.equalTo(self).offset(12)
             make.bottom.equalTo(self).offset(-12)
             make.height.equalTo(screenWidth - 24).priority(999)
-//            make.height.equalTo(screenWidth - 24)
             make.width.equalTo(screenWidth - 24)
         }
     }

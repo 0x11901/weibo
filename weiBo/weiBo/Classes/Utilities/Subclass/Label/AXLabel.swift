@@ -19,7 +19,7 @@ public protocol AXLabelDelegate: NSObjectProtocol {
 
 public class AXLabel: UILabel {
     
-    public var linkTextColor = UIColor.blue
+    public var linkTextColor = UIColor.colorWithHex(hex: 0x507DAF)
     public var selectedBackgroudColor = UIColor.lightGray
     public weak var delegate: AXLabelDelegate?
     
@@ -257,4 +257,15 @@ public class AXLabel: UILabel {
     private lazy var textStorage = NSTextStorage()
     private lazy var layoutManager = NSLayoutManager()
     private lazy var textContainer = NSTextContainer()
+}
+
+extension AXLabel {
+    convenience init(title: String?,fontSize: CGFloat = 14,fontColor: UIColor = UIColor.black,textAlignment: NSTextAlignment = .natural,numberOfLines: NSInteger = 0) {
+        self.init()
+        self.text = title
+        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.textColor = fontColor
+        self.textAlignment = textAlignment
+        self.numberOfLines = numberOfLines
+    }
 }

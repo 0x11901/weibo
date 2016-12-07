@@ -18,12 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         window = UIWindow()
         
-//        let root = WBRootViewController()
-//        window?.rootViewController = root
-        
-        let composeController = WBComposeViewController()
-        let composeNav = UINavigationController(rootViewController: composeController)
-        window?.rootViewController = composeNav
+        let root = WBRootViewController()
+        window?.rootViewController = root
         
         window?.makeKeyAndVisible()
 
