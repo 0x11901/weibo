@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = globalColor
         
         print(NSHomeDirectory())
+        
         return true
     }
     

@@ -24,7 +24,7 @@ class WBEmotionKeyBoardLayout: UICollectionViewFlowLayout {
 
 class WBEmotionKeyBoard: UIView {
     
-    var dataSource = [[1, 2], [1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3]]
+    var dataSource = WBEmotionTool.shared.emotionsDataSource()
     
     fileprivate lazy var emojiCollectionView: UICollectionView = {
         let emoji = UICollectionView(frame:
@@ -35,7 +35,7 @@ class WBEmotionKeyBoard: UIView {
         emoji.showsHorizontalScrollIndicator = false
         emoji.showsVerticalScrollIndicator = false
         emoji.isPagingEnabled = true
-        emoji.backgroundColor = UIColor.randomColor()
+        emoji.backgroundColor = UIColor.white
         return emoji
     }()
     
@@ -109,8 +109,7 @@ extension WBEmotionKeyBoard: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemReuseIdentifier, for: indexPath)  as! WBEmotionKeyboardCell
-        cell.backgroundColor = UIColor.randomColor()
-        
+        cell.model = dataSource[indexPath.section][indexPath.item]
         return cell
     }
     

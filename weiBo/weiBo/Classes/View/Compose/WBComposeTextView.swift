@@ -65,6 +65,39 @@ extension WBComposeTextView {
         placeHolderLabel.isHidden = text.characters.count > 0
     }
     
+    @objc func insertEmotion(emotion: WBEmotionModel) {
+        
+        
+        if emotion.type == 1 {
+            let emoji = String.emoji(stringCode: emotion.code!)
+            self.insertText(emoji)
+            return
+        }else{
+            let att = NSTextAttachment()
+            att.image = UIImage(named: emotion.fullPath!)
+            att.bounds = CGRect(x: 0, y: -4, width: font!.lineHeight, height: font!.lineHeight)
+            let attributed = NSAttributedString(attachment: att)
+            let mutiAttachString = NSMutableAttributedString(attributedString: attributed)
+            mutiAttachString.addAttributes([NSFontAttributeName: font!], range: NSMakeRange(0, attributed.length))
+            
+            var range = selectedRange
+            let attriText = attributedText.copy()
+            let mutiAttriText = NSMutableAttributedString(attributedString: attriText as! NSAttributedString)
+            mutiAttriText.replaceCharacters(in: range, with: attributed)
+            mutiAttriText.addAttributes([NSFontAttributeName: font!], range: NSMakeRange(0, mutiAttriText.length))
+            attributedText = mutiAttriText
+            
+            range.location += 1
+            range.length = 0
+            
+            selectedRange = range
+            
+            //发通知,通知文本的长度发生了变化
+            NotificationCenter.default.post(name: Notification.Name.UITextViewTextDidChange, object: nil)
+            delegate?.textViewDidChange!(self)
+        }
+    }
+    
 }
 
 

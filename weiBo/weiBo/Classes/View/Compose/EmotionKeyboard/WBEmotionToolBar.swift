@@ -8,7 +8,7 @@
 
 import UIKit
 
-let baseTag = 123456
+fileprivate let baseTag = 123456
 
 protocol WBEmotionToolBarDelegate: NSObjectProtocol {
     func emotionToolBar(_ emotionToolBar: WBEmotionToolBar,didSelectedAtIndex index: Int)

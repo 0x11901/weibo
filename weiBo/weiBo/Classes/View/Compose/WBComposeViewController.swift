@@ -93,6 +93,7 @@ class WBComposeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardFrameChange(sender:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addOrDeleteEmotion(notification:)), name: addOrDeleteNotification, object: nil)
         setupUI()
     }
     
@@ -105,7 +106,7 @@ class WBComposeViewController: UIViewController {
 extension WBComposeViewController {
     
     fileprivate func setupUI() {
-        view.backgroundColor = UIColor.randomColor()
+        view.backgroundColor = UIColor.white
         setNavigation()
         setTextField()
         setToolBar()
@@ -137,7 +138,7 @@ extension WBComposeViewController {
     }
     
     fileprivate func setupPicker() {
-        photoPicker.backgroundColor = UIColor.randomColor()
+        photoPicker.backgroundColor = UIColor.lightGray
         photoPicker.register(WBComposeCell.self, forCellWithReuseIdentifier: collectionViewItemReuseIdentifier)
     }
     
@@ -151,6 +152,20 @@ extension WBComposeViewController {
 }
 
 extension WBComposeViewController {
+    
+    @objc fileprivate func addOrDeleteEmotion(notification: Notification) {
+        if let userInfo = notification.userInfo {
+            //如果是删除表情
+            if let isDelete = userInfo["isDelete"] as? Bool, isDelete == true {
+                textView.deleteBackward()
+            }
+            //如果是插入表情
+            if let emotion = userInfo["emotion"] as? WBEmotionModel {
+                //让textView插入表情
+                textView.insertEmotion(emotion: emotion)
+            }
+        }
+    }
     
     @objc fileprivate func cancell() {
         dismiss(animated: true, completion: nil)
@@ -172,7 +187,7 @@ extension WBComposeViewController {
         textView.resignFirstResponder()
         isShowAnima = true
         if isDefaultKeyboard {
-            emoji.backgroundColor = UIColor.randomColor()
+            emoji.backgroundColor = UIColor.white
             textView.inputView = emoji
             isDefaultKeyboard = false
         }else{
@@ -226,7 +241,6 @@ extension WBComposeViewController: UICollectionViewDataSource{
                 cell.photo = dataSource[indexPath.row]
             }
         }
-        cell.backgroundColor = UIColor.randomColor()
         return cell
     }
     

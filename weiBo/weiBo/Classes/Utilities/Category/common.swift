@@ -40,3 +40,4 @@ let widthHeight = (screenWidth - 4 * margin) / CGFloat(3)
 let clickThumbImage: NSNotification.Name = NSNotification.Name(rawValue: "clickSamllImage")
 let indexKey = "indexKey"
 let urlsKey = "urlsKey"
+let addOrDeleteNotification = Notification.Name(rawValue: "addOrDeleteNotification")

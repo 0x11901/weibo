@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A1F1497AE640661F985E41F8 /* Pods_weiBo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */; };
-		F81B923E1DEAF1BF00110999 /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B923D1DEAF1BF00110999 /* NetworkTool.swift */; };
-		F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */; };
+		F80770491DF6D7AF00CA7CC7 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80770481DF6D7AF00CA7CC7 /* String+Emoji.swift */; };
+		F807704B1DF6E72900CA7CC7 /* WBEmotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */; };
+		F807704D1DF6E81700CA7CC7 /* WBEmotionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807704C1DF6E81700CA7CC7 /* WBEmotionTool.swift */; };
 		F81B92461DEB17B600110999 /* WBNewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B92451DEB17B600110999 /* WBNewFeatureView.swift */; };
 		F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81B92471DEB17D200110999 /* WBWelcomeView.swift */; };
 		F825C2BE1DEDB45E0083836F /* WBOriginalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F825C2BD1DEDB45E0083836F /* WBOriginalView.swift */; };
@@ -34,6 +35,9 @@
 		F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */; };
 		F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */; };
 		F8B3C4461DF2FD05005C7434 /* WBComposeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */; };
+		F8C17A381DF8217F0039F43B /* NetworkTool+request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */; };
+		F8C17A391DF8217F0039F43B /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A371DF8217F0039F43B /* NetworkTool.swift */; };
+		F8C17A3B1DF821BE0039F43B /* AXLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A3A1DF821BE0039F43B /* AXLabel.swift */; };
 		F8E012661DF57F760036DD4D /* WBComposeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012651DF57F760036DD4D /* WBComposeCell.swift */; };
 		F8E012681DF57F990036DD4D /* WBEmotionKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012671DF57F990036DD4D /* WBEmotionKeyBoard.swift */; };
 		F8E0126A1DF57FB50036DD4D /* WBEmotionToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012691DF57FB50036DD4D /* WBEmotionToolBar.swift */; };
@@ -58,8 +62,9 @@
 		21ED7276F9C3C5200691EC62 /* Pods-weiBo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.debug.xcconfig"; sourceTree = "<group>"; };
 		DB84290A49061CCBE0A9BCD5 /* Pods-weiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.release.xcconfig"; sourceTree = "<group>"; };
 		F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F81B923D1DEAF1BF00110999 /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
-		F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkTool+request.swift"; sourceTree = "<group>"; };
+		F80770481DF6D7AF00CA7CC7 /* String+Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
+		F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionModel.swift; sourceTree = "<group>"; };
+		F807704C1DF6E81700CA7CC7 /* WBEmotionTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionTool.swift; sourceTree = "<group>"; };
 		F81B92451DEB17B600110999 /* WBNewFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBNewFeatureView.swift; sourceTree = "<group>"; };
 		F81B92471DEB17D200110999 /* WBWelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBWelcomeView.swift; sourceTree = "<group>"; };
 		F825C2BD1DEDB45E0083836F /* WBOriginalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBOriginalView.swift; sourceTree = "<group>"; };
@@ -84,6 +89,9 @@
 		F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoViewer.swift; sourceTree = "<group>"; };
 		F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeTextView.swift; sourceTree = "<group>"; };
+		F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkTool+request.swift"; sourceTree = "<group>"; };
+		F8C17A371DF8217F0039F43B /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
+		F8C17A3A1DF821BE0039F43B /* AXLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXLabel.swift; sourceTree = "<group>"; };
 		F8E012651DF57F760036DD4D /* WBComposeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeCell.swift; sourceTree = "<group>"; };
 		F8E012671DF57F990036DD4D /* WBEmotionKeyBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionKeyBoard.swift; sourceTree = "<group>"; };
 		F8E012691DF57FB50036DD4D /* WBEmotionToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionToolBar.swift; sourceTree = "<group>"; };
@@ -135,15 +143,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F81B923C1DEAF1BF00110999 /* NetworkTool */ = {
-			isa = PBXGroup;
-			children = (
-				F81B923D1DEAF1BF00110999 /* NetworkTool.swift */,
-				F81B923F1DEAF21D00110999 /* NetworkTool+request.swift */,
-			);
-			path = NetworkTool;
-			sourceTree = "<group>";
-		};
 		F81B92441DEB175C00110999 /* NewFeature */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
+				F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -208,6 +208,40 @@
 			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
+		F8C17A321DF8217F0039F43B /* Subclass */ = {
+			isa = PBXGroup;
+			children = (
+				F8C17A331DF8217F0039F43B /* Label */,
+				F8C17A341DF8217F0039F43B /* ToolClass */,
+			);
+			path = Subclass;
+			sourceTree = "<group>";
+		};
+		F8C17A331DF8217F0039F43B /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				F8C17A3A1DF821BE0039F43B /* AXLabel.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		F8C17A341DF8217F0039F43B /* ToolClass */ = {
+			isa = PBXGroup;
+			children = (
+				F8C17A351DF8217F0039F43B /* NetworkTool */,
+			);
+			path = ToolClass;
+			sourceTree = "<group>";
+		};
+		F8C17A351DF8217F0039F43B /* NetworkTool */ = {
+			isa = PBXGroup;
+			children = (
+				F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */,
+				F8C17A371DF8217F0039F43B /* NetworkTool.swift */,
+			);
+			path = NetworkTool;
+			sourceTree = "<group>";
+		};
 		F8E012641DF57F540036DD4D /* EmotionKeyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +249,7 @@
 				F8E012671DF57F990036DD4D /* WBEmotionKeyBoard.swift */,
 				F8E012691DF57FB50036DD4D /* WBEmotionToolBar.swift */,
 				F8E0126B1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift */,
+				F807704C1DF6E81700CA7CC7 /* WBEmotionTool.swift */,
 			);
 			path = EmotionKeyboard;
 			sourceTree = "<group>";
@@ -253,7 +288,7 @@
 			children = (
 				F826FD481DE99E44002F90C2 /* common.swift */,
 				F8E620FE1DE723160062E2EB /* Category */,
-				F81B923C1DEAF1BF00110999 /* NetworkTool */,
+				F8C17A321DF8217F0039F43B /* Subclass */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -268,6 +303,7 @@
 				F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */,
 				F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */,
 				F8E621001DE723160062E2EB /* UILabel+WJKAddition.swift */,
+				F80770481DF6D7AF00CA7CC7 /* String+Emoji.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -506,19 +542,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C17A391DF8217F0039F43B /* NetworkTool.swift in Sources */,
+				F807704D1DF6E81700CA7CC7 /* WBEmotionTool.swift in Sources */,
 				F8E621181DE723170062E2EB /* WBBaseViewController.swift in Sources */,
 				F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */,
 				F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */,
 				F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */,
 				F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */,
 				F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */,
+				F8C17A381DF8217F0039F43B /* NetworkTool+request.swift in Sources */,
 				F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */,
 				F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
 				F8E0126C1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift in Sources */,
-				F81B92401DEAF21D00110999 /* NetworkTool+request.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,
 				F8E621151DE723170062E2EB /* WBDiscoverViewController.swift in Sources */,
+				F8C17A3B1DF821BE0039F43B /* AXLabel.swift in Sources */,
 				F849AA6A1DED8F7000810833 /* WBUser.swift in Sources */,
 				F825C2C61DEDB4BC0083836F /* WBStatusCell.swift in Sources */,
 				F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */,
@@ -533,12 +572,13 @@
 				F8E6211A1DE723170062E2EB /* WBVisitorView.swift in Sources */,
 				F8ED111B1DE7151600ED5AA8 /* AppDelegate.swift in Sources */,
 				F849AA6C1DED8FC900810833 /* WBStatusViewModel.swift in Sources */,
+				F80770491DF6D7AF00CA7CC7 /* String+Emoji.swift in Sources */,
 				F8E6211C1DE723170062E2EB /* WBProfileViewController.swift in Sources */,
 				F8E6211B1DE723170062E2EB /* WBMessageViewController.swift in Sources */,
 				F825C2C21DEDB4900083836F /* WBRetweetedView.swift in Sources */,
+				F807704B1DF6E72900CA7CC7 /* WBEmotionModel.swift in Sources */,
 				F8E621141DE723170062E2EB /* WBComposeViewController.swift in Sources */,
 				F84C5A191DEEF7A300EC4F0A /* UIImage+WJKAddition.swift in Sources */,
-				F81B923E1DEAF1BF00110999 /* NetworkTool.swift in Sources */,
 				F849AA681DED8F3000810833 /* WBStatusModel.swift in Sources */,
 				F826FD4D1DE9B824002F90C2 /* Bundle+WJKAddition.swift in Sources */,
 				F825C2BE1DEDB45E0083836F /* WBOriginalView.swift in Sources */,
