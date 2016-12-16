@@ -18,9 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         window = UIWindow()
         
-        let root = WBRootViewController()
-        window?.rootViewController = root
+//        let root = WBRootViewController()
+        let root = UIViewController()
+        SqliteManger.shared.openDB(dbName: "hhh")
         
+        window?.rootViewController = root
         window?.makeKeyAndVisible()
 
         UITabBar.appearance().tintColor = globalColor
