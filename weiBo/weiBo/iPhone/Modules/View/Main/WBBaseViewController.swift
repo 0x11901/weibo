@@ -48,10 +48,8 @@ class WBBaseViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-}
-
-// MARK: - UI相关
-extension WBBaseViewController {
+    
+    
     func setupUI () {
         setupTableView()
         if WBUserAccountModel.shared.isLogin != true {
@@ -67,13 +65,18 @@ extension WBBaseViewController {
         tableView.mj_header = header
         tableView.mj_footer = footer
     }
-
+    
     func setupVisitorView () {
         visitorView = WBVisitorView(frame: self.view.bounds)
         visitorView?.delegate = self
         view.addSubview(visitorView!)
     }
 
+}
+
+// MARK: - UI相关
+extension WBBaseViewController {
+    
 }
 
 // MARK: - 响应事件

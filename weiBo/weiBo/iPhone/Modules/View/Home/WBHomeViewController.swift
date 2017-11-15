@@ -23,6 +23,13 @@ class WBHomeViewController: WBBaseViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func setupTableView() {
+        super.setupTableView()
+        tableView.register(WBStatusCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
 }
 
 // MARK: - 读取数据
@@ -44,12 +51,7 @@ extension WBHomeViewController {
 // MARK: - reloadData
 extension WBHomeViewController {
     
-    override func setupTableView() {
-        super.setupTableView()
-        tableView.register(WBStatusCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        tableView.estimatedRowHeight = 200
-        tableView.rowHeight = UITableViewAutomaticDimension
-    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listViewModel.dataSource.count

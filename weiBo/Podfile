@@ -6,17 +6,17 @@ target 'weiBo' do
     use_frameworks!
     
     # Pods for weiBo
-    pod 'AFNetworking'
+    pod 'AFNetworking', :inhibit_warnings => true
     pod 'MJRefresh'
-    pod 'YYModel'
-    pod 'SDWebImage', '~> 3.8.2'
-    pod 'SVProgressHUD'
+    pod 'YYModel', :inhibit_warnings => true
+    pod 'SDWebImage', '~> 3.8.2', :inhibit_warnings => true
+    pod 'SVProgressHUD', :inhibit_warnings => true
     pod 'FMDB'
     
     # Swift
     pod 'Alamofire'
     pod 'Kingfisher'
-    pod 'HandyJSON'
-    pod 'SnapKit', '~> 3.2.0'
-    pod 'XCGLogger', '~> 5.0.5'
+    pod 'HandyJSON', '~> 4.0.0-beta.1', :inhibit_warnings => true
+    pod 'SnapKit'
+    pod 'XCGLogger', :inhibit_warnings => true
 end

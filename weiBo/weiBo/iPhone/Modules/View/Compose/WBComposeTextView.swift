@@ -78,13 +78,13 @@ extension WBComposeTextView {
             att.bounds = CGRect(x: 0, y: -4, width: font!.lineHeight, height: font!.lineHeight)
             let attributed = NSAttributedString(attachment: att)
             let mutiAttachString = NSMutableAttributedString(attributedString: attributed)
-            mutiAttachString.addAttributes([NSFontAttributeName: font!], range: NSMakeRange(0, attributed.length))
+            mutiAttachString.addAttributes([NSAttributedStringKey.font: font!], range: NSMakeRange(0, attributed.length))
             
             var range = selectedRange
             let attriText = attributedText.copy()
             let mutiAttriText = NSMutableAttributedString(attributedString: attriText as! NSAttributedString)
             mutiAttriText.replaceCharacters(in: range, with: attributed)
-            mutiAttriText.addAttributes([NSFontAttributeName: font!], range: NSMakeRange(0, mutiAttriText.length))
+            mutiAttriText.addAttributes([NSAttributedStringKey.font: font!], range: NSMakeRange(0, mutiAttriText.length))
             attributedText = mutiAttriText
             
             range.location += 1

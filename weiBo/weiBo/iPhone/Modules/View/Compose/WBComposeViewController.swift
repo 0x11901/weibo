@@ -40,8 +40,8 @@ class WBComposeViewController: UIViewController {
     
     fileprivate lazy var titleLabel: UILabel = {
         let title = UILabel()
-        let attr = NSMutableAttributedString(string: "发布微博\n", attributes: [NSForegroundColorAttributeName : UIColor.black,NSFontAttributeName : UIFont.systemFont(ofSize: 16)])
-        attr.append(NSAttributedString(string: "\(WBUserAccountModel.shared.screen_name!)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.lightGray]))
+        let attr = NSMutableAttributedString(string: "发布微博\n", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black,NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)])
+        attr.append(NSAttributedString(string: "\(WBUserAccountModel.shared.screen_name!)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.lightGray]))
         title.attributedText = attr
         title.numberOfLines = 0
         title.textAlignment = .center
