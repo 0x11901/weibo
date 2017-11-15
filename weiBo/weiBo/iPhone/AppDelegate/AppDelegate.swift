@@ -18,9 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         window = UIWindow()
         
-//        let root = WBRootViewController()
-        let root = UIViewController()
-        SqliteManger.shared.openDB(dbName: "hhh")
+        let root = WBRootViewController()
         
         window?.rootViewController = root
         window?.makeKeyAndVisible()

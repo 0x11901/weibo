@@ -174,33 +174,6 @@
 			path = OAuthViewController;
 			sourceTree = "<group>";
 		};
-		F849AA601DED8E5000810833 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
-				F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		F849AA621DED8E5000810833 /* UserAccount */ = {
-			isa = PBXGroup;
-			children = (
-				F849AA631DED8E5000810833 /* WBUserAccountModel.swift */,
-			);
-			path = UserAccount;
-			sourceTree = "<group>";
-		};
-		F849AA661DED8EB000810833 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				F849AA671DED8F3000810833 /* WBStatusModel.swift */,
-				F849AA691DED8F7000810833 /* WBUser.swift */,
-				F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
 		F8B3C4401DF2E589005C7434 /* PhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,35 +236,6 @@
 				F807704C1DF6E81700CA7CC7 /* WBEmotionTool.swift */,
 			);
 			path = EmotionKeyboard;
-			sourceTree = "<group>";
-		};
-		F8E620FA1DE723160062E2EB /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F8E620FB1DE723160062E2EB /* Model */,
-				F8E620FC1DE723160062E2EB /* ThirdLib */,
-				F8E620FD1DE723160062E2EB /* Utilities */,
-				F8E621011DE723160062E2EB /* View */,
-				F8E621111DE723160062E2EB /* ViewModel */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		F8E620FB1DE723160062E2EB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F849AA661DED8EB000810833 /* Home */,
-				F849AA601DED8E5000810833 /* Main */,
-				F849AA621DED8E5000810833 /* UserAccount */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		F8E620FC1DE723160062E2EB /* ThirdLib */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ThirdLib;
 			sourceTree = "<group>";
 		};
 		F8E620FD1DE723160062E2EB /* Utilities */ = {
@@ -402,6 +346,7 @@
 		F8ED110E1DE7151600ED5AA8 = {
 			isa = PBXGroup;
 			children = (
+				F8FA7DB11FBCA62800258C01 /* iPhone */,
 				F8ED11191DE7151600ED5AA8 /* weiBo */,
 				F8ED11181DE7151600ED5AA8 /* Products */,
 				20C7D34365E25A33BC3762A2 /* Pods */,
@@ -420,12 +365,316 @@
 		F8ED11191DE7151600ED5AA8 /* weiBo */ = {
 			isa = PBXGroup;
 			children = (
-				F8ED111A1DE7151600ED5AA8 /* AppDelegate.swift */,
-				F8E620FA1DE723160062E2EB /* Classes */,
-				F8ED11211DE7151600ED5AA8 /* Assets.xcassets */,
 				F8ED11261DE7151600ED5AA8 /* Info.plist */,
 			);
 			path = weiBo;
+			sourceTree = "<group>";
+		};
+		F8FA7DB11FBCA62800258C01 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DB51FBCA62800258C01 /* AppDelegate */,
+				F8FA7DC71FBCA62800258C01 /* Base */,
+				F8FA7DB21FBCA62800258C01 /* Define */,
+				F8FA7DB41FBCA62800258C01 /* Manager */,
+				F8FA7DB61FBCA62800258C01 /* Modules */,
+				F8FA7DB31FBCA62800258C01 /* Supporting Flies */,
+				F8E620FD1DE723160062E2EB /* Utilities */,
+			);
+			name = iPhone;
+			path = weiBo/iPhone;
+			sourceTree = "<group>";
+		};
+		F8FA7DB21FBCA62800258C01 /* Define */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Define;
+			sourceTree = "<group>";
+		};
+		F8FA7DB31FBCA62800258C01 /* Supporting Flies */ = {
+			isa = PBXGroup;
+			children = (
+				F8ED11211DE7151600ED5AA8 /* Assets.xcassets */,
+			);
+			path = "Supporting Flies";
+			sourceTree = "<group>";
+		};
+		F8FA7DB41FBCA62800258C01 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		F8FA7DB51FBCA62800258C01 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				F8ED111A1DE7151600ED5AA8 /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		F8FA7DB61FBCA62800258C01 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				F8E621011DE723160062E2EB /* View */,
+				F8E621111DE723160062E2EB /* ViewModel */,
+				F8FA7DD21FBCABB600258C01 /* Account */,
+				F8FA7DCE1FBCABB600258C01 /* Unclassified */,
+				F8FA7DB71FBCA62800258C01 /* Home */,
+				F8FA7DBB1FBCA62800258C01 /* Discover */,
+				F8FA7DBF1FBCA62800258C01 /* Message */,
+				F8FA7DC31FBCA62800258C01 /* Mine */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		F8FA7DB71FBCA62800258C01 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DB91FBCA62800258C01 /* Model */,
+				F8FA7DB81FBCA62800258C01 /* Controller */,
+				F8FA7DBA1FBCA62800258C01 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F8FA7DB81FBCA62800258C01 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8FA7DB91FBCA62800258C01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F849AA671DED8F3000810833 /* WBStatusModel.swift */,
+				F849AA691DED8F7000810833 /* WBUser.swift */,
+				F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8FA7DBA1FBCA62800258C01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F8FA7DBB1FBCA62800258C01 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DBC1FBCA62800258C01 /* Controller */,
+				F8FA7DBD1FBCA62800258C01 /* Model */,
+				F8FA7DBE1FBCA62800258C01 /* View */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		F8FA7DBC1FBCA62800258C01 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8FA7DBD1FBCA62800258C01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8FA7DBE1FBCA62800258C01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F8FA7DBF1FBCA62800258C01 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DC01FBCA62800258C01 /* Controller */,
+				F8FA7DC11FBCA62800258C01 /* Model */,
+				F8FA7DC21FBCA62800258C01 /* View */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		F8FA7DC01FBCA62800258C01 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8FA7DC11FBCA62800258C01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8FA7DC21FBCA62800258C01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F8FA7DC31FBCA62800258C01 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DC41FBCA62800258C01 /* Controller */,
+				F8FA7DC51FBCA62800258C01 /* Model */,
+				F8FA7DC61FBCA62800258C01 /* View */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		F8FA7DC41FBCA62800258C01 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8FA7DC51FBCA62800258C01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8FA7DC61FBCA62800258C01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F8FA7DC71FBCA62800258C01 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DC81FBCA62800258C01 /* WebViewController */,
+				F8FA7DC91FBCA62800258C01 /* NavigationController */,
+				F8FA7DCA1FBCA62800258C01 /* BaseRequestApi */,
+				F8FA7DCB1FBCA62800258C01 /* BaseCell */,
+				F8FA7DCC1FBCA62800258C01 /* RootViewController */,
+				F8FA7DCD1FBCA62800258C01 /* TabbarController */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		F8FA7DC81FBCA62800258C01 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WebViewController;
+			sourceTree = "<group>";
+		};
+		F8FA7DC91FBCA62800258C01 /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NavigationController;
+			sourceTree = "<group>";
+		};
+		F8FA7DCA1FBCA62800258C01 /* BaseRequestApi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BaseRequestApi;
+			sourceTree = "<group>";
+		};
+		F8FA7DCB1FBCA62800258C01 /* BaseCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BaseCell;
+			sourceTree = "<group>";
+		};
+		F8FA7DCC1FBCA62800258C01 /* RootViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RootViewController;
+			sourceTree = "<group>";
+		};
+		F8FA7DCD1FBCA62800258C01 /* TabbarController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TabbarController;
+			sourceTree = "<group>";
+		};
+		F8FA7DCE1FBCABB600258C01 /* Unclassified */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DCF1FBCABB600258C01 /* Controller */,
+				F8FA7DD01FBCABB600258C01 /* Model */,
+				F8FA7DD11FBCABB600258C01 /* View */,
+			);
+			path = Unclassified;
+			sourceTree = "<group>";
+		};
+		F8FA7DCF1FBCABB600258C01 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8FA7DD01FBCABB600258C01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
+				F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8FA7DD11FBCABB600258C01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F8FA7DD21FBCABB600258C01 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				F8FA7DD31FBCABB600258C01 /* Controller */,
+				F8FA7DD41FBCABB600258C01 /* Model */,
+				F8FA7DD51FBCABB600258C01 /* View */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		F8FA7DD31FBCABB600258C01 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8FA7DD41FBCABB600258C01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F849AA631DED8E5000810833 /* WBUserAccountModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8FA7DD51FBCABB600258C01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,21 +791,31 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-weiBo/Pods-weiBo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -626,7 +885,6 @@
 		F8ED11271DE7151600ED5AA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -677,7 +935,6 @@
 		F8ED11281DE7151600ED5AA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -722,7 +979,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21ED7276F9C3C5200691EC62 /* Pods-weiBo.debug.xcconfig */;
 			buildSettings = {
-
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 8QAM996SBN;
@@ -739,7 +995,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB84290A49061CCBE0A9BCD5 /* Pods-weiBo.release.xcconfig */;
 			buildSettings = {
-
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 8QAM996SBN;

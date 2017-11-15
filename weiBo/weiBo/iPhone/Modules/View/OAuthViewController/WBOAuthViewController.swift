@@ -94,6 +94,6 @@ extension WBOAuthViewController: UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        webView.stringByEvaluatingJavaScript(from: "document.getElementById('userId').value = '627515277@qq.com'; document.getElementById('passwd').value = 'Wx27ueBPv8srIc';")
+        webView.stringByEvaluatingJavaScript(from: "document.getElementById('userId').value = '627515277@qq.com'")
     }
 }
