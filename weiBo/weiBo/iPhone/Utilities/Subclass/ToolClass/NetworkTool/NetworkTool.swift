@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import Alamofire
 
 class NetworkTool: AFHTTPSessionManager {
     static let shared = { () -> NetworkTool in
@@ -15,6 +16,7 @@ class NetworkTool: AFHTTPSessionManager {
         instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
         return instance
     }()
+    
     
     func GET(URLString: String, parameters: Any?,
                          success: @escaping (_ responseObject: Any?)->(),

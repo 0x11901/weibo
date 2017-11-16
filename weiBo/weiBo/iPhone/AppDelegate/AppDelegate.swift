@@ -7,29 +7,18 @@
 //
 
 import UIKit
-import SnapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        window = UIWindow()
         
-        let root = WBRootViewController()
-        
-        window?.rootViewController = root
-        window?.makeKeyAndVisible()
-
-        UITabBar.appearance().tintColor = globalColor
-        UINavigationBar.appearance().tintColor = globalColor
-        
-        print(NSHomeDirectory())
+        //初始化 window
+        initWindow()
         
         return true
     }
     
 }
-
