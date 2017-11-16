@@ -10,17 +10,56 @@ import UIKit
 import AFNetworking
 import Alamofire
 
+
 class NetworkTool: AFHTTPSessionManager {
+    
     static let shared = { () -> NetworkTool in
         let instance = NetworkTool(baseURL: nil)
         instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
         return instance
     }()
     
+    static let alamofire = { () -> NetworkTool in
+        let instance = NetworkTool(baseURL: nil)
+        return instance
+    }()
+    
+    //    '`URL` cannot be formed with the string (for example, if the string contains characters that are illegal in a URL, or is an empty string).'
+    
+    struct NetworkToolError: Error {
+        enum ErrorKind {
+            case invalidURLString
+        }
+        
+        let kind: ErrorKind
+        
+    }
+    
+    func getss(URLString: String,
+             parameters: [String: Any]?,
+             success: @escaping (_ responseObject: Any?)->(),
+             failure: @escaping (_ error: Error) -> ()) {
+        guard let url = URL(string: URLString) else {
+            let error: Error = NetworkToolError(kind: .invalidURLString)
+            failure(error)
+            return
+        }
+        
+
+        
+        Alamofire.request(url, method: .get, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            switch response.result {
+            case .success(_):
+                success(response)
+            case .failure(let e):
+                failure(e)
+            }
+        }
+    }
     
     func GET(URLString: String, parameters: Any?,
-                         success: @escaping (_ responseObject: Any?)->(),
-                         failure: @escaping (_ error: Error) -> ()) {
+             success: @escaping (_ responseObject: Any?)->(),
+             failure: @escaping (_ error: Error) -> ()) {
         let success = {
             (task: URLSessionDataTask, response: Any?) in
             success(response)
@@ -35,8 +74,8 @@ class NetworkTool: AFHTTPSessionManager {
     }
     
     func POST(URLString: String, parameters: Any?,
-                          success: @escaping (_ responseObject: Any?)->(),
-                          failure: @escaping (_ error: Error) -> ()) {
+              success: @escaping (_ responseObject: Any?)->(),
+              failure: @escaping (_ error: Error) -> ()) {
         let success = {
             (task: URLSessionDataTask, response: Any?) in
             success(response)
