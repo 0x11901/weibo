@@ -15,13 +15,29 @@ extension NetworkTool {
                           "grant_type": "authorization_code",
                           "code": code,
                           "redirect_uri": redirectURI]
-        
+
         self.POST(URLString: "https://api.weibo.com/oauth2/access_token", parameters: parameters, success: { (response) in
             success(response)
         }, failure: { (error) in
             failure(error)
         })
     }
+    
+//    @discardableResult
+//    public func requestForAccessToken(code: String) -> Cancellable? {
+//        let parameters = ["client_id": appKey,
+//                                                    "client_secret": appSecrect,
+//                                  "grant_type": "authorization_code",
+//                                  "code": code,
+//                                  "redirect_uri": redirectURI]
+        //
+        //        self.POST(URLString: "https://api.weibo.com/oauth2/access_token", parameters: parameters, success: { (response) in
+        //            success(response)
+        //        }, failure: { (error) in
+        //            failure(error)
+        //        })
+
+//    }
     
     public func requestForUserInfo(parameters: [String : Any],success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
  

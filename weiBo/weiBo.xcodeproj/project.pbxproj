@@ -25,7 +25,6 @@
 		F826FD4F1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826FD4E1DE9B86D002F90C2 /* UIImageView+WJKAddition.swift */; };
 		F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82780901DF1B3680093A1A7 /* WBStatusListViewModel.swift */; };
 		F83126011FBD835100BC8E82 /* weiBoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83126001FBD835100BC8E82 /* weiBoTests.swift */; };
-		F83126091FBD882D00BC8E82 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83126081FBD882D00BC8E82 /* Test.swift */; };
 		F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */; };
 		F849AA641DED8E5000810833 /* WBVisitorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA611DED8E5000810833 /* WBVisitorModel.swift */; };
 		F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA631DED8E5000810833 /* WBUserAccountModel.swift */; };
@@ -39,7 +38,7 @@
 		F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */; };
 		F8B3C4461DF2FD05005C7434 /* WBComposeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */; };
 		F8C17A381DF8217F0039F43B /* NetworkTool+request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */; };
-		F8C17A391DF8217F0039F43B /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A371DF8217F0039F43B /* NetworkTool.swift */; };
+		F8C17A391DF8217F0039F43B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A371DF8217F0039F43B /* NetworkManager.swift */; };
 		F8C17A3B1DF821BE0039F43B /* AXLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A3A1DF821BE0039F43B /* AXLabel.swift */; };
 		F8C17A3E1DF826C70039F43B /* SqliteManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C17A3D1DF826C70039F43B /* SqliteManger.swift */; };
 		F8E012661DF57F760036DD4D /* WBComposeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E012651DF57F760036DD4D /* WBComposeCell.swift */; };
@@ -95,7 +94,6 @@
 		F83125FE1FBD835100BC8E82 /* weiBoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weiBoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F83126001FBD835100BC8E82 /* weiBoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weiBoTests.swift; sourceTree = "<group>"; };
 		F83126021FBD835100BC8E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F83126081FBD882D00BC8E82 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBOAuthViewController.swift; sourceTree = "<group>"; };
 		F849AA611DED8E5000810833 /* WBVisitorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBVisitorModel.swift; sourceTree = "<group>"; };
 		F849AA631DED8E5000810833 /* WBUserAccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBUserAccountModel.swift; sourceTree = "<group>"; };
@@ -109,7 +107,7 @@
 		F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoViewer.swift; sourceTree = "<group>"; };
 		F8B3C4451DF2FD05005C7434 /* WBComposeTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeTextView.swift; sourceTree = "<group>"; };
 		F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkTool+request.swift"; sourceTree = "<group>"; };
-		F8C17A371DF8217F0039F43B /* NetworkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
+		F8C17A371DF8217F0039F43B /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F8C17A3A1DF821BE0039F43B /* AXLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AXLabel.swift; sourceTree = "<group>"; };
 		F8C17A3D1DF826C70039F43B /* SqliteManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteManger.swift; sourceTree = "<group>"; };
 		F8E012651DF57F760036DD4D /* WBComposeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBComposeCell.swift; sourceTree = "<group>"; };
@@ -247,8 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */,
-				F8C17A371DF8217F0039F43B /* NetworkTool.swift */,
-				F83126081FBD882D00BC8E82 /* Test.swift */,
+				F8C17A371DF8217F0039F43B /* NetworkManager.swift */,
 			);
 			path = NetworkTool;
 			sourceTree = "<group>";
@@ -909,12 +906,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8C17A391DF8217F0039F43B /* NetworkTool.swift in Sources */,
+				F8C17A391DF8217F0039F43B /* NetworkManager.swift in Sources */,
 				F807704D1DF6E81700CA7CC7 /* WBEmotionTool.swift in Sources */,
 				F8E621181DE723170062E2EB /* WBBaseViewController.swift in Sources */,
 				F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */,
 				F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */,
-				F83126091FBD882D00BC8E82 /* Test.swift in Sources */,
 				F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */,
 				F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */,
 				F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */,

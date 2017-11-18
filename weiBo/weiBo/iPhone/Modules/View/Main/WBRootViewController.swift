@@ -9,6 +9,8 @@
 import UIKit
 
 class WBRootViewController: UITabBarController {
+    
+    /// 发布微博按钮
     fileprivate lazy var composeButton: UIButton = UIButton(title: nil,image: "tabbar_compose_icon_add", bgImage: "tabbar_compose_button", target: self, action: #selector(pushCompose))
     fileprivate lazy var newFeatureView: WBNewFeatureView = WBNewFeatureView()
     fileprivate lazy var welcomeView: WBWelcomeView = WBWelcomeView()
