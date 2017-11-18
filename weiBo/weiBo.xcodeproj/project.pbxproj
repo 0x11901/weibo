@@ -245,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */,
-				F8C17A371DF8217F0039F43B /* NetworkManager.swift */,
 			);
 			path = NetworkTool;
 			sourceTree = "<group>";
@@ -437,6 +436,7 @@
 		F8FA7DB41FBCA62800258C01 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				F8C17A371DF8217F0039F43B /* NetworkManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
