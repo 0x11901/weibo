@@ -96,7 +96,7 @@ extension WBVisitorView {
     
     fileprivate func addAnimation() {
         let animation = CABasicAnimation(keyPath: "transform.rotation")
-        animation.toValue = M_PI * 2
+        animation.toValue = Double.pi * 2
         animation.duration = 15
         animation.repeatCount = MAXFLOAT
         animation.isRemovedOnCompletion = false

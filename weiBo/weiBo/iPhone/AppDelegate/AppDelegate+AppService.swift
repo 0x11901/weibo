@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import XCGLogger
 
 extension AppDelegate {
     
@@ -19,6 +20,15 @@ extension AppDelegate {
         
         UITabBar.appearance().tintColor = globalColor
         UINavigationBar.appearance().tintColor = globalColor
+        
+        if #available(iOS 11.0, *) {
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
+        }
+    }
+    
+    /// 初始化XCGLogger对象，并进行设置
+    internal func initLogger(logger: XCGLogger) {
+        logger.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: "path/to/file", fileLevel: .debug)
     }
     
 }

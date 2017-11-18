@@ -7,18 +7,10 @@
 //
 
 import UIKit
+import HandyJSON
 
-class WBVisitorModel: NSObject {
-    var imageName: String? = nil
-    var message: String? = nil
+struct WBVisitorModel: HandyJSON {
+    var imageName: String?
+    var message: String?
     var isAnima: Bool = false
-    
-    init(dictionary: [String : Any]) {
-        super.init()
-        setValuesForKeys(dictionary)
-    }
-    
-    override func setValue(_ value: Any?, forUndefinedKey key: String) {
-        print(key)
-    }
 }

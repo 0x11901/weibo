@@ -8,10 +8,13 @@
 
 import UIKit
 
+
 class WBOAuthViewController: UIViewController {
     lazy var leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancel))
     lazy var webView: UIWebView = {
         let webView = UIWebView(frame: self.view.bounds)
+        webView.scrollView.bounces = false
+        webView.scrollView.backgroundColor = UIColor.colorWithHex(hex: 0xEBEDEF)
         webView.delegate = self
         return webView
     }()
@@ -36,6 +39,7 @@ extension WBOAuthViewController {
     func setupUI() {
         navigationItem.leftBarButtonItem = leftBarButtonItem
         view.addSubview(webView)
+       
         
         let urlStr = "https://api.weibo.com/oauth2/authorize?client_id=\(appKey)&redirect_uri=\(redirectURI)"
         if let url = URL(string: urlStr) {
@@ -56,8 +60,8 @@ extension WBOAuthViewController: UIWebViewDelegate {
             if url.hasPrefix(redirectURI) {
                 if let query = request.url?.query {
                     if query.hasPrefix("code=") {
-                        let code = query.substring(from: "code=".endIndex)
-                        NetworkTool.shared.requestForAccessToken(code: code, success: { (obj) in
+                        let code = query["code=".endIndex...]
+                        NetworkTool.shared.requestForAccessToken(code: String(code), success: { (obj) in
                             guard let dictionary = obj as? [String : Any], let access_token = dictionary["access_token"],let uid = dictionary["uid"] else{
                                 print("没有获得正确的access_token信息")
                                 self.cancel()

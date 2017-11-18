@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import HandyJSON
 
 class WBRootViewController: UITabBarController {
     
     /// 发布微博按钮
     fileprivate lazy var composeButton: UIButton = UIButton(title: nil,image: "tabbar_compose_icon_add", bgImage: "tabbar_compose_button", target: self, action: #selector(pushCompose))
+    
+    /// 新特性界面
     fileprivate lazy var newFeatureView: WBNewFeatureView = WBNewFeatureView()
+    
+    /// 欢迎界面
     fileprivate lazy var welcomeView: WBWelcomeView = WBWelcomeView()
     
     override func viewDidLoad() {
@@ -80,11 +85,12 @@ extension WBRootViewController {
             }
             
             if let dictionary = dictionary {
-                let model = WBVisitorModel(dictionary: dictionary)
-                if isAnimation == true {
-                    model.isAnima = true
+                if var model = WBVisitorModel.deserialize(from: dictionary) {
+                    if isAnimation == true {
+                        model.isAnima = true
+                    }
+                    controller.model = model
                 }
-                controller.model = model
             }
             
             addChildViewController(UINavigationController(rootViewController: controller))
@@ -95,7 +101,6 @@ extension WBRootViewController {
     fileprivate func addComposeButton() {
         tabBar.addSubview(composeButton)
         composeButton.center = CGPoint(x: tabBar.center.x, y: tabBar.bounds.size.height * 0.5)
-//        composeButton.sizeToFit()
         let frame = tabBar.bounds
         composeButton.frame = frame.insetBy(dx: screenWidth/5 * 2 - 1, dy: 5)
     }
@@ -105,8 +110,15 @@ extension WBRootViewController {
 // MARK: - 响应事件
 extension WBRootViewController {
     @objc fileprivate func pushCompose() {
-        let composeController = WBComposeViewController()
-        let composeNav = UINavigationController(rootViewController: composeController)
-        present(composeNav, animated: true, completion: nil)
+        //判断是否登陆，如果已经登陆，那么跳入发布页面，反正跳入登陆页面
+        if WBUserAccountModel.shared.isLogin {
+            let composeController = WBComposeViewController()
+            let composeNav = UINavigationController(rootViewController: composeController)
+            present(composeNav, animated: true, completion: nil)
+        }else{
+            let web = WBOAuthViewController()
+            let navi = UINavigationController(rootViewController: web)
+            present(navi, animated: true, completion: nil)
+        }
     }
 }
