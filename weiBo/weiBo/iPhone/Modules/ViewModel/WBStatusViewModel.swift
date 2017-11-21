@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+
 
 class WBStatusViewModel: NSObject {
     var status: WBStatusModel

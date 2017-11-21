@@ -9,7 +9,6 @@ target 'weiBo' do
     pod 'AFNetworking', :inhibit_warnings => true
     pod 'MJRefresh'
     pod 'YYModel', :inhibit_warnings => true
-    pod 'SDWebImage', '~> 3.8.2', :inhibit_warnings => true
     pod 'SVProgressHUD', :inhibit_warnings => true
     pod 'FMDB'
     

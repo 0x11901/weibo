@@ -11,7 +11,7 @@ import UIKit
 class WBWelcomeView: UIView {
     fileprivate lazy var iconView: UIImageView = {
         let icon = UIImageView()
-        icon.wjk_setImageWith(urlStr: WBUserAccountModel.shared.avatar_large!, placeHolderName: "avatar_default_big")
+        icon.setImage(urlStr: WBUserAccountModel.shared.avatar_large!, placeHolderName: "avatar_default_big")
         return icon
     }()
     

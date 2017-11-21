@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 extension UIImageView {
     
@@ -21,13 +21,14 @@ extension UIImageView {
 }
 
 extension UIImageView {
-    public func wjk_setImageWith(urlStr: String, placeHolderName: String?) {
-        if let url = URL(string: urlStr) {
-            if let placeHolder = placeHolderName {
-                sd_setImage(with: url, placeholderImage: UIImage(named: placeHolder))
-            } else {
-                sd_setImage(with: url)
-            }
+    public func setImage(urlStr: String, placeHolderName: String?) {
+        guard let url = URL(string: urlStr) else {
+            return
+        }
+        if let name = placeHolderName,let placeHolder = UIImage(named: name) {
+            self.kf.setImage(with: url, placeholder: placeHolder)
+        }else{
+            self.kf.setImage(with: url)
         }
     }
 }

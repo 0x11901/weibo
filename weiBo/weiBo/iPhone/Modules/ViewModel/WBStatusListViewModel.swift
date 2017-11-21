@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 class WBStatusListViewModel: NSObject {
     lazy var dataSource: [WBStatusViewModel] = []
@@ -22,8 +22,14 @@ class WBStatusListViewModel: NSObject {
         }else{
             maxId = (dataSource.last?.status.id)!
         }
-        NetworkTool.shared.requestForHomeStatus(sinceId: sinceId,maxId: maxId,success: { (response) in
-            guard let dictionary = response as? [String : Any],let json = dictionary["statuses"] else{
+        NetworkManager.shared.requestForHomeStatus(sinceId: sinceId, maxId: maxId) { (obj) in
+            guard let dictionary = obj else {
+                console.debug("request for home status error!")
+                callBack(false)
+                return
+            }
+            
+            guard let json = dictionary["statuses"] else{
                 print("获取json错误")
                 return
             }
@@ -50,7 +56,7 @@ class WBStatusListViewModel: NSObject {
                         print("第一张图url有误")
                         return
                     }
-                    SDWebImageManager.shared().downloadImage(with: ulrT, options: [], progress: nil, completed: { (downloadImage, err, _, _, _) in
+                    ImageDownloader.default.downloadImage(with: ulrT,completionHandler: { (downloadImage, err, _, _) in
                         guard err == nil ,var size = downloadImage?.size else{
                             print("第一张图下载有误")
                             
@@ -76,11 +82,7 @@ class WBStatusListViewModel: NSObject {
             group.notify(queue: DispatchQueue.main) {
                 callBack(true)
             }
-            
-        }, failure: {
-            (err: Error) in
-            print(err)
-            callBack(false)
-        })
+        }
+   
     }
 }

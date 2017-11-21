@@ -31,22 +31,22 @@ extension NetworkManager {
         })
     }
     
-}
-
-extension NetworkTool {
-    
-    public func requestForHomeStatus(sinceId: Int = 0,maxId: Int = 0,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
+    @discardableResult
+    public func requestForHomeStatus(sinceId: Int = 0,maxId: Int = 0,networkCompletionHandler: @escaping ([String : Any]?)-> Void) -> Cancellable? {
         if let access_token = WBUserAccountModel.shared.access_token {
             let parameters = ["access_token": access_token,
                               "since_id": NSNumber(value: sinceId),
                               "max_id": NSNumber(value: maxId)] as [String : Any]
-            self.GET(URLString: "https://api.weibo.com/2/statuses/home_timeline.json", parameters: parameters, success:{ (response) in
-                success(response)
-            }, failure: { (error) in
-                failure(error)
+            self.get(url: "https://api.weibo.com/2/statuses/home_timeline.json", parameters: parameters, networkCompletionHandler: {
+                networkCompletionHandler($0.value as? [String : Any])
             })
         }
+        return nil
     }
+    
+}
+
+extension NetworkTool {
     
     public func postStatus(status: String,image: UIImage? = nil,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
         if let access_token = WBUserAccountModel.shared.access_token {

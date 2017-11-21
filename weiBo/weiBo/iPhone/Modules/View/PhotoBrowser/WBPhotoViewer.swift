@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 class WBPhotoViewer: UIViewController {
     let index: Int
@@ -39,7 +39,13 @@ class WBPhotoViewer: UIViewController {
     }
     
     func downLoadImage() {
-        SDWebImageManager.shared().downloadImage(with: URL(string: url), options: [], progress: nil) { (downloadImage, err, _, _, _) in
+        
+        guard let url = URL(string: self.url) else {
+            console.debug("download error")
+            return
+        }
+        
+        ImageDownloader.default.downloadImage(with: url) { (downloadImage, err, _, _) in
             if (err != nil) {
                 print(err!)
                 return
@@ -54,6 +60,7 @@ class WBPhotoViewer: UIViewController {
                 self.imageView.center = self.view.center
             }
         }
+
     }
 
     

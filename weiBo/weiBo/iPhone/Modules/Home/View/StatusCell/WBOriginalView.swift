@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 class WBOriginalView: UIView {
     var status: WBStatusViewModel?{
@@ -33,12 +33,16 @@ class WBOriginalView: UIView {
             }
             
 
-            let url = URL(string: iconSring)
-            SDWebImageManager.shared().downloadImage(with: url, options: [], progress: nil) { (downloadImage, err, _, _, _) in
+            guard let url = URL(string: iconSring) else {
+                console.debug("download image error")
+                return
+            }
+            ImageDownloader.default.downloadImage(with: url) { (downloadImage, err, _, _) in
                 downloadImage?.createCornerImage(size: CGSize(width: 35, height: 35), callBack: { (image) in
                     self.iconImageView.image = image
                 })
             }
+  
             userNameLabel.text = model.status.user?.screen_name
             levelIcon.image = model.verifiedLevel
             vipIcon.image = model.verifiedType

@@ -42,7 +42,7 @@ class WBPictureView: UIView {
                     if obj.tag == tag {
                         let imageV = obj as! UIImageView
                         imageV.isHidden = false
-                        imageV.wjk_setImageWith(urlStr: urlStr, placeHolderName: "avatar_default_big")
+                        imageV.setImage(urlStr: urlStr, placeHolderName: "avatar_default_big")
                     }
                 }
             }

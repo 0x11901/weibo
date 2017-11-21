@@ -24,6 +24,8 @@ class NetworkManager {
     
     static let shared = { () -> NetworkManager in
         let instance = NetworkManager()
+//        instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
+        
         return instance
     }()
     
@@ -150,9 +152,6 @@ extension NetworkManager {
     
 }
 
-
-
-
 import AFNetworking
 class NetworkTool: AFHTTPSessionManager {
     
@@ -161,19 +160,6 @@ class NetworkTool: AFHTTPSessionManager {
         instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
         return instance
     }()
-    
-    
-    //    '`URL` cannot be formed with the string (for example, if the string contains characters that are illegal in a URL, or is an empty string).'
-    
-    struct NetworkToolError: Error {
-        enum ErrorKind {
-            case invalidURLString
-        }
-        
-        let kind: ErrorKind
-        
-    }
-
     
     func GET(URLString: String, parameters: Any?,
              success: @escaping (_ responseObject: Any?)->(),

@@ -225,7 +225,6 @@
 			children = (
 				F8C17A331DF8217F0039F43B /* Label */,
 				F8C17A3C1DF826B00039F43B /* SQLite */,
-				F8C17A341DF8217F0039F43B /* ToolClass */,
 			);
 			path = Subclass;
 			sourceTree = "<group>";
@@ -236,21 +235,6 @@
 				F8C17A3A1DF821BE0039F43B /* AXLabel.swift */,
 			);
 			path = Label;
-			sourceTree = "<group>";
-		};
-		F8C17A341DF8217F0039F43B /* ToolClass */ = {
-			isa = PBXGroup;
-			children = (
-				F8C17A351DF8217F0039F43B /* NetworkTool */,
-			);
-			path = ToolClass;
-			sourceTree = "<group>";
-		};
-		F8C17A351DF8217F0039F43B /* NetworkTool */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NetworkTool;
 			sourceTree = "<group>";
 		};
 		F8C17A3C1DF826B00039F43B /* SQLite */ = {
@@ -864,7 +848,6 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
@@ -879,7 +862,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
