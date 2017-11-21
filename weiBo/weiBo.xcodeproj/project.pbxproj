@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1F1497AE640661F985E41F8 /* Pods_weiBo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */; };
+		F800438B1FC4288D00E8244D /* WBRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F800438A1FC4288D00E8244D /* WBRegisterViewController.swift */; };
 		F80770491DF6D7AF00CA7CC7 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80770481DF6D7AF00CA7CC7 /* String+Emoji.swift */; };
 		F807704B1DF6E72900CA7CC7 /* WBEmotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */; };
 		F807704D1DF6E81700CA7CC7 /* WBEmotionTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807704C1DF6E81700CA7CC7 /* WBEmotionTool.swift */; };
@@ -76,6 +77,7 @@
 		21ED7276F9C3C5200691EC62 /* Pods-weiBo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.debug.xcconfig"; sourceTree = "<group>"; };
 		DB84290A49061CCBE0A9BCD5 /* Pods-weiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-weiBo/Pods-weiBo.release.xcconfig"; sourceTree = "<group>"; };
 		F7D9F20F8982332D266995D1 /* Pods_weiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F800438A1FC4288D00E8244D /* WBRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBRegisterViewController.swift; sourceTree = "<group>"; };
 		F80770481DF6D7AF00CA7CC7 /* String+Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
 		F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionModel.swift; sourceTree = "<group>"; };
 		F807704C1DF6E81700CA7CC7 /* WBEmotionTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBEmotionTool.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				F8496AB71DE9DE4700F2FDA5 /* WBOAuthViewController.swift */,
+				F800438A1FC4288D00E8244D /* WBRegisterViewController.swift */,
 			);
 			path = OAuthViewController;
 			sourceTree = "<group>";
@@ -908,6 +911,7 @@
 				F826FD4B1DE99EA7002F90C2 /* UIButton+WJKAddition.swift in Sources */,
 				F81B92481DEB17D200110999 /* WBWelcomeView.swift in Sources */,
 				F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */,
+				F800438B1FC4288D00E8244D /* WBRegisterViewController.swift in Sources */,
 				F849AA651DED8E5000810833 /* WBUserAccountModel.swift in Sources */,
 				F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */,
 				F8C17A381DF8217F0039F43B /* NetworkTool+request.swift in Sources */,

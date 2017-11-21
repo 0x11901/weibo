@@ -10,6 +10,7 @@ import UIKit
 
 protocol WBVisitorViewDelegate {
     func didClickedLogin()
+    func didClickedRegister()
 }
 
 class WBVisitorView: UIView {
@@ -112,6 +113,6 @@ extension WBVisitorView {
     }
     
     @objc fileprivate func registerAction() {
-        print("hello world")
+        delegate?.didClickedRegister()
     }
 }

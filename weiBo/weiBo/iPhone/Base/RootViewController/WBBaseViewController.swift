@@ -122,5 +122,11 @@ extension WBBaseViewController: WBVisitorViewDelegate {
         let navi = UINavigationController(rootViewController: web)
         present(navi, animated: true, completion: nil)
     }
+    
+    func didClickedRegister() {
+        let web = WBRegisterViewController()
+        let navi = UINavigationController(rootViewController: web)
+        present(navi, animated: true, completion: nil)
+    }
 }
 
