@@ -39,7 +39,7 @@ extension WBOAuthViewController {
     func setupUI() {
         navigationItem.leftBarButtonItem = leftBarButtonItem
         view.addSubview(webView)
-       
+        
         
         let urlStr = "https://api.weibo.com/oauth2/authorize?client_id=\(appKey)&redirect_uri=\(redirectURI)"
         if let url = URL(string: urlStr) {
@@ -60,33 +60,34 @@ extension WBOAuthViewController: UIWebViewDelegate {
             if url.hasPrefix(redirectURI) {
                 if let query = request.url?.query {
                     if query.hasPrefix("code=") {
-                        let code = query["code=".endIndex...]
-                        NetworkTool.shared.requestForAccessToken(code: String(code), success: { (obj) in
-                            guard let dictionary = obj as? [String : Any], let access_token = dictionary["access_token"],let uid = dictionary["uid"] else{
-                                print("没有获得正确的access_token信息")
+                        let code = String(query["code=".endIndex...])
+                        
+                        
+                        NetworkManager.shared.requestForAccessToken(code: code, networkCompletionHandler: { (obj) in
+                            guard let dictionary = obj, let access_token = dictionary["access_token"],let uid = dictionary["uid"] else {
+                                console.debug("没有获得正确的access_token信息")
                                 self.cancel()
                                 return
                             }
                             let parameters = ["access_token": access_token,"uid": uid]
-                            NetworkTool.shared.requestForUserInfo(parameters: parameters, success: { (obj) in
-                                guard var responseObject: [String : Any] = obj as? [String : Any] else{
-                                    print("没有获得正确的userAccount信息")
+                            NetworkManager.shared.requestForUserInfo(parameters: parameters, networkCompletionHandler: { (obj) in
+                                guard var responseObject = obj else {
+                                    console.debug("没有获得正确的userAccount信息")
                                     self.cancel()
                                     return
                                 }
+                                
                                 for (key,value) in dictionary {
                                     responseObject[key] = value
                                 }
                                 
+                                
                                 WBUserAccountModel.shared.saveAccount(dictionary: responseObject)
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: loginSuccess), object: self)
-                            }, failure: { (err) in
-                                print(err)
                             })
-                        }, failure: { (err) in
-                            print(err)
                         })
-                        cancel()
+                        
+                        //cancel()
                     }else{
                         cancel()
                     }

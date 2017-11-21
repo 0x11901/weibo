@@ -7,46 +7,33 @@
 //
 
 import UIKit
+import Alamofire
 
-extension NetworkTool {
-    public func requestForAccessToken(code: String,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
+extension NetworkManager {
+    
+    @discardableResult
+    public func requestForAccessToken(code: String,networkCompletionHandler: @escaping ([String : Any]?)-> Void ) -> Cancellable? {
         let parameters = ["client_id": appKey,
                           "client_secret": appSecrect,
                           "grant_type": "authorization_code",
                           "code": code,
                           "redirect_uri": redirectURI]
-
-        self.POST(URLString: "https://api.weibo.com/oauth2/access_token", parameters: parameters, success: { (response) in
-            success(response)
-        }, failure: { (error) in
-            failure(error)
+        return self.post(url: "https://api.weibo.com/oauth2/access_token", parameters: parameters, networkCompletionHandler:{
+            networkCompletionHandler($0.value as? [String : Any])
         })
     }
     
-//    @discardableResult
-//    public func requestForAccessToken(code: String) -> Cancellable? {
-//        let parameters = ["client_id": appKey,
-//                                                    "client_secret": appSecrect,
-//                                  "grant_type": "authorization_code",
-//                                  "code": code,
-//                                  "redirect_uri": redirectURI]
-        //
-        //        self.POST(URLString: "https://api.weibo.com/oauth2/access_token", parameters: parameters, success: { (response) in
-        //            success(response)
-        //        }, failure: { (error) in
-        //            failure(error)
-        //        })
-
-//    }
-    
-    public func requestForUserInfo(parameters: [String : Any],success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
- 
-        self.GET(URLString: "https://api.weibo.com/2/users/show.json", parameters: parameters, success:{ (response) in
-            success(response)
-        }, failure: { (error) in
-            failure(error)
+    @discardableResult
+    public func requestForUserInfo(parameters: [String : Any],networkCompletionHandler: @escaping ([String : Any]?)-> Void) -> Cancellable? {
+        //接口升级后，对未授权本应用的uid，将无法获取其个人简介、认证原因、粉丝数、关注数、微博数及最近一条微博内容。
+        return self.get(url: "https://api.weibo.com/2/users/show.json", parameters: parameters, networkCompletionHandler: {
+            networkCompletionHandler($0.value as? [String : Any])
         })
     }
+    
+}
+
+extension NetworkTool {
     
     public func requestForHomeStatus(sinceId: Int = 0,maxId: Int = 0,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
         if let access_token = WBUserAccountModel.shared.access_token {

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import HandyJSON
 
-class WBUserAccountModel: NSObject {
+class WBUserAccountModel: HandyJSON {
     static let shared = WBUserAccountModel()
     
     var access_token: String?
@@ -25,8 +26,7 @@ class WBUserAccountModel: NSObject {
         return access_token != nil && expires_date?.compare(Date()) == .orderedDescending
     }
     
-    override init() {
-        super.init()
+    internal required init() {
         self.loadAccount()
     }
 
@@ -34,19 +34,19 @@ class WBUserAccountModel: NSObject {
 
 extension WBUserAccountModel {
     public func saveAccount (dictionary: [String : Any]) {
-        self.setValuesForKeys(dictionary)
-        let dict = dictionaryWithValues(forKeys: ["access_token","uid","screen_name","avatar_large","expires_date"])
-        UserDefaults.standard.set(dict, forKey: accountKey)
+
+//        let dict = dictionaryWithValues(forKeys: ["access_token","uid","screen_name","avatar_large","expires_date"])
+//        UserDefaults.standard.set(dict, forKey: accountKey)
     }
     
+    /// 从内存中读取模型
     fileprivate func loadAccount() {
         if let dictionary: [String : Any] = UserDefaults.standard.value(forKey: accountKey) as? [String : Any] {
-            self.setValuesForKeys(dictionary)
+//            self.setValuesForKeys(dictionary)
         }
     }
     
-    override func setValue(_ value: Any?, forUndefinedKey key: String) {
-    }
+
 }
 
 /*

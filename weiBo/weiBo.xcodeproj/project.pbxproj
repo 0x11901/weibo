@@ -246,7 +246,6 @@
 		F8C17A351DF8217F0039F43B /* NetworkTool */ = {
 			isa = PBXGroup;
 			children = (
-				F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */,
 			);
 			path = NetworkTool;
 			sourceTree = "<group>";
@@ -334,6 +333,7 @@
 				F8E621091DE723160062E2EB /* main.json */,
 				F8E6210B1DE723160062E2EB /* WBRootViewController.swift */,
 				F8E6210C1DE723160062E2EB /* WBVisitorView.swift */,
+				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -427,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				F8C17A371DF8217F0039F43B /* NetworkManager.swift */,
+				F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -662,7 +663,6 @@
 		F8FA7DD01FBCABB600258C01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
 				F807704A1DF6E72900CA7CC7 /* WBEmotionModel.swift */,
 			);
 			path = Model;
