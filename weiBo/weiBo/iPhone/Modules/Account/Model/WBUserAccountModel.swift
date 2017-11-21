@@ -7,26 +7,26 @@
 //
 
 import UIKit
-import HandyJSON
 
-class WBUserAccountModel: HandyJSON {
+class WBUserAccountModel: NSObject {
     static let shared = WBUserAccountModel()
     
-    var access_token: String?
-    var uid:String?
-    var screen_name: String?
-    var avatar_large:String?
-    var expires_in: Double = 0 {
+    @objc var access_token: String?
+    @objc var uid:String?
+    @objc var screen_name: String?
+    @objc var avatar_large:String?
+    @objc var expires_in: Double = 0 {
         didSet{
             expires_date = Date(timeInterval: expires_in, since: Date())
         }
     }
-    var expires_date: Date?
+    @objc var expires_date: Date?
     var isLogin: Bool {
         return access_token != nil && expires_date?.compare(Date()) == .orderedDescending
     }
     
-    internal required init() {
+    override init() {
+        super.init()
         self.loadAccount()
     }
 
@@ -34,18 +34,22 @@ class WBUserAccountModel: HandyJSON {
 
 extension WBUserAccountModel {
     public func saveAccount (dictionary: [String : Any]) {
-
-//        let dict = dictionaryWithValues(forKeys: ["access_token","uid","screen_name","avatar_large","expires_date"])
-//        UserDefaults.standard.set(dict, forKey: accountKey)
+        self.setValuesForKeys(dictionary)
+        let dict = dictionaryWithValues(forKeys: ["access_token","uid","screen_name","avatar_large","expires_date"])
+        UserDefaults.standard.set(dict, forKey: accountKey)
     }
     
     /// 从内存中读取模型
     fileprivate func loadAccount() {
         if let dictionary: [String : Any] = UserDefaults.standard.value(forKey: accountKey) as? [String : Any] {
-//            self.setValuesForKeys(dictionary)
+            self.setValuesForKeys(dictionary)
         }
     }
     
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
+        console.debug(key)
+        console.debug(value)
+    }
 
 }
 

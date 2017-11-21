@@ -62,7 +62,6 @@ extension WBOAuthViewController: UIWebViewDelegate {
                     if query.hasPrefix("code=") {
                         let code = String(query["code=".endIndex...])
                         
-                        
                         NetworkManager.shared.requestForAccessToken(code: code, networkCompletionHandler: { (obj) in
                             guard let dictionary = obj, let access_token = dictionary["access_token"],let uid = dictionary["uid"] else {
                                 console.debug("没有获得正确的access_token信息")
@@ -84,10 +83,12 @@ extension WBOAuthViewController: UIWebViewDelegate {
                                 
                                 WBUserAccountModel.shared.saveAccount(dictionary: responseObject)
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: loginSuccess), object: self)
+                                
+                                self.cancel()
+                                // TODO: 如果登陆失败的提示没做
                             })
                         })
                         
-                        //cancel()
                     }else{
                         cancel()
                     }
