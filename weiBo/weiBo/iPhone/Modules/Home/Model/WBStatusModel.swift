@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import YYModel
+import HandyJSON
 
-class WBStatusModel: NSObject {
+class WBStatusModel: HandyJSON {
     var created_at: String?
     var id: Int = 0
     var text: String?
@@ -18,11 +18,5 @@ class WBStatusModel: NSObject {
     var retweeted_status: WBStatusModel?
     var pic_urls: [WBPicUrlsModel]?
     
-    override var description: String{
-        return yy_modelDescription()
-    }
-    
-    class func modelContainerPropertyGenericClass () -> [String: Any] {
-        return ["pic_urls": WBPicUrlsModel.self]
-    }
+    required init() {}
 }

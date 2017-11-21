@@ -19,9 +19,6 @@ class WBStatusViewModel: NSObject {
     var rowHeight: CGFloat = 0
     var firstImageSize: CGSize = CGSize.zero
     var pic_urls: [WBPicUrlsModel]?
-    override var description: String{
-        return yy_modelDescription()
-    }
     
     init(status: WBStatusModel) {
         self.status = status

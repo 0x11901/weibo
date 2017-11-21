@@ -8,7 +8,6 @@ target 'weiBo' do
     # Pods for weiBo
     pod 'AFNetworking', :inhibit_warnings => true
     pod 'MJRefresh'
-    pod 'YYModel', :inhibit_warnings => true
     pod 'SVProgressHUD', :inhibit_warnings => true
     pod 'FMDB'
     

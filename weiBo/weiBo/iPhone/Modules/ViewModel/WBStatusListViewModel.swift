@@ -29,18 +29,18 @@ class WBStatusListViewModel: NSObject {
                 return
             }
             
-            guard let json = dictionary["statuses"] else{
-                print("获取json错误")
+            guard let json = dictionary["statuses"] as? [Any] else{
+                console.debug("获取json错误")
                 return
             }
             
-            guard let status = NSArray.yy_modelArray(with: WBStatusModel.self, json: json) else{
-                print("json转模型错误")
+            guard let status = [WBStatusModel].deserialize(from: json) else {
+                console.debug("json转模型错误")
                 return
             }
             
             guard let statues = status as? [WBStatusModel] else{
-                print("statues类型错误")
+                console.debug("statues类型错误")
                 return
             }
             
@@ -53,12 +53,12 @@ class WBStatusListViewModel: NSObject {
                 if let pic_urls = viewModel.pic_urls, pic_urls.count == 1 {
                     group.enter()
                     guard let url = pic_urls.first?.thumbnail_pic,let ulrT = URL(string: url) else {
-                        print("第一张图url有误")
+                        console.debug("第一张图url有误")
                         return
                     }
                     ImageDownloader.default.downloadImage(with: ulrT,completionHandler: { (downloadImage, err, _, _) in
                         guard err == nil ,var size = downloadImage?.size else{
-                            print("第一张图下载有误")
+                            console.debug("第一张图下载有误")
                             
                             return
                         }
