@@ -38,8 +38,7 @@ extension WBStatusCell {
         contentView.addSubview(toolView)
         
         originView.snp.makeConstraints { (make) in
-            make.top.equalTo(10)
-            make.leading.trailing.equalTo(contentView)
+            make.top.leading.trailing.equalTo(contentView)
         }
         
         retweetedView.snp.makeConstraints { (make) in

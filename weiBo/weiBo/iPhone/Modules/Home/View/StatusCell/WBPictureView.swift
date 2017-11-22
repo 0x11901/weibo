@@ -42,7 +42,12 @@ class WBPictureView: UIView {
                     if obj.tag == tag {
                         let imageV = obj as! UIImageView
                         imageV.isHidden = false
-                        imageV.setImage(urlStr: urlStr, placeHolderName: "avatar_default_big")
+                        imageV.setImage(urlStr: urlStr, placeHolderName: "avatar_default_big", completionHandler: { (image, _, _, _) in
+                            guard let urlStrMid = item.element.middle_pic else {
+                                return
+                            }
+                            imageV.setImage(urlStr: urlStrMid, placeHolderName: image)
+                        })
                     }
                 }
             }
@@ -85,19 +90,21 @@ extension WBPictureView {
     
     @objc fileprivate func imageAction(tap:UITapGestureRecognizer) {
         guard var index = tap.view?.tag,let picArr = viewModel?.pic_urls else{
-            print("image tag beyond bounds")
+            console.debug("image tag beyond bounds")
             return
         }
         if viewModel?.pic_urls?.count == 4,index > 2 {
             index -= 1
         }
         
-        let ocArr = picArr as NSArray
-        
-        if let urls = ocArr.value(forKeyPath: "middle_pic") as? [String]{
-            let userinfo:[AnyHashable : Any] = [indexKey : index,urlsKey : urls]
-            NotificationCenter.default.post(name: clickThumbImage, object: self, userInfo: userinfo)
+        //此处传出一个图片数组
+        var urls = [String?]()
+        for url in picArr {
+            urls.append(url.middle_pic)
         }
+        
+        let userinfo: [String : Any] = [indexKey : index,urlsKey : urls]
+        NotificationCenter.default.post(name: clickThumbImage, object: self, userInfo: userinfo)
         
     }
     

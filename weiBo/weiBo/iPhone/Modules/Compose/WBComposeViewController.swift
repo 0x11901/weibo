@@ -218,7 +218,7 @@ extension WBComposeViewController {
 extension WBComposeViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        rightBarButton.isEnabled = textView.text.characters.count > 0
+        rightBarButton.isEnabled = textView.text.count > 0
     }
 
 }

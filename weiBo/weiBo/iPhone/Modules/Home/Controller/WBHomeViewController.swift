@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class WBHomeViewController: WBBaseViewController {
     lazy var listViewModel = WBStatusListViewModel()
@@ -35,14 +36,21 @@ class WBHomeViewController: WBBaseViewController {
 // MARK: - 读取数据
 extension WBHomeViewController {
     fileprivate func loadStatus(isPull: Bool) {
-        listViewModel.loadDate(isPull: isPull) { (success) in
-            if success {
+        listViewModel.loadDate(isPull: isPull) { (isSuccess) in
+            if isSuccess {
                 if isPull {
                     self.header.endRefreshing()
                 }else{
                     self.footer.endRefreshing()
                 }
                 self.tableView.reloadData()
+            }else{
+                if isPull {
+                    self.header.endRefreshing()
+                }else{
+                    self.footer.endRefreshing()
+                }
+                SVProgressHUD.showError(withStatus: "加载失败")
             }
         }
     }
@@ -83,6 +91,7 @@ extension WBHomeViewController {
             let browser = WBPhotoBrowserViewController(index: index.intValue, images: urls)
             present(browser, animated: false, completion: nil)
         }
+        
     }
     
 }

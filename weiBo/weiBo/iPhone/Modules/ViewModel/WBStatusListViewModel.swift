@@ -31,16 +31,19 @@ class WBStatusListViewModel: NSObject {
             
             guard let json = dictionary["statuses"] as? [Any] else{
                 console.debug("获取json错误")
+                callBack(false)
                 return
             }
             
             guard let status = [WBStatusModel].deserialize(from: json) else {
                 console.debug("json转模型错误")
+                callBack(false)
                 return
             }
             
             guard let statues = status as? [WBStatusModel] else{
                 console.debug("statues类型错误")
+                callBack(false)
                 return
             }
             
@@ -70,17 +73,32 @@ class WBStatusListViewModel: NSObject {
                 }
             }
             
-            
-            if isPull {
-                self.dataSource = arrM + self.dataSource
-            }else{
-                self.dataSource.removeLast()
-                self.dataSource += arrM
-            }
+            var isCancel = false
             
             group.notify(queue: DispatchQueue.main) {
-                callBack(true)
+                if !isCancel {
+                    if isPull {
+                        self.dataSource = arrM + self.dataSource
+                    }else{
+                        self.dataSource.removeLast()
+                        self.dataSource += arrM
+                    }
+                    callBack(true)
+                }
             }
+            
+            // TODO: 如果网络请求失败，没做错误处理
+            DispatchQueue.global().async {
+                let result = group.wait(timeout: .now() + 30)
+                switch result {
+                case .timedOut:
+                    isCancel = true
+                    callBack(false)
+                default:
+                    do {}
+                }
+            }
+
         }
    
     }

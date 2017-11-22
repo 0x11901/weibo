@@ -87,7 +87,7 @@ public class AXLabel: UILabel {
     private let patterns = ["[a-zA-Z]*://[a-zA-Z0-9/\\.]*", "#.*?#", "@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*"]
     private func regexLinkRanges(_ attrString: NSAttributedString) {
         linkRanges.removeAll()
-        let regexRange = NSRange(location: 0, length: attrString.string.characters.count)
+        let regexRange = NSRange(location: 0, length: attrString.string.count)
         
         for pattern in patterns {
             let regex = try! NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.dotMatchesLineSeparators)

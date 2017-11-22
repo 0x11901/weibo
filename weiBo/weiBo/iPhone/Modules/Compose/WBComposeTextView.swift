@@ -62,7 +62,7 @@ extension WBComposeTextView {
 extension WBComposeTextView {
     
     @objc fileprivate func textDidChange() {
-        placeHolderLabel.isHidden = text.characters.count > 0
+        placeHolderLabel.isHidden = text.count > 0
     }
     
     @objc func insertEmotion(emotion: WBEmotionModel) {

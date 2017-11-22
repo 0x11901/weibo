@@ -21,14 +21,17 @@ extension UIImageView {
 }
 
 extension UIImageView {
-    public func setImage(urlStr: String, placeHolderName: String?) {
+    public func setImage(urlStr: String, placeHolderName: Any? = nil,completionHandler: CompletionHandler? = nil) {
         guard let url = URL(string: urlStr) else {
             return
         }
-        if let name = placeHolderName,let placeHolder = UIImage(named: name) {
-            self.kf.setImage(with: url, placeholder: placeHolder)
+        if let name = placeHolderName as? String,let placeHolder = UIImage(named: name) {
+            self.kf.setImage(with: url, placeholder: placeHolder, completionHandler: completionHandler)
+        }else if let placeHolder = placeHolderName as? Placeholder {
+            self.kf.setImage(with: url, placeholder: placeHolder, completionHandler: completionHandler)
         }else{
-            self.kf.setImage(with: url)
+            self.kf.setImage(with: url, completionHandler: completionHandler)
         }
+        
     }
 }

@@ -28,7 +28,7 @@ class WBRetweetedView: UIView {
             }
             
             textLabel.text = retweetedStatus?.retweetedString
-            guard let count = retweetedStatus?.retweetedString?.characters.count, count > 0 else {
+            guard let count = retweetedStatus?.retweetedString?.count, count > 0 else {
                 textLabel.snp.updateConstraints { (make) in
                     make.top.equalTo(self).offset(0)
                     make.bottom.equalTo(pictureView.snp.top).offset(0)
