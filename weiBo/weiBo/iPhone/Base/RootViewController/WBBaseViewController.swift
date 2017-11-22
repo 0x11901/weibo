@@ -82,11 +82,12 @@ extension WBBaseViewController {
 // MARK: - 响应事件
 extension WBBaseViewController {
     
-    @objc fileprivate func whenLoginIsSucess() {
+    @objc func whenLoginIsSucess() {
         if let visitorView = visitorView{
             visitorView.removeFromSuperview()
         }
         visitorView = nil
+        
     }
     
     @objc func headerRefresh() {

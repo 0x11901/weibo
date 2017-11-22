@@ -68,6 +68,11 @@ extension WBHomeViewController {
     override func footerRefresh() {
         loadStatus(isPull: false)
     }
+    
+    override func whenLoginIsSucess() {
+        super.whenLoginIsSucess()
+        self.loadStatus(isPull: true)
+    }
 }
 
 extension WBHomeViewController {

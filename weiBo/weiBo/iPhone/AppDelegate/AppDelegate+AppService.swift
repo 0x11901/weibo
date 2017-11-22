@@ -22,7 +22,7 @@ extension AppDelegate {
         UINavigationBar.appearance().tintColor = globalColor
         
         if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
+//            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         }
     }
     

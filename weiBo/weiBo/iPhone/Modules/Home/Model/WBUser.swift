@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import HandyJSON
 
-class WBUser: NSObject {
+struct WBUser: HandyJSON {
     var id: String?
     var screen_name: String?
     var verified_type: Int = -1

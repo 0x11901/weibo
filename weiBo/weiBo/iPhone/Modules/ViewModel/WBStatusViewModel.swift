@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class WBStatusViewModel: NSObject {
     var status: WBStatusModel
     var verifiedType: UIImage?
