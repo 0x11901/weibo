@@ -10,10 +10,10 @@ import UIKit
 import HandyJSON
 
 struct WBPicUrlsModel: HandyJSON {
-    var thumbnail_pic: String?{
-        didSet{
-            middle_pic = thumbnail_pic?.replacingOccurrences(of: "/thumbnail/", with: "/bmiddle/")
-        }
-    }
+    var thumbnail_pic: String?
     var middle_pic: String?
+    
+    mutating func didFinishMapping() {
+        middle_pic = thumbnail_pic?.replacingOccurrences(of: "/thumbnail/", with: "/bmiddle/")
+    }
 }

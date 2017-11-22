@@ -49,7 +49,7 @@ extension WBStatusViewModel {
     }
     
     fileprivate func dealWithRetweetedText() {
-        if let text = status.retweeted_status?.text,text.characters.count > 0,let userName = status.retweeted_status?.user?.screen_name {
+        if let text = status.retweeted_status?.text,text.count > 0,let userName = status.retweeted_status?.user?.screen_name {
             retweetedString = "@\(userName):\(text)"
         }
     }
@@ -84,9 +84,8 @@ extension WBStatusViewModel {
     }
     
     fileprivate func dealWithSource() {
-        if let count = (status.source?.characters.count),count > 0,let start = status.source?.range(of: "\">")?.upperBound,let end = status.source?.range(of: "</a>")?.lowerBound {
-            let range = start ..< end
-            sourceString = status.source?.substring(with: range)
+        if let count = (status.source?.count),count > 0,let start = status.source?.range(of: "\">")?.upperBound,let end = status.source?.range(of: "</a>")?.lowerBound, let str = status.source  {
+            sourceString = String(describing: str[start..<end])
         }
     }
 }

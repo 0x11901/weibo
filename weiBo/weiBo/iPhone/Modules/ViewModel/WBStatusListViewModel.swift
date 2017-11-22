@@ -59,7 +59,6 @@ class WBStatusListViewModel: NSObject {
                     ImageDownloader.default.downloadImage(with: ulrT,completionHandler: { (downloadImage, err, _, _) in
                         guard err == nil ,var size = downloadImage?.size else{
                             console.debug("第一张图下载有误")
-                            
                             return
                         }
                         size.height = size.height * 2
