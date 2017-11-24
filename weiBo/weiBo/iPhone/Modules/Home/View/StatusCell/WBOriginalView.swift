@@ -20,14 +20,14 @@ class WBOriginalView: UIView {
             if let pictures = status?.status.pic_urls, pictures.count > 0, let height = status?.rowHeight{
                 pictureView.snp.updateConstraints { (make) in
                     make.top.equalTo(textLabel.snp.bottom).offset(12)
-                    make.height.equalTo(height).priority(999)
+                    make.height.equalTo(height).priority(997)
                     make.width.equalTo(screenWidth - 24)
                 }
                 pictureView.viewModel = status
             }else{
                 pictureView.snp.updateConstraints { (make) in
                     make.top.equalTo(textLabel.snp.bottom).offset(0)
-                    make.height.equalTo(0).priority(999)
+                    make.height.equalTo(0).priority(997)
                     make.width.equalTo(0)
                 }
             }
@@ -90,7 +90,8 @@ extension WBOriginalView {
         
         iconImageView.snp.makeConstraints { (make) in
             make.leading.top.equalTo(12)
-            make.size.equalTo(CGSize(width: 35, height: 35))
+            make.height.equalTo(35).priority(999)
+            make.width.equalTo(35)
         }
         userNameLabel.snp.makeConstraints { (make) in
             make.top.equalTo(iconImageView)
@@ -122,7 +123,7 @@ extension WBOriginalView {
             make.top.equalTo(textLabel.snp.bottom).offset(12)
             make.leading.equalTo(self).offset(12)
             make.bottom.equalTo(self).offset(-12)
-            make.height.equalTo(screenWidth - 24).priority(999)
+            make.height.equalTo(screenWidth - 24).priority(997) //高
             make.width.equalTo(screenWidth - 24)
         }
     }

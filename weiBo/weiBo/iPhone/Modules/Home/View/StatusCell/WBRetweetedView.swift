@@ -14,7 +14,7 @@ class WBRetweetedView: UIView {
             if let pictures = retweetedStatus?.status.retweeted_status?.pic_urls, pictures.count > 0, let height = retweetedStatus?.rowHeight{
                 pictureView.snp.updateConstraints { (make) in
                     make.bottom.equalTo(self).offset(-12)
-                    make.height.equalTo(height).priority(999)
+                    make.height.equalTo(height).priority(998)
                     make.width.equalTo(screenWidth - 24)
                 }
                 pictureView.viewModel = retweetedStatus
@@ -22,7 +22,7 @@ class WBRetweetedView: UIView {
                 
                 pictureView.snp.updateConstraints { (make) in
                     make.bottom.equalTo(self).offset(0)
-                    make.height.equalTo(0).priority(999)
+                    make.height.equalTo(0).priority(998)
                     make.width.equalTo(0)
                 }
             }
@@ -69,7 +69,7 @@ extension WBRetweetedView {
         pictureView.snp.makeConstraints { (make) in
             make.leading.equalTo(self).offset(12)
             make.bottom.equalTo(self).offset(-12)
-            make.height.equalTo(screenWidth - 24).priority(999)
+            make.height.equalTo(screenWidth - 24).priority(998)
             make.width.equalTo(screenWidth - 24)
         }
     }

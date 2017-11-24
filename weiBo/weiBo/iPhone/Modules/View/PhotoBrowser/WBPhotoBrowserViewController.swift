@@ -28,10 +28,10 @@ class WBPhotoBrowserViewController {
     lazy var galleryViewController: GalleryViewController = {
         let galleryViewController = GalleryViewController(startIndex: index, itemsDataSource: self, itemsDelegate: self, displacedViewsDataSource: self, configuration: galleryConfiguration())
         
-//        galleryViewController.launchedCompletion = { print("LAUNCHED") }
-//        galleryViewController.closedCompletion = { print("CLOSED") }
-//        galleryViewController.swipedToDismissCompletion = { print("SWIPE-DISMISSED") }
-//        galleryViewController.landedPageAtIndexCompletion = { index in print("LANDED AT INDEX: \(index)") }
+        //        galleryViewController.launchedCompletion = { print("LAUNCHED") }
+        //        galleryViewController.closedCompletion = { print("CLOSED") }
+        //        galleryViewController.swipedToDismissCompletion = { print("SWIPE-DISMISSED") }
+        //        galleryViewController.landedPageAtIndexCompletion = { index in print("LANDED AT INDEX: \(index)") }
         
         return galleryViewController
     }()
@@ -42,26 +42,28 @@ class WBPhotoBrowserViewController {
         for element in images.enumerated() {
             let image = element.element
             let imageView = UIImageView()
-            imageView.setImage(urlStr: image, placeHolderName: "new_feature_4", progressBlock: { (r, t) in
-
-            }, completionHandler: { (image, _, _, _) in
-                print("")
-            })
+            imageView.setImage(urlStr: image)
             var galleryItem: GalleryItem!
-            if imageView.image == nil {
-                //下载图片并保存
-                guard let url = URL(string: image) else {
-                    return
-                }
-                ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: { (r, t) in
-                    print("\(r/t)")
-                }, completionHandler: { (image, _, _, _) in
-                    self.items[element.offset].imageView.image = image
+            if let imageRef = imageView.image {
+                galleryItem = GalleryItem.image{ $0(imageRef) }
+            }else{
+                galleryItem = GalleryItem.image(fetchImageBlock: { (imageCompletion) in
+                    guard let url = URL(string: image) else {
+                        imageCompletion(UIImage(named: "new_feature_4"))
+                        return
+                    }
+                    ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: { (r, t) in
+                        print("\(r/t)")
+                    }, completionHandler: { (image, error, _, _) in
+                        if error == nil {
+                            imageCompletion(image)
+                        }else{
+                            imageCompletion(UIImage(named: "new_feature_4"))
+                        }
+                    })
                 })
             }
-            let imageRef = imageView.image ?? UIImage(named: "new_feature_4")!
-
-            galleryItem = GalleryItem.image{$0(imageRef)}
+            
             
             items.append(DataItem(imageView: imageView, galleryItem: galleryItem))
             imageViews.append(imageView)
@@ -97,7 +99,7 @@ extension WBPhotoBrowserViewController {
             
             GalleryConfigurationItem.videoControlsColor(.white),
             
-            GalleryConfigurationItem.maximumZoomScale(8),
+            GalleryConfigurationItem.maximumZoomScale(16),
             GalleryConfigurationItem.swipeToDismissThresholdVelocity(500),
             
             GalleryConfigurationItem.doubleTapToZoomDuration(0.15),
@@ -153,11 +155,11 @@ extension WBPhotoBrowserViewController: GalleryItemsDelegate {
     
     func removeGalleryItem(at index: Int) {
         
-//        print("remove item at \(index)")
-//
-//        let imageView = items[index].imageView
-//        imageView.removeFromSuperview()
-//        items.remove(at: index)
+        //        print("remove item at \(index)")
+        //
+        //        let imageView = items[index].imageView
+        //        imageView.removeFromSuperview()
+        //        items.remove(at: index)
     }
 }
 
