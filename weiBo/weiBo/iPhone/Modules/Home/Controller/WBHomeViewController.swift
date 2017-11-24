@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 
 class WBHomeViewController: WBBaseViewController {
+    var items: [DataItem] = []
     lazy var listViewModel = WBStatusListViewModel()
     let cellReuseIdentifier = "dasfsdfsfsf"
     
@@ -83,15 +84,32 @@ extension WBHomeViewController {
     }
 }
 
-extension WBHomeViewController {
+import ImageViewer
+extension WBHomeViewController: GalleryItemsDataSource {
+    func itemCount() -> Int {
+        
+        return items.count
+    }
+    
+    func provideGalleryItem(_ index: Int) -> GalleryItem {
+        
+        return items[index].galleryItem
+    }
+    
+    struct DataItem {
+        let imageView: UIImageView
+        let galleryItem: GalleryItem
+    }
     
     @objc fileprivate func didSelectedAnImage(sender: Notification) {
         
         if let index = sender.userInfo?[indexKey] as? NSNumber,let urls = sender.userInfo?[urlsKey] as? [String] {
+        
             let browser = WBPhotoBrowserViewController(index: index.intValue, images: urls)
-            present(browser, animated: false, completion: nil)
+            self.presentImageGallery(browser.galleryViewController)
         }
         
+       
     }
     
 }

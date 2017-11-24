@@ -17,4 +17,5 @@ target 'weiBo' do
     pod 'HandyJSON', '~> 4.0.0-beta.1', :inhibit_warnings => true
     pod 'SnapKit'
     pod 'XCGLogger', :inhibit_warnings => true
+    pod 'ImageViewer'
 end
