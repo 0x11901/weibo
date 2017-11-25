@@ -18,4 +18,5 @@ target 'weiBo' do
     pod 'SnapKit'
     pod 'XCGLogger', :inhibit_warnings => true
     pod 'ImageViewer'
+    pod 'GTMWebKit'
 end

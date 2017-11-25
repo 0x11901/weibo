@@ -170,7 +170,8 @@ public class AXLabel: UILabel {
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if selectedRange != nil {
             let text = (textStorage.string as NSString).substring(with: selectedRange!)
-            delegate?.labelDidSelectedLinkText?(label: self, text: text)
+            delegate?.labelDidSelectedLinkText?(label: self, text: text)//使用代理传递太远，该用通知
+            NotificationCenter.default.post(name: clickHyperlink, object: self, userInfo: [hyperlinkTextKey : text])
             
             let when = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             

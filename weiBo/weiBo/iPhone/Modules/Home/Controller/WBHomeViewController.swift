@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import GTMWebKit
 
 class WBHomeViewController: WBBaseViewController {
     var items: [DataItem] = []
@@ -19,8 +20,9 @@ class WBHomeViewController: WBBaseViewController {
         loadStatus(isPull: true)
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectedAnImage(sender:)), name: clickThumbImage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectedAHyperlink(sender:)), name: clickHyperlink, object: nil)
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -104,12 +106,26 @@ extension WBHomeViewController: GalleryItemsDataSource {
     @objc fileprivate func didSelectedAnImage(sender: Notification) {
         
         if let index = sender.userInfo?[indexKey] as? NSNumber,let urls = sender.userInfo?[urlsKey] as? [String] {
-        
+            
             let browser = WBPhotoBrowserViewController(index: index.intValue, images: urls)
             self.presentImageGallery(browser.galleryViewController)
         }
         
-       
+        
+    }
+    
+    @objc private func didSelectedAHyperlink(sender: Notification) {
+        if let hyperlink = sender.userInfo?[hyperlinkTextKey] as? String {
+            let reg = "http(s)?:\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- .\\/?%&=]*)?"
+            let pre = NSPredicate(format: "SELF MATCHES %@", reg)
+            if pre.evaluate(with: hyperlink) {
+                let webVC = GTMWebViewController(with: hyperlink, navigType: .navbar)
+                webVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(webVC, animated: true)
+            }else{
+                console.debug(hyperlink)
+            }
+        }
     }
     
 }

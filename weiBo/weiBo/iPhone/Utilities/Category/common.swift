@@ -37,7 +37,9 @@ let margin: CGFloat = 12.0
 let widthHeight = (screenWidth - 4 * margin) / CGFloat(3)
 
 ///通知
-let clickThumbImage: NSNotification.Name = NSNotification.Name(rawValue: "clickSamllImage")
+let clickThumbImage: Notification.Name = Notification.Name(rawValue: "clickSamllImage")
 let indexKey = "indexKey"
 let urlsKey = "urlsKey"
 let addOrDeleteNotification = Notification.Name(rawValue: "addOrDeleteNotification")
+let clickHyperlink: Notification.Name = Notification.Name(rawValue: "clickHyperlink")
+let hyperlinkTextKey = "hyperlinkTextKey"
