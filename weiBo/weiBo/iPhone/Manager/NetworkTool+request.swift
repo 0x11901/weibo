@@ -37,13 +37,19 @@ extension NetworkManager {
             let parameters = ["access_token": access_token,
                               "since_id": NSNumber(value: sinceId),
                               "max_id": NSNumber(value: maxId)] as [String : Any]
-            self.get(url: "https://api.weibo.com/2/statuses/home_timeline.json", parameters: parameters, networkCompletionHandler: {
+            return self.get(url: "https://api.weibo.com/2/statuses/home_timeline.json", parameters: parameters, networkCompletionHandler: {
                 networkCompletionHandler($0.value as? [String : Any])
             })
         }
         return nil
     }
     
+    @discardableResult
+    public func requestForWeather(networkCompletionHandler: @escaping ([String : Any]?)-> Void) -> Cancellable? {
+        return self.get(url: "https://api.seniverse.com/v3/weather/now.json?key=hpejjcjphjea8ogq&language=zh-Hans&unit=c", parameters: ["location" : "ip"], networkCompletionHandler: {
+            networkCompletionHandler($0.value as? [String : Any])
+        })
+    }
 }
 
 extension NetworkTool {

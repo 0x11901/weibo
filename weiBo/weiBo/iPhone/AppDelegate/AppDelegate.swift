@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         //初始化logger
@@ -25,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //初始化 window
         initWindow()
+        
+        
         
         return true
     }

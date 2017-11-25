@@ -35,6 +35,7 @@
 		F849AA6C1DED8FC900810833 /* WBStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */; };
 		F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */; };
 		F84C5A191DEEF7A300EC4F0A /* UIImage+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */; };
+		F89250D91FC9BCED0045DC8E /* WBControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89250D81FC9BCED0045DC8E /* WBControlView.swift */; };
 		F8A63AA41DEF0D6C00EC93B0 /* WBPicUrlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */; };
 		F8B3C4421DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */; };
 		F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */; };
@@ -106,6 +107,7 @@
 		F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBStatusViewModel.swift; sourceTree = "<group>"; };
 		F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+WJKAddition.swift"; sourceTree = "<group>"; };
 		F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+WJKAddition.swift"; sourceTree = "<group>"; };
+		F89250D81FC9BCED0045DC8E /* WBControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBControlView.swift; sourceTree = "<group>"; };
 		F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPicUrlsModel.swift; sourceTree = "<group>"; };
 		F8B3C4411DF2E5AB005C7434 /* WBPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoBrowserViewController.swift; sourceTree = "<group>"; };
 		F8B3C4431DF2E5C0005C7434 /* WBPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPhotoViewer.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				F81B92441DEB175C00110999 /* NewFeature */,
 				F8E621091DE723160062E2EB /* main.json */,
 				F8E6210B1DE723160062E2EB /* WBRootViewController.swift */,
+				F89250D81FC9BCED0045DC8E /* WBControlView.swift */,
 				F8E6210C1DE723160062E2EB /* WBVisitorView.swift */,
 				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
 			);
@@ -902,6 +905,7 @@
 				F82780911DF1B3680093A1A7 /* WBStatusListViewModel.swift in Sources */,
 				F8B3C4441DF2E5C0005C7434 /* WBPhotoViewer.swift in Sources */,
 				F8496AB81DE9DE4700F2FDA5 /* WBOAuthViewController.swift in Sources */,
+				F89250D91FC9BCED0045DC8E /* WBControlView.swift in Sources */,
 				F8E0126C1DF57FCE0036DD4D /* WBEmotionKeyboardCell.swift in Sources */,
 				F8E621191DE723170062E2EB /* WBRootViewController.swift in Sources */,
 				F8E621151DE723170062E2EB /* WBDiscoverViewController.swift in Sources */,

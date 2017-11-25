@@ -31,4 +31,9 @@ extension AppDelegate {
         logger.setup(level: .debug, showThreadName: true, showLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: "path/to/file", fileLevel: .debug)
     }
     
+    /// 一些请求
+    internal func requestForIPInfo() {
+        
+    }
+    
 }

@@ -112,9 +112,14 @@ extension WBRootViewController {
     @objc fileprivate func pushCompose() {
         //判断是否登陆，如果已经登陆，那么跳入发布页面，反正跳入登陆页面
         if WBUserAccountModel.shared.isLogin {
-            let composeController = WBComposeViewController()
-            let composeNav = UINavigationController(rootViewController: composeController)
-            present(composeNav, animated: true, completion: nil)
+//            let composeController = WBComposeViewController()
+//            let composeNav = UINavigationController(rootViewController: composeController)
+//            present(control, animated: true, completion: nil)
+            let control = WBControlView()
+            self.view.addSubview(control)
+            control.snp.makeConstraints({ (make) in
+                make.edges.equalTo(self.view)
+            })
         }else{
             let web = WBOAuthViewController()
             let navi = UINavigationController(rootViewController: web)

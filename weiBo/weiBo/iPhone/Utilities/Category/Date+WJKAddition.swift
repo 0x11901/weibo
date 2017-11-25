@@ -19,6 +19,30 @@ extension Date {
         return dateFromat.date(from: sinaDateString)!
     }
     
+    struct todayData {
+        var weekday: String?
+        var monthAndYear: String?
+        var day: String?
+    }
+    
+    static func today() -> todayData {
+        var date = todayData()
+        let today =  Date()
+        
+        let weekdays = [nil, "星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", nil];
+        let day = calendar.component(Calendar.Component.weekday, from:today)
+        date.weekday = weekdays[day]
+        
+        dateFromat.dateFormat = "MM/yyyy"
+        dateFromat.locale = Locale(identifier: "en")
+        date.monthAndYear = dateFromat.string(from: today)
+        
+        dateFromat.dateFormat = "d"
+        date.day = dateFromat.string(from: today)
+
+        return date
+    }
+    
     public func requiredTimeString() -> String{
         if calendar.isDateInToday(self) {
             let secends = -Int(self.timeIntervalSinceNow)
