@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import SnapKit
 import MJRefresh
 
 class WBBaseViewController: UIViewController {
-    lazy var tableView: UITableView = UITableView(frame: self.view.bounds, style: .plain)
+    lazy var tableView: UITableView = UITableView(frame: CGRect.zero, style: .plain)
     var model: WBVisitorModel?
     var visitorView: WBVisitorView?{
         didSet{
@@ -34,12 +35,12 @@ class WBBaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         setupUI()
         NotificationCenter.default.addObserver(self, selector: #selector(whenLoginIsSucess), name: NSNotification.Name(rawValue: loginSuccess), object: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,6 +52,7 @@ class WBBaseViewController: UIViewController {
     
     
     func setupUI () {
+        self.view.backgroundColor = UIColor.white
         setupTableView()
         if WBUserAccountModel.shared.isLogin != true {
             setupVisitorView ()
@@ -59,6 +61,16 @@ class WBBaseViewController: UIViewController {
     
     func setupTableView () {
         view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(self.view)
+            if #available(iOS 11, *) {
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.topMargin)
+                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottomMargin)
+            }else{
+                make.top.equalTo(self.view.snp.topMargin)
+                make.bottom.equalTo(self.view.snp.bottomMargin)
+            }
+        }
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
@@ -71,7 +83,7 @@ class WBBaseViewController: UIViewController {
         visitorView?.delegate = self
         view.addSubview(visitorView!)
     }
-
+    
 }
 
 // MARK: - UI相关
@@ -103,7 +115,7 @@ extension WBBaseViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         return UITableViewCell()
     }
