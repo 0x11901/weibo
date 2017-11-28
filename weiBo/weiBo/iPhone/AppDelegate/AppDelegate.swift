@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //初始化 window
         initWindow()
-        
-        
+        //一些请求
+        requestForSomething()
         
         return true
     }

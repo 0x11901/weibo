@@ -22,7 +22,7 @@ extension AppDelegate {
         UINavigationBar.appearance().tintColor = globalColor
         
         if #available(iOS 11.0, *) {
-//            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
+            //            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         }
     }
     
@@ -32,8 +32,18 @@ extension AppDelegate {
     }
     
     /// 一些请求
-    internal func requestForIPInfo() {
-        
+    internal func requestForSomething() {
+        NetworkManager.shared.requestForWeather(parameters: ["location" : "ip"]) { (obj) in
+            if let dict = obj {
+                let res = Results.deserialize(from: dict)
+                WBUserInfo.shared.weatherInfo = res?.results?.first
+            }else{
+                NetworkManager.shared.requestForWeather(parameters: ["location" : "beijing"], networkCompletionHandler: { (obj) in
+                    let res = Results.deserialize(from: obj)
+                    WBUserInfo.shared.weatherInfo = res?.results?.first
+                })
+            }
+        }
     }
     
 }

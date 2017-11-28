@@ -45,8 +45,8 @@ extension NetworkManager {
     }
     
     @discardableResult
-    public func requestForWeather(networkCompletionHandler: @escaping ([String : Any]?)-> Void) -> Cancellable? {
-        return self.get(url: "https://api.seniverse.com/v3/weather/now.json?key=hpejjcjphjea8ogq&language=zh-Hans&unit=c", parameters: ["location" : "ip"], networkCompletionHandler: {
+    public func requestForWeather(parameters: [String : Any], networkCompletionHandler: @escaping ([String : Any]?)-> Void) -> Cancellable? {
+        return self.get(url: "https://api.seniverse.com/v3/weather/now.json?key=hpejjcjphjea8ogq&language=zh-Hans&unit=c", parameters: parameters, networkCompletionHandler: {
             networkCompletionHandler($0.value as? [String : Any])
         })
     }
