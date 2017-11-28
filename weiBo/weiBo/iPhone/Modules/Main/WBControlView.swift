@@ -11,6 +11,8 @@ import SnapKit
 
 class WBControlView: UITabBar {
     
+    private let animationDuration = 0.65
+    
     private lazy var dayLabel: UILabel = {
         let l = UILabel(title: "8", fontSize: 50, fontColor: UIColor.colorWithHex(hex: 0x666666))
         return l
@@ -125,7 +127,15 @@ extension WBControlView {
         addSubview(addButton)
         addButton.snp.makeConstraints { (make) in
             make.centerX.equalTo(self)
-            make.centerY.equalTo(self.snp.bottom).offset(-44)
+            if screenHeight == 812.0 {
+                make.centerY.equalTo(self.snp.bottom).offset(0.0 - (34.0 + 24.5))
+            }else{
+                make.centerY.equalTo(self.snp.bottom).offset(-24.5)
+            }
+        }
+        //添加扭动动画
+        UIView.animate(withDuration: animationDuration) {
+            self.addButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
         }
     }
     
@@ -137,10 +147,21 @@ extension WBControlView {
 
 extension WBControlView {
     @objc private func tapAction(sender: UITapGestureRecognizer) {
-        self.removeFromSuperview()
+        //添加扭动动画
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.addButton.transform = CGAffineTransform(rotationAngle: 0)
+        }) { (_) in
+            self.removeFromSuperview()
+        }
+        
     }
     
     @objc private func close(sender: UIButton) {
-        sender.isHighlighted = true
+        //添加扭动动画
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.addButton.transform = CGAffineTransform(rotationAngle: 0)
+        }) { (_) in
+            self.removeFromSuperview()
+        }
     }
 }
