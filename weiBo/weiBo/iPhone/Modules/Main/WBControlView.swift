@@ -11,7 +11,19 @@ import SnapKit
 
 class WBControlView: UITabBar {
     
+    /// 动画的基准时间
     private let animationDuration = 0.65
+    
+    private lazy var backgroundView: UIScrollView = {
+        let s = UIScrollView()
+        s.contentSize = CGSize(width: screenWidth * 2, height: screenHeight)
+        s.delegate = self
+        s.isPagingEnabled = true
+        s.bounces = false
+        s.showsVerticalScrollIndicator = false
+        s.showsHorizontalScrollIndicator = false
+        return s
+    }()
     
     private lazy var dayLabel: UILabel = {
         let l = UILabel(title: "8", fontSize: 50, fontColor: UIColor.colorWithHex(hex: 0x666666))
@@ -29,16 +41,8 @@ class WBControlView: UITabBar {
     }()
     
     private lazy var cityInfo: UILabel = {
-        let c = UILabel(title: "北京：晴 8°C", fontSize: 17, fontColor: UIColor.colorWithHex(hex: 0x666666))
+        let c = UILabel(title: "", fontSize: 17, fontColor: UIColor.colorWithHex(hex: 0x666666))
         return c
-    }()
-    
-    private lazy var compose: UIImageView = {
-        let i = UIImageView()
-        i.animationImages = animation
-        i.animationDuration = 1
-        i.animationRepeatCount = Int.max
-        return i
     }()
     
     private lazy var animation: [UIImage] = {
@@ -51,6 +55,26 @@ class WBControlView: UITabBar {
         return images
     }()
     
+    /// 天气右侧动画按钮
+    private lazy var compose: UIImageView = {
+        let i = UIImageView()
+        i.animationImages = animation
+        i.animationDuration = 1
+        i.animationRepeatCount = Int.max
+        i.isHidden = true
+        return i
+    }()
+    
+    private lazy var page: UIPageControl = {
+        let p = UIPageControl()
+        p.numberOfPages = 2
+        p.currentPage = 0
+        p.currentPageIndicatorTintColor = globalColor
+        p.pageIndicatorTintColor = UIColor.colorWithHex(hex: 0xC7C7C7)
+        return p
+    }()
+    
+    /// 关闭按钮
     private lazy var addButton: UIButton = {
         let add = UIButton(image: "tabbar_compose_icon_cancel", target: self, action: #selector(close(sender:)))
         return add
@@ -59,6 +83,7 @@ class WBControlView: UITabBar {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        addAnimation()
         addGestureRecognizer()
     }
     
@@ -71,6 +96,11 @@ class WBControlView: UITabBar {
 extension WBControlView {
     
     private func setupUI() {
+        addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
+        }
+        
         let today = Date.today()
         
         addSubview(dayLabel)
@@ -121,9 +151,11 @@ extension WBControlView {
             let text = weatherInfo.now?.text,
             let temperature = weatherInfo.now?.temperature {
             cityInfo.text = String(format: "%@：%@ %d°C", arguments: [name,text,temperature])
+            compose.isHidden = false
         }
         compose.startAnimating()
         
+        // 此处添加关闭按钮
         addSubview(addButton)
         addButton.snp.makeConstraints { (make) in
             make.centerX.equalTo(self)
@@ -133,10 +165,14 @@ extension WBControlView {
                 make.centerY.equalTo(self.snp.bottom).offset(-24.5)
             }
         }
-        //添加扭动动画
-        UIView.animate(withDuration: animationDuration) {
-            self.addButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
+        
+        // 此处添加分页按钮
+        addSubview(page)
+        page.snp.makeConstraints { (make) in
+            make.centerY.equalTo(addButton.snp.centerY).offset(-100)
+            make.centerX.equalTo(self)
         }
+
     }
     
     private func addGestureRecognizer() {
@@ -146,22 +182,43 @@ extension WBControlView {
 }
 
 extension WBControlView {
+    
+    private func addAnimation() {
+        //添加扭动动画
+        UIView.animate(withDuration: animationDuration) {
+            self.addButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
+        }
+
+    }
+    
+    private func closeAnime(completion: ((Bool) -> Void)?) {
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.addButton.transform = CGAffineTransform.identity
+        }, completion: completion)
+    }
+    
+}
+
+extension WBControlView {
     @objc private func tapAction(sender: UITapGestureRecognizer) {
         //添加扭动动画
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.addButton.transform = CGAffineTransform(rotationAngle: 0)
-        }) { (_) in
+        closeAnime { (_) in
             self.removeFromSuperview()
         }
-        
     }
     
     @objc private func close(sender: UIButton) {
         //添加扭动动画
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.addButton.transform = CGAffineTransform(rotationAngle: 0)
-        }) { (_) in
+        closeAnime { (_) in
             self.removeFromSuperview()
         }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension WBControlView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let x = scrollView.contentOffset.x / (screenWidth * 2)
+        console.debug(x)
     }
 }
