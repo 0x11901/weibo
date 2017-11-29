@@ -20,8 +20,8 @@ class WBControlView: UITabBar {
         s.delegate = self
         s.isPagingEnabled = true
         s.bounces = false
-        s.showsVerticalScrollIndicator = false
-        s.showsHorizontalScrollIndicator = false
+//        s.showsVerticalScrollIndicator = false
+//        s.showsHorizontalScrollIndicator = false
         return s
     }()
     
@@ -218,7 +218,15 @@ extension WBControlView {
 // MARK: - UIScrollViewDelegate
 extension WBControlView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let x = scrollView.contentOffset.x / (screenWidth * 2)
-        console.debug(x)
+        let x = scrollView.contentOffset.x / screenWidth
+        if x > 0.5 {
+            if page.currentPage == 0 {
+                page.currentPage = 1
+            }
+        }else{
+            if page.currentPage == 1 {
+                page.currentPage = 0
+            }
+        }
     }
 }
