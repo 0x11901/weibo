@@ -1,0 +1,66 @@
+[
+  {
+    "title": "文字",
+    "icon": "tabbar_compose_idea_neo"
+  },
+  {
+    "title": "拍照",
+    "icon": "tabbar_compose_capture_neo"
+  },
+  {
+    "title": "相册",
+    "icon": "tabbar_compose_picture_neo"
+  },
+  {
+    "title": "直播",
+    "icon": "tabbar_compose_live_neo"
+  },
+  {
+    "title": "光影秀",
+    "icon": "tabbar_compose_slideshow_neo"
+  },
+  {
+    "title": "提问",
+    "icon": "tabbar_compose_shooting"
+  },
+  {
+    "title": "签到",
+    "icon": "tabbar_compose_location_neo"
+  },
+  {
+    "title": "点评",
+    "icon": "tabbar_compose_comment_neo"
+  },
+  {
+    "title": "话题",
+    "icon": "tabbar_compose_topic_neo"
+  },
+  {
+    "title": "红包",
+    "icon": "tabbar_compose_redpacket_neo"
+  },
+  {
+    "title": "好友圈",
+    "icon": "tabbar_compose_friends_neo"
+  },
+  {
+    "title": "音乐",
+    "icon": "tabbar_compose_music_neo"
+  },
+  {
+    "title": "商品",
+    "icon": "tabbar_compose_shopping_neo"
+  },
+  {
+    "title": "秒拍",
+    "icon": "tabbar_compose_miaopai_neo"
+  },
+  {
+    "title": "红豆Live",
+    "icon": "tabbar_compose_wbcamera"
+  },
+  {
+    "title": "头条文章",
+    "icon": "tabbar_compose_shooting"
+  }
+]

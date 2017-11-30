@@ -61,6 +61,7 @@
 		F8E6211A1DE723170062E2EB /* WBVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6210C1DE723160062E2EB /* WBVisitorView.swift */; };
 		F8E6211B1DE723170062E2EB /* WBMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6210E1DE723160062E2EB /* WBMessageViewController.swift */; };
 		F8E6211C1DE723170062E2EB /* WBProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E621101DE723160062E2EB /* WBProfileViewController.swift */; };
+		F8E77B681FD03EDA00457A62 /* compose.json in Resources */ = {isa = PBXBuildFile; fileRef = F8E77B671FD03EDA00457A62 /* compose.json */; };
 		F8ED111B1DE7151600ED5AA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ED111A1DE7151600ED5AA8 /* AppDelegate.swift */; };
 		F8ED11221DE7151600ED5AA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8ED11211DE7151600ED5AA8 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -134,6 +135,7 @@
 		F8E6210C1DE723160062E2EB /* WBVisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBVisitorView.swift; sourceTree = "<group>"; };
 		F8E6210E1DE723160062E2EB /* WBMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBMessageViewController.swift; sourceTree = "<group>"; };
 		F8E621101DE723160062E2EB /* WBProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBProfileViewController.swift; sourceTree = "<group>"; };
+		F8E77B671FD03EDA00457A62 /* compose.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = compose.json; sourceTree = "<group>"; };
 		F8ED11171DE7151600ED5AA8 /* weiBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weiBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8ED111A1DE7151600ED5AA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8ED11211DE7151600ED5AA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -320,12 +322,9 @@
 		F8E621081DE723160062E2EB /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				F81B92441DEB175C00110999 /* NewFeature */,
-				F8E621091DE723160062E2EB /* main.json */,
-				F8E6210B1DE723160062E2EB /* WBRootViewController.swift */,
-				F89250D81FC9BCED0045DC8E /* WBControlView.swift */,
-				F8E6210C1DE723160062E2EB /* WBVisitorView.swift */,
-				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
+				F8E77B651FD03E6100457A62 /* Model */,
+				F8E77B661FD03E6100457A62 /* View */,
+				F8E77B641FD03E6100457A62 /* Controller */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -353,6 +352,34 @@
 				F82780901DF1B3680093A1A7 /* WBStatusListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F8E77B641FD03E6100457A62 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6210B1DE723160062E2EB /* WBRootViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F8E77B651FD03E6100457A62 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F8E621091DE723160062E2EB /* main.json */,
+				F8E77B671FD03EDA00457A62 /* compose.json */,
+				F849AA611DED8E5000810833 /* WBVisitorModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8E77B661FD03E6100457A62 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6210C1DE723160062E2EB /* WBVisitorView.swift */,
+				F89250D81FC9BCED0045DC8E /* WBControlView.swift */,
+				F81B92441DEB175C00110999 /* NewFeature */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F8ED110E1DE7151600ED5AA8 = {
@@ -799,6 +826,7 @@
 			files = (
 				F8E621171DE723170062E2EB /* main.json in Resources */,
 				F8E0126E1DF580340036DD4D /* Emoticons.bundle in Resources */,
+				F8E77B681FD03EDA00457A62 /* compose.json in Resources */,
 				F8215BD91FC0844700042571 /* Launch Screen.storyboard in Resources */,
 				F8ED11221DE7151600ED5AA8 /* Assets.xcassets in Resources */,
 			);

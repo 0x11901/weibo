@@ -20,8 +20,8 @@ class WBControlView: UITabBar {
         s.delegate = self
         s.isPagingEnabled = true
         s.bounces = false
-//        s.showsVerticalScrollIndicator = false
-//        s.showsHorizontalScrollIndicator = false
+        s.showsVerticalScrollIndicator = false
+        s.showsHorizontalScrollIndicator = false
         return s
     }()
     
