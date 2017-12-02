@@ -116,6 +116,11 @@ extension WBRootViewController {
 //            let composeNav = UINavigationController(rootViewController: composeController)
 //            present(control, animated: true, completion: nil)
             let control = WBControlView()
+            control.callBack = { (_) in
+                let composeController = WBComposeViewController()
+                let composeNav = UINavigationController(rootViewController: composeController)
+                self.present(composeNav, animated: true, completion: nil)
+            }
             self.view.addSubview(control)
             control.snp.makeConstraints({ (make) in
                 make.edges.equalTo(self.view)

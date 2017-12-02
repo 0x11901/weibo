@@ -11,6 +11,8 @@ import SnapKit
 
 class WBControlView: UITabBar {
     
+    public var callBack: ((Int)-> Void)? = nil
+    
     /// 动画的基准时间
     private let animationDuration = 0.65
     
@@ -298,6 +300,13 @@ extension WBControlView {
             sender.transform = CGAffineTransform(scaleX: 2, y: 2)
             sender.alpha = 0.1
         }) { (bool) in
+            if let btn = sender as? WBControlButton,let index = self.btns.index(of: btn) {
+                if index == 0 {
+                    self.callBack?(index)
+                    self.removeFromSuperview()
+                    return
+                }
+            }
             let btn = sender as! WBControlButton
             console.debug("你点击了\((btn.model?.title)!),然后什么也不会发生")
         }
