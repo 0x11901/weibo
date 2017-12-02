@@ -172,12 +172,54 @@ extension WBControlView {
             make.centerY.equalTo(addButton.snp.centerY).offset(-100)
             make.centerX.equalTo(self)
         }
-
+        
+        addButtonFlow()
+    }
+    
+    private func addButtonFlow() {
+        guard let array = WBControlButtonModel.getControlButtonArray() else {
+            console.debug("WBControlButtonModel.getControlButtonArray error")
+            return
+        }
+        var btns = [WBControlButton]()
+        for item in array.enumerated() {
+            let element = item.element
+            let offset = item.offset
+            let btn = WBControlButton()
+            btn.model = element
+            btn.tag = offset
+            btn.addTarget(self, action: #selector(buttonHighlight(sender:)), for: .touchDown)
+            btn.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+            btns.append(btn)
+        }
+        let w = (screenWidth - globalMargin) / 4
+        let h = (screenWidth - globalMargin * 5) / 4 + 3 * margin
+        
+        for btn in btns.enumerated() {
+            let element = btn.element
+            let offset = btn.offset
+            backgroundView.addSubview(element)
+            element.frame.size = CGSize(width: w, height: h)
+            element.frame.origin = CGPoint(x: margin + CGFloat(offset) * w, y: 250)
+        }
     }
     
     private func addGestureRecognizer() {
         let tap =  UITapGestureRecognizer(target: self, action: #selector(tapAction(sender:)))
+        tap.delegate = self
         self.addGestureRecognizer(tap)
+    }
+}
+
+extension WBControlView:UIGestureRecognizerDelegate {
+     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let res = touch.view?.isMember(of: WBControlButton.self) {
+            if res == true {
+                return false
+            }
+            return true
+        }
+        return true
     }
 }
 
@@ -212,6 +254,14 @@ extension WBControlView {
         closeAnime { (_) in
             self.removeFromSuperview()
         }
+    }
+    
+    @objc private func buttonAction(sender: UIControl) {
+        print("hello world")
+    }
+    
+    @objc private func buttonHighlight(sender: UIControl) {
+        print("buttonHighlight")
     }
 }
 

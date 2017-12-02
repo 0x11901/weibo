@@ -34,6 +34,7 @@ let isNewFeatureKey = "isNewFeature"
 
 ///边距
 let margin: CGFloat = 12.0
+let globalMargin: CGFloat = 15.0
 let widthHeight = (screenWidth - 4 * margin) / CGFloat(3)
 
 ///通知
