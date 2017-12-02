@@ -80,6 +80,31 @@ class WBControlView: UITabBar {
         return add
     }()
     
+    /// 中间的16个按钮
+    private lazy var btns: [WBControlButton] = {
+        var btns = [WBControlButton]()
+        guard let array = WBControlButtonModel.getControlButtonArray() else {
+            console.debug("WBControlButtonModel.getControlButtonArray error")
+            return btns
+        }
+        for item in array.enumerated() {
+            let element = item.element
+            let offset = item.offset
+            let btn = WBControlButton()
+            btn.model = element
+            btn.tag = offset
+            btn.addTarget(self, action: #selector(buttonHighlight(sender:)), for: .touchDown)
+            btn.addTarget(self, action: #selector(buttonHighlight(sender:)), for: .touchDragEnter)
+            btn.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+            btn.addTarget(self, action: #selector(buttonCancel(sender:)), for: .touchDragExit)
+            btns.append(btn)
+        }
+        return btns
+    }()
+    
+    /// 正在变大的图片
+    private var biggerImage: UIView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -177,22 +202,8 @@ extension WBControlView {
     }
     
     private func addButtonFlow() {
-        guard let array = WBControlButtonModel.getControlButtonArray() else {
-            console.debug("WBControlButtonModel.getControlButtonArray error")
-            return
-        }
-        var btns = [WBControlButton]()
-        for item in array.enumerated() {
-            let element = item.element
-            let offset = item.offset
-            let btn = WBControlButton()
-            btn.model = element
-            btn.tag = offset
-            btn.addTarget(self, action: #selector(buttonHighlight(sender:)), for: .touchDown)
-            btn.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
-            btns.append(btn)
-        }
-        let w = (screenWidth - globalMargin) / 4
+        
+        let w = (screenWidth - globalMargin * 5) / 4
         let h = (screenWidth - globalMargin * 5) / 4 + 3 * margin
         
         for btn in btns.enumerated() {
@@ -200,7 +211,15 @@ extension WBControlView {
             let offset = btn.offset
             backgroundView.addSubview(element)
             element.frame.size = CGSize(width: w, height: h)
-            element.frame.origin = CGPoint(x: margin + CGFloat(offset) * w, y: 250)
+            if offset < 4 {
+                element.frame.origin = CGPoint(x: globalMargin + (globalMargin + w) * CGFloat(offset), y: (screenHeight - h) / 2)
+            }else if offset < 8 {
+                element.frame.origin = CGPoint(x: globalMargin + (globalMargin + w) * CGFloat(offset - 4), y: (screenHeight + h) / 2)
+            }else if offset < 12 {
+                element.frame.origin = CGPoint(x: globalMargin + screenWidth + (globalMargin + w) * CGFloat(offset - 8), y: (screenHeight - h) / 2)
+            }else{
+                element.frame.origin = CGPoint(x: globalMargin + screenWidth + (globalMargin + w) * CGFloat(offset - 12), y: (screenHeight + h) / 2)
+            }
         }
     }
     
@@ -223,6 +242,7 @@ extension WBControlView:UIGestureRecognizerDelegate {
     }
 }
 
+// MARK: - 动画相关
 extension WBControlView {
     
     private func addAnimation() {
@@ -230,7 +250,6 @@ extension WBControlView {
         UIView.animate(withDuration: animationDuration) {
             self.addButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
         }
-
     }
     
     private func closeAnime(completion: ((Bool) -> Void)?) {
@@ -239,6 +258,17 @@ extension WBControlView {
         }, completion: completion)
     }
     
+    private func biggerAnime(sender: UIView) {
+        UIView.animate(withDuration: animationDuration / 2) {
+            sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }
+    }
+    
+    private func smallAnime(sender: UIView) {
+        UIView.animate(withDuration: animationDuration / 2) {
+            sender.transform = CGAffineTransform.identity
+        }
+    }
 }
 
 extension WBControlView {
@@ -257,11 +287,39 @@ extension WBControlView {
     }
     
     @objc private func buttonAction(sender: UIControl) {
-        print("hello world")
+        //不知道为什么写这几行，总之写上不会崩
+        for btn in btns {
+            btn.isUserInteractionEnabled = false
+        }
+        if let tap = self.gestureRecognizers?.first {
+            self.removeGestureRecognizer(tap)
+        }
+        UIView.animate(withDuration: animationDuration / 2, animations: {
+            sender.transform = CGAffineTransform(scaleX: 2, y: 2)
+            sender.alpha = 0.1
+        }) { (bool) in
+            let btn = sender as! WBControlButton
+            console.debug("你点击了\((btn.model?.title)!),然后什么也不会发生")
+        }
     }
     
     @objc private func buttonHighlight(sender: UIControl) {
-        print("buttonHighlight")
+        // 播放变大动画
+        for sub in sender.subviews {
+            if sub.isMember(of: UIImageView.self) {
+                if self.biggerImage != nil {
+                    smallAnime(sender: self.biggerImage!)
+                }
+                biggerImage = sub
+                biggerAnime(sender: sub)
+            }
+        }
+    }
+    
+    @objc private func buttonCancel(sender: UIControl) {
+        if let bigger = self.biggerImage {
+            smallAnime(sender: bigger)
+        }
     }
 }
 

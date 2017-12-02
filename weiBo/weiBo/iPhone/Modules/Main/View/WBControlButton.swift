@@ -29,8 +29,6 @@ class WBControlButton: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.green.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +40,7 @@ extension WBControlButton {
     private func setupUI() {
         addSubview(icon)
         addSubview(title)
-        
+
 //        let wH = (screenWidth - 5 * globalMargin) / 4
         let wH = 60.0
         

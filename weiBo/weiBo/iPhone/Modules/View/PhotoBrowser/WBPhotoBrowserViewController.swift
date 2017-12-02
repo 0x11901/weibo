@@ -53,7 +53,7 @@ class WBPhotoBrowserViewController {
                         return
                     }
                     ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: { (r, t) in
-                        print("\(r/t)")
+                        // 此处可以用来获取图片下载进度，但是基本上没用
                     }, completionHandler: { (image, error, _, _) in
                         if error == nil {
                             imageCompletion(image)
@@ -152,14 +152,14 @@ extension WBPhotoBrowserViewController: GalleryItemsDataSource {
 }
 
 extension WBPhotoBrowserViewController: GalleryItemsDelegate {
-    
+
+    /// 实现本代理方法欺骗编译器
+    ///
+    /// - Parameter index: 删除图片的下标
     func removeGalleryItem(at index: Int) {
-        
-        //        print("remove item at \(index)")
-        //
-        //        let imageView = items[index].imageView
-        //        imageView.removeFromSuperview()
-        //        items.remove(at: index)
+        let imageView = items[index].imageView
+        imageView.removeFromSuperview()
+        items.remove(at: index)
     }
 }
 
