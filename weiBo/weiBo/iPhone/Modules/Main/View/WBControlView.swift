@@ -14,7 +14,7 @@ class WBControlView: UITabBar {
     public var callBack: ((Int)-> Void)? = nil
     
     /// 动画的基准时间
-    private let animationDuration = 0.5
+    private let animationDuration = 0.45
     
     private lazy var backgroundView: UIScrollView = {
         let s = UIScrollView()
@@ -257,7 +257,7 @@ extension WBControlView {
             btns[i].alpha = 0.65
         }
         for i in 0..<8 {
-            UIView.animate(withDuration: animationDuration * 0.5, delay: TimeInterval(Double(i) / 10.0), options: UIViewAnimationOptions.showHideTransitionViews, animations: {
+            UIView.animate(withDuration: animationDuration * 0.5, delay: TimeInterval(Double(i) / 20.0), options: UIViewAnimationOptions.showHideTransitionViews, animations: {
                 self.btns[i].transform = CGAffineTransform.identity
                 self.btns[i].alpha = 1
             }, completion: { (_) in
