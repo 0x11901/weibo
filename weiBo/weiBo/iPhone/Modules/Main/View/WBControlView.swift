@@ -14,7 +14,7 @@ class WBControlView: UITabBar {
     public var callBack: ((Int)-> Void)? = nil
     
     /// 动画的基准时间
-    private let animationDuration = 0.65
+    private let animationDuration = 0.5
     
     private lazy var backgroundView: UIScrollView = {
         let s = UIScrollView()
@@ -252,6 +252,39 @@ extension WBControlView {
         UIView.animate(withDuration: animationDuration) {
             self.addButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
         }
+        for i in 0..<8 {
+            btns[i].transform = CGAffineTransform(translationX: 0, y: screenHeight * 0.666)
+            btns[i].alpha = 0.65
+        }
+        for i in 0..<8 {
+            UIView.animate(withDuration: animationDuration * 0.5, delay: TimeInterval(Double(i) / 10.0), options: UIViewAnimationOptions.showHideTransitionViews, animations: {
+                self.btns[i].transform = CGAffineTransform.identity
+                self.btns[i].alpha = 1
+            }, completion: { (_) in
+                let col = i % 4
+                let anime = CAKeyframeAnimation(keyPath: "transform.translation.y")
+                anime.duration = self.animationDuration * 0.5 + 0.1 * Double(col)
+                anime.repeatCount = 1
+                let cave = 10.0 + Double(col) * 8
+                anime.values = [0,-cave,cave * 0.5,0]
+                self.btns[i].layer.add(anime, forKey: "translateUp")
+            })
+        }
+    }
+    
+    private func fadeAnime() {
+        for i in 0...1 {
+            for j in 0..<8 {
+                let delay = Double(7 - j) / 20.0
+                UIView.animate(withDuration: animationDuration, delay: delay, options: UIViewAnimationOptions.showHideTransitionViews, animations: {
+                    self.btns[j + i * 8].transform = CGAffineTransform(translationX: 0, y: screenHeight * 0.666)
+                    self.btns[j + i * 8].alpha = 0.65
+                }, completion: { (_) in
+                    
+                })
+            }
+        }
+
     }
     
     private func closeAnime(completion: ((Bool) -> Void)?) {
@@ -276,6 +309,7 @@ extension WBControlView {
 extension WBControlView {
     @objc private func tapAction(sender: UITapGestureRecognizer) {
         //添加扭动动画
+        fadeAnime()
         closeAnime { (_) in
             self.removeFromSuperview()
         }
@@ -283,6 +317,7 @@ extension WBControlView {
     
     @objc private func close(sender: UIButton) {
         //添加扭动动画
+        fadeAnime()
         closeAnime { (_) in
             self.removeFromSuperview()
         }
