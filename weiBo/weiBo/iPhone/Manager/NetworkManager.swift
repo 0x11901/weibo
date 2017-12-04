@@ -24,8 +24,7 @@ class NetworkManager {
     
     static let shared = { () -> NetworkManager in
         let instance = NetworkManager()
-//        instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
-        
+        //        instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
         return instance
     }()
     
@@ -35,6 +34,7 @@ class NetworkManager {
 struct NMError: Error {
     enum ErrorKind {
         case transformFailed
+        case uploadFailed
     }
     
     let kind: ErrorKind
@@ -150,66 +150,51 @@ extension NetworkManager {
         }
     }
     
-}
-
-import AFNetworking
-class NetworkTool: AFHTTPSessionManager {
     
-    static let shared = { () -> NetworkTool in
-        let instance = NetworkTool(baseURL: nil)
-        instance.responseSerializer.acceptableContentTypes?.insert("text/plain")
-        return instance
-    }()
-    
-    func GET(URLString: String, parameters: Any?,
-             success: @escaping (_ responseObject: Any?)->(),
-             failure: @escaping (_ error: Error) -> ()) {
-        let success = {
-            (task: URLSessionDataTask, response: Any?) in
-            success(response)
+    func post(url: String,
+              parameters: [String: String]? = nil,//字典值写死为String，如有需求再改吧
+              image: UIImage,
+              networkCompletionHandler: @escaping (Result<Any>) -> Void
+        ) -> Void {
+        
+        guard let urlConvertible = URL(string: url) else {
+            console.debug("传入上传的URL地址错误")
+            return
         }
         
-        let failure = {
-            (task: URLSessionDataTask?, error: Error) in
-            failure(error)
-        }
-        
-        self.get(URLString, parameters: parameters, progress: nil, success: success, failure: failure)
-    }
-    
-    func POST(URLString: String, parameters: Any?,
-              success: @escaping (_ responseObject: Any?)->(),
-              failure: @escaping (_ error: Error) -> ()) {
-        let success = {
-            (task: URLSessionDataTask, response: Any?) in
-            success(response)
-        }
-        
-        let failure = {
-            (task: URLSessionDataTask?, error: Error) in
-            failure(error)
-        }
-        self.post(URLString, parameters: parameters, progress: nil, success: success, failure: failure)
-    }
-    
-    func POST(URLString: String, parameters: Any?,image: UIImage,
-              success: @escaping (_ responseObject: Any?)->(),
-              failure: @escaping (_ error: Error) -> ()) {
-        self.post(URLString, parameters: parameters, constructingBodyWith: { (formData) in
-            guard let data = UIImagePNGRepresentation(image) else{
-                print("picture tansform to binary error")
-                return
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            let data = UIImageJPEGRepresentation(image, 1)
+            let imageName = String(describing: Date()) + ".png"
+            
+            multipartFormData.append(data!, withName: imageName, mimeType: "application/octet-stream") //mimeType: "image/png"
+            
+            if let param = parameters {
+                for (key, value) in param {
+                    if let data = value.data(using: String.Encoding.utf8) {
+                        multipartFormData.append(data, withName: key)
+                    }
+                }
             }
-            formData.appendPart(withFileData: data, name: "pic", fileName: "helloWorld.wjk", mimeType: "application/octet-stream")
-        }, progress: nil, success: { (_, response) in
-            success(response)
-        }, failure: { (_, error) in
-            failure(error)
-        })
+
+        }, usingThreshold: SessionManager.multipartFormDataEncodingMemoryThreshold, with: URLRequest(url: urlConvertible)) { (encodingResult) in
+            switch encodingResult {
+            case .success(request: let upload, streamingFromDisk: _, streamFileURL: _):
+                upload.responseJSON {
+                    networkCompletionHandler(self.parseResult(result: $0.result))
+                }
+            case .failure(let error):
+                console.debug(error)
+                // 如果能抛出这个异常就更好了
+//                let err = NMError(kind: NMError.ErrorKind.uploadFailed)
+//                self.parseResult(result: err)
+            }
+            
+        }
+        
+        return
     }
     
 }
-
 
 
 

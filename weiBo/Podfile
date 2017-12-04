@@ -6,10 +6,8 @@ target 'weiBo' do
     use_frameworks!
     
     # Pods for weiBo
-    pod 'AFNetworking', :inhibit_warnings => true
     pod 'MJRefresh'
     pod 'SVProgressHUD', :inhibit_warnings => true
-    pod 'FMDB'
     
     # Swift
     pod 'Alamofire'

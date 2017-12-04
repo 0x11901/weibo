@@ -174,7 +174,7 @@ extension WBComposeViewController {
     @objc fileprivate func compose() {
         let status = textView.text
         let image = dataSource.first
-        NetworkTool.shared.postStatus(status: status!, image: image, success: { (response) in
+        NetworkManager.shared.postStatus(status: status!, image: image, success: { (response) in
             print(response!)
         }) { (err) in
             print(err)

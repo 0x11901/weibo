@@ -50,29 +50,24 @@ extension NetworkManager {
             networkCompletionHandler($0.value as? [String : Any])
         })
     }
-}
-
-extension NetworkTool {
     
-    public func postStatus(status: String,image: UIImage? = nil,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) {
+    @discardableResult
+    public func postStatus(status: String,image: UIImage? = nil,success: @escaping ((_ response: Any?) -> ()),failure: @escaping ((_ error: Error) -> ())) -> Cancellable? {
         if let access_token = WBUserAccountModel.shared.access_token {
             let parameters = ["access_token": access_token,
                               "status": status]
             
             if image != nil {
-                self.POST(URLString: "https://upload.api.weibo.com/2/statuses/upload.json", parameters: parameters, image: image!,success: { (response) in
+                self.post(url: "https://upload.api.weibo.com/2/statuses/upload.json", parameters: parameters, image: image!, networkCompletionHandler: { (response) in
                     success(response)
-                }, failure: { (error) in
-                    failure(error)
                 })
             }else{
-                self.POST(URLString: "https://api.weibo.com/2/statuses/update.json", parameters: parameters, success: { (response) in
+                return self.post(url: "https://api.weibo.com/2/statuses/update.json", parameters: parameters, networkCompletionHandler: { (response) in
                     success(response)
-                }, failure: { (error) in
-                    failure(error)
                 })
             }
         }
+        return nil
     }
-    
 }
+
