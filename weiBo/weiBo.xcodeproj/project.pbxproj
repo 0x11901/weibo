@@ -286,9 +286,6 @@
 			children = (
 				F8B3C4401DF2E589005C7434 /* PhotoBrowser */,
 				F8496AB61DE9DE2900F2FDA5 /* OAuthViewController */,
-				F8E621041DE723160062E2EB /* Discover */,
-				F8E6210D1DE723160062E2EB /* Message */,
-				F8E6210F1DE723160062E2EB /* Profile */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -304,14 +301,6 @@
 			path = Compose;
 			sourceTree = "<group>";
 		};
-		F8E621041DE723160062E2EB /* Discover */ = {
-			isa = PBXGroup;
-			children = (
-				F8E621051DE723160062E2EB /* WBDiscoverViewController.swift */,
-			);
-			path = Discover;
-			sourceTree = "<group>";
-		};
 		F8E621081DE723160062E2EB /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,22 +309,6 @@
 				F8E77B641FD03E6100457A62 /* Controller */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		F8E6210D1DE723160062E2EB /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				F8E6210E1DE723160062E2EB /* WBMessageViewController.swift */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
-		F8E6210F1DE723160062E2EB /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				F8E621101DE723160062E2EB /* WBProfileViewController.swift */,
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		F8E621111DE723160062E2EB /* ViewModel */ = {
@@ -521,6 +494,7 @@
 		F8FA7DBC1FBCA62800258C01 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F8E621051DE723160062E2EB /* WBDiscoverViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -552,6 +526,7 @@
 		F8FA7DC01FBCA62800258C01 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F8E6210E1DE723160062E2EB /* WBMessageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -583,6 +558,7 @@
 		F8FA7DC41FBCA62800258C01 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F8E621101DE723160062E2EB /* WBProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

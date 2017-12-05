@@ -7,12 +7,13 @@
 //
 
 import UIKit
-
+import SnapKit
 
 class WBOAuthViewController: UIViewController {
     lazy var leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancel))
     lazy var webView: UIWebView = {
-        let webView = UIWebView(frame: self.view.bounds)
+//        let webView = UIWebView(frame: self.view.bounds)
+        let webView = UIWebView()
         webView.scrollView.bounces = false
         webView.scrollView.backgroundColor = UIColor.colorWithHex(hex: 0xEBEDEF)
         webView.delegate = self
@@ -37,9 +38,19 @@ class WBOAuthViewController: UIViewController {
 
 extension WBOAuthViewController {
     func setupUI() {
+        view.backgroundColor = UIColor.white
         navigationItem.leftBarButtonItem = leftBarButtonItem
         view.addSubview(webView)
         
+        webView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(self.view)
+            if #available(iOS 11, *) {
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.topMargin)
+                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottomMargin)
+            }else{
+                make.top.bottom.equalTo(self.view)
+            }
+        }
         
         let urlStr = "https://api.weibo.com/oauth2/authorize?client_id=\(appKey)&redirect_uri=\(redirectURI)"
         if let url = URL(string: urlStr) {
@@ -100,6 +111,7 @@ extension WBOAuthViewController: UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        view.backgroundColor = UIColor.colorWithHex(hex: 0xEBEDEF)
         webView.stringByEvaluatingJavaScript(from: "document.getElementById('userId').value = '627515277@qq.com'")
     }
 }
