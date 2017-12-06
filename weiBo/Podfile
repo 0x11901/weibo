@@ -16,4 +16,5 @@ target 'weiBo' do
     pod 'GTMWebKit'
     pod 'ESPullToRefresh'
     pod 'Toast-Swift'
+    pod 'Cache'
 end

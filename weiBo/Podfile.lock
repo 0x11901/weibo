@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
+  - Cache (4.1.2)
   - ESPullToRefresh (2.7)
   - GTMWebKit (0.0.6)
   - HandyJSON (4.0.0-beta.1)
@@ -17,6 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Cache
   - ESPullToRefresh
   - GTMWebKit
   - HandyJSON (~> 4.0.0-beta.1)
@@ -28,6 +30,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   ESPullToRefresh: 119e2710b82b75536aab2bbe4883ba119fca35c8
   GTMWebKit: d9b196616253158b1d21ee68d4394c1a9a1455f5
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
@@ -38,6 +41,6 @@ SPEC CHECKSUMS:
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
   XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
 
-PODFILE CHECKSUM: bed68b8f7e806075d989010db96fd35fe0d3ece7
+PODFILE CHECKSUM: c05f4c4fe96b8a3f6ee47aa0dc270d3eddf4ee2a
 
 COCOAPODS: 1.3.1
