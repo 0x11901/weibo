@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import XCGLogger
+import Toast_Swift
 
 let console: XCGLogger = XCGLogger.default
 

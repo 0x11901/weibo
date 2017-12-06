@@ -343,7 +343,8 @@ extension WBControlView {
                 }
             }
             let btn = sender as! WBControlButton
-            console.debug("你点击了\((btn.model?.title)!),然后什么也不会发生")
+            console.debug("你点击了\((btn.model?.title)!),然而什么也不会发生")
+            self.removeFromSuperview()
         }
     }
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 import GTMWebKit
 
 class WBHomeViewController: WBBaseViewController {
@@ -44,7 +43,7 @@ extension WBHomeViewController {
             if isSuccess {
                 self.tableView.reloadData()
             }else{
-                SVProgressHUD.showError(withStatus: "加载失败")
+                self.view.makeToast("加载失败")
             }
             callBack(isSuccess)
         }

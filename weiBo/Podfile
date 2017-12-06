@@ -6,8 +6,6 @@ target 'weiBo' do
     use_frameworks!
     
     # Pods for weiBo
-    pod 'SVProgressHUD', :inhibit_warnings => true
-    
     # Swift
     pod 'Alamofire'
     pod 'Kingfisher'
@@ -17,4 +15,5 @@ target 'weiBo' do
     pod 'ImageViewer'
     pod 'GTMWebKit'
     pod 'ESPullToRefresh'
+    pod 'Toast-Swift'
 end
