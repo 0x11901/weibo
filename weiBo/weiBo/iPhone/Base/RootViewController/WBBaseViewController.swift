@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import MJRefresh
+//import GTMRefresh
 
 class WBBaseViewController: UIViewController {
     lazy var tableView: UITableView = UITableView(frame: CGRect.zero, style: .plain)
@@ -30,9 +30,9 @@ class WBBaseViewController: UIViewController {
             }
         }
     }
-    lazy var header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
-    lazy var footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefresh))
-    
+//    lazy var header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefresh))
+//    lazy var footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefresh))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,8 +74,8 @@ class WBBaseViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.mj_header = header
-        tableView.mj_footer = footer
+//        tableView.mj_header = header
+//        tableView.mj_footer = footer
     }
     
     func setupVisitorView () {

@@ -6,7 +6,6 @@ target 'weiBo' do
     use_frameworks!
     
     # Pods for weiBo
-    pod 'MJRefresh'
     pod 'SVProgressHUD', :inhibit_warnings => true
     
     # Swift
@@ -17,4 +16,5 @@ target 'weiBo' do
     pod 'XCGLogger', :inhibit_warnings => true
     pod 'ImageViewer'
     pod 'GTMWebKit'
+    pod 'GTMRefresh'
 end
