@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
-  - GTMRefresh (1.1.3)
+  - ESPullToRefresh (2.7)
   - GTMWebKit (0.0.6)
   - HandyJSON (4.0.0-beta.1)
   - ImageViewer (5.0.0)
@@ -17,7 +17,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - GTMRefresh
+  - ESPullToRefresh
   - GTMWebKit
   - HandyJSON (~> 4.0.0-beta.1)
   - ImageViewer
@@ -28,7 +28,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  GTMRefresh: bf4146ddd1e52a5fa2d2cdd5c7b10e27d6233f12
+  ESPullToRefresh: 119e2710b82b75536aab2bbe4883ba119fca35c8
   GTMWebKit: d9b196616253158b1d21ee68d4394c1a9a1455f5
   HandyJSON: 428bb18e2c34c2a77361accebf90cf64e4f74118
   ImageViewer: 3def6e39c6979ce3e9d001c78eec0d8b895f2f73
@@ -38,6 +38,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
 
-PODFILE CHECKSUM: da3a2ca24935560b529024495710cc237005557b
+PODFILE CHECKSUM: 009781995c3c5f016dbb688f797f74e72e3ff77b
 
 COCOAPODS: 1.3.1

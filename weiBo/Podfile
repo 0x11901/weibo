@@ -16,5 +16,5 @@ target 'weiBo' do
     pod 'XCGLogger', :inhibit_warnings => true
     pod 'ImageViewer'
     pod 'GTMWebKit'
-    pod 'GTMRefresh'
+    pod 'ESPullToRefresh'
 end

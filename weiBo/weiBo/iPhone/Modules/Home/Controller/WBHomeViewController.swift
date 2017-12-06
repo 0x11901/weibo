@@ -17,7 +17,8 @@ class WBHomeViewController: WBBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadStatus(isPull: true)
+        self.loadStatus(isPull: true) { (_) in
+        }
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectedAnImage(sender:)), name: clickThumbImage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectedAHyperlink(sender:)), name: clickHyperlink, object: nil)
@@ -38,23 +39,14 @@ class WBHomeViewController: WBBaseViewController {
 
 // MARK: - 读取数据
 extension WBHomeViewController {
-    fileprivate func loadStatus(isPull: Bool) {
+    fileprivate func loadStatus(isPull: Bool,callBack:  @escaping (Bool) -> ()) {
         listViewModel.loadDate(isPull: isPull) { (isSuccess) in
             if isSuccess {
-                if isPull {
-                    self.header.endRefreshing()
-                }else{
-                    self.footer.endRefreshing()
-                }
                 self.tableView.reloadData()
             }else{
-                if isPull {
-                    self.header.endRefreshing()
-                }else{
-                    self.footer.endRefreshing()
-                }
                 SVProgressHUD.showError(withStatus: "加载失败")
             }
+            callBack(isSuccess)
         }
     }
 }
@@ -71,18 +63,19 @@ extension WBHomeViewController {
         cell.status = listViewModel.dataSource[indexPath.row]
         return cell
     }
-    
-    override func headerRefresh() {
-        loadStatus(isPull: true)
+
+    override func headerRefresh(callBack: @escaping (Bool) -> ()) {
+        loadStatus(isPull: true, callBack: callBack)
     }
-    
-    override func footerRefresh() {
-        loadStatus(isPull: false)
+
+    override func footerRefresh(callBack: @escaping (Bool) -> ()) {
+        loadStatus(isPull: false, callBack: callBack)
     }
     
     override func whenLoginIsSucess() {
         super.whenLoginIsSucess()
-        self.loadStatus(isPull: true)
+        self.loadStatus(isPull: true) { (_) in
+        }
     }
 }
 
