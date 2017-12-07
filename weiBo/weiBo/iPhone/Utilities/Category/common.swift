@@ -44,3 +44,6 @@ let urlsKey = "urlsKey"
 let addOrDeleteNotification = Notification.Name(rawValue: "addOrDeleteNotification")
 let clickHyperlink: Notification.Name = Notification.Name(rawValue: "clickHyperlink")
 let hyperlinkTextKey = "hyperlinkTextKey"
+
+///Cache
+let cacheName = "Cache"

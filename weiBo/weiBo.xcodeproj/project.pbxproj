@@ -35,6 +35,7 @@
 		F849AA6C1DED8FC900810833 /* WBStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */; };
 		F84C5A171DEEE26900EC4F0A /* Date+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */; };
 		F84C5A191DEEF7A300EC4F0A /* UIImage+WJKAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */; };
+		F8682B251FD9DE0100CAC27C /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8682B241FD9DE0100CAC27C /* CacheManager.swift */; };
 		F89250D91FC9BCED0045DC8E /* WBControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89250D81FC9BCED0045DC8E /* WBControlView.swift */; };
 		F8A2479F1FCAF9870098841C /* WBUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2479E1FCAF9870098841C /* WBUserInfoModel.swift */; };
 		F8A63AA41DEF0D6C00EC93B0 /* WBPicUrlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */; };
@@ -110,6 +111,7 @@
 		F849AA6B1DED8FC900810833 /* WBStatusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBStatusViewModel.swift; sourceTree = "<group>"; };
 		F84C5A161DEEE26900EC4F0A /* Date+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+WJKAddition.swift"; sourceTree = "<group>"; };
 		F84C5A181DEEF7A300EC4F0A /* UIImage+WJKAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+WJKAddition.swift"; sourceTree = "<group>"; };
+		F8682B241FD9DE0100CAC27C /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		F89250D81FC9BCED0045DC8E /* WBControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBControlView.swift; sourceTree = "<group>"; };
 		F8A2479E1FCAF9870098841C /* WBUserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WBUserInfoModel.swift; sourceTree = "<group>"; };
 		F8A63AA31DEF0D6C00EC93B0 /* WBPicUrlsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WBPicUrlsModel.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 			children = (
 				F8C17A371DF8217F0039F43B /* NetworkManager.swift */,
 				F8C17A361DF8217F0039F43B /* NetworkTool+request.swift */,
+				F8682B241FD9DE0100CAC27C /* CacheManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -892,6 +895,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8682B251FD9DE0100CAC27C /* CacheManager.swift in Sources */,
 				F8C17A391DF8217F0039F43B /* NetworkManager.swift in Sources */,
 				F807704D1DF6E81700CA7CC7 /* WBEmotionTool.swift in Sources */,
 				F8E621181DE723170062E2EB /* WBBaseViewController.swift in Sources */,
