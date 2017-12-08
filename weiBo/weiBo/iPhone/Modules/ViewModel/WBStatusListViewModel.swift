@@ -13,6 +13,7 @@ class WBStatusListViewModel: NSObject {
     lazy var dataSource: [WBStatusViewModel] = []
     
     func loadDate(isPull: Bool,callBack: @escaping (Bool)->() ) {
+        // TODO: 在此处进行json缓存
         var sinceId = 0
         var maxId = 0
         if dataSource.count == 0 {
@@ -28,6 +29,16 @@ class WBStatusListViewModel: NSObject {
                 callBack(false)
                 return
             }
+            
+            let key = "json"
+            if let json = dictionary as? [String : String] {
+                do {
+                    try CacheManager.shared?.setObject(json, forKey: key)
+                }catch{
+                    console.error(error)
+                }
+            }
+           
             
             guard let json = dictionary["statuses"] as? [Any] else{
                 console.debug("获取json错误")
@@ -98,8 +109,8 @@ class WBStatusListViewModel: NSObject {
                     do {}
                 }
             }
-
+            
         }
-   
+        
     }
 }
