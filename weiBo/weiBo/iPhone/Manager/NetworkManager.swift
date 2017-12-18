@@ -114,7 +114,7 @@ extension NetworkManager {
     
     func parseResult(result: Result<Any>) -> Result<Any> {
         return result
-            .flatMap { $0 as? [String: Any] } //如有需要可做进一步处理
+//            .flatMap { $0 as? [String: Any] } //如有需要可做进一步处理
     }
     
 }

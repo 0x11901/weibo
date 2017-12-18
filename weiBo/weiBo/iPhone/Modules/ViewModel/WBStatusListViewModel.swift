@@ -30,15 +30,25 @@ class WBStatusListViewModel: NSObject {
                 return
             }
             
-            let key = "json"
-            if let json = dictionary as? [String : String] {
-                do {
-                    try CacheManager.shared?.setObject(json, forKey: key)
-                }catch{
-                    console.error(error)
+            // 应在此处保存json
+            // 反解析然后保存？
+            if let since = dictionary["since_id"] as? Int {
+                let key = "JSON:\(since)"
+                if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
+                    CacheManager.shared?.async.setObject(data, forKey: key, completion: { (_) in
+                        console.debug("save json ok!")
+                        CacheManager.shared?.async.object(ofType: Data.self, forKey: key, completion: { (result) in
+                            switch result {
+                            case .value(let data):
+                                let json = try? JSONSerialization.jsonObject(with: data, options: [])
+                                print(json ?? "nothing")
+                            case .error(let error):
+                                print(error)
+                            }
+                        })
+                    })
                 }
             }
-           
             
             guard let json = dictionary["statuses"] as? [Any] else{
                 console.debug("获取json错误")
