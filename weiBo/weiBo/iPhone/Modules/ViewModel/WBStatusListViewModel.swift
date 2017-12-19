@@ -41,9 +41,9 @@ class WBStatusListViewModel: NSObject {
                             switch result {
                             case .value(let data):
                                 let json = try? JSONSerialization.jsonObject(with: data, options: [])
-                                print(json ?? "nothing")
+                                console.debug(json ?? "nothing")
                             case .error(let error):
-                                print(error)
+                                console.error(error)
                             }
                         })
                     })
