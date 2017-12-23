@@ -32,8 +32,12 @@ class WBStatusListViewModel: NSObject {
             
             // 应在此处保存json
             // 反解析然后保存？
+            // sinceid放在数组中
+            var idArray = [String]()
+            
             if let since = dictionary["since_id"] as? Int {
                 let key = "JSON:\(since)"
+                idArray.append(key)
                 //把key保存在数组中，读取的时候遍历数组即可判断
                 //加一个冒号
                 if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
