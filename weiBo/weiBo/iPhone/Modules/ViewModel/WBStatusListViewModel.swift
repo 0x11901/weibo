@@ -40,6 +40,7 @@ class WBStatusListViewModel: NSObject {
                 idArray.append(key)
                 //把key保存在数组中，读取的时候遍历数组即可判断
                 //加一个冒号
+                //加一个顿号
                 if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
                     CacheManager.shared?.async.setObject(data, forKey: key, completion: { (_) in
                         console.debug("save json ok!")
