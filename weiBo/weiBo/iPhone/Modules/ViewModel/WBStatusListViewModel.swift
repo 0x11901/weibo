@@ -6,6 +6,18 @@
 //  Copyright © 2016年 王靖凯. All rights reserved.
 //
 
+/*
+ CacheManager.shared?.async.object(ofType: Data.self, forKey: key, completion: { (result) in
+ switch result {
+ case .value(let data):
+ let json = try? JSONSerialization.jsonObject(with: data, options: [])
+ console.debug(json ?? "nothing")
+ case .error(let error):
+ console.error(error)
+ }
+ })
+ */
+
 import UIKit
 import Kingfisher
 
@@ -37,22 +49,10 @@ class WBStatusListViewModel: NSObject {
             
             if let since = dictionary["since_id"] as? Int {
                 let key = "JSON:\(since)"
-                idArray.append(key)
                 //把key保存在数组中，读取的时候遍历数组即可判断
-                //加一个冒号
-                //加一个顿号
                 if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
                     CacheManager.shared?.async.setObject(data, forKey: key, completion: { (_) in
-                        console.debug("save json ok!")
-                        CacheManager.shared?.async.object(ofType: Data.self, forKey: key, completion: { (result) in
-                            switch result {
-                            case .value(let data):
-                                let json = try? JSONSerialization.jsonObject(with: data, options: [])
-                                console.debug(json ?? "nothing")
-                            case .error(let error):
-                                console.error(error)
-                            }
-                        })
+                        idArray.append(key)
                     })
                 }
             }
