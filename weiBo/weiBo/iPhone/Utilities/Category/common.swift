@@ -47,3 +47,4 @@ let hyperlinkTextKey = "hyperlinkTextKey"
 
 ///Cache
 let cacheName = "Cache"
+let keyArray = "keyArray"

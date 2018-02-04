@@ -36,6 +36,9 @@ class WBStatusListViewModel: NSObject {
             maxId = (dataSource.last?.status.id)!
         }
         NetworkManager.shared.requestForHomeStatus(sinceId: sinceId, maxId: maxId) { (obj) in
+            
+            // 这里应该抽一个方法，能复用
+            
             guard let dictionary = obj else {
                 console.debug("request for home status error!")
                 callBack(false)
@@ -45,7 +48,13 @@ class WBStatusListViewModel: NSObject {
             // 应在此处保存json
             // 反解析然后保存？
             // sinceid放在数组中
-            var idArray = [String]()
+            var idArray: [String]
+            if UserDefaults.standard.array(forKey: keyArray) == nil {
+                idArray = [String]()
+            }else{
+                idArray = UserDefaults.standard.array(forKey: keyArray) as! [String]
+            }
+            
             
             if let since = dictionary["since_id"] as? Int {
                 let key = "JSON:\(since)"
@@ -56,6 +65,8 @@ class WBStatusListViewModel: NSObject {
                     })
                 }
             }
+            
+            UserDefaults.standard.set(idArray, forKey: keyArray)
             
             guard let json = dictionary["statuses"] as? [Any] else{
                 console.debug("获取json错误")
