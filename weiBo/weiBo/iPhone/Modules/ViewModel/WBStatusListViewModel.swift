@@ -22,9 +22,14 @@ import UIKit
 import Kingfisher
 
 class WBStatusListViewModel: NSObject {
+    static var flag : Bool = true
+    
     lazy var dataSource: [WBStatusViewModel] = []
     
     func loadDate(isPull: Bool,callBack: @escaping (Bool)->() ) {
+        
+        
+        
         // TODO: 在此处进行json缓存
         var sinceId = 0
         var maxId = 0
@@ -56,8 +61,17 @@ class WBStatusListViewModel: NSObject {
             }
             
             
+            
             if let since = dictionary["since_id"] as? Int {
                 let key = "JSON:\(since)"
+                //第一次的时候清空以前的数据
+                if WBStatusListViewModel.flag == true {
+                    WBStatusListViewModel.flag = false
+                    //全删了
+                    try? CacheManager.shared?.removeAll()
+                    idArray = [String]()
+                    print("onece")
+                }
                 //把key保存在数组中，读取的时候遍历数组即可判断
                 if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: []) {
                     CacheManager.shared?.async.setObject(data, forKey: key, completion: { (_) in
