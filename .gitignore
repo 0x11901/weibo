@@ -49,7 +49,7 @@ xcuserdata/
 ## Other
 *.moved-aside
 *.xcuserstate
-*.xcworkspacedata
+*.xcworkspace
 
 ## Obj-C/Swift specific
 *.hmap
@@ -147,3 +147,4 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+.idea/
