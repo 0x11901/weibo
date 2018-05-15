@@ -9,7 +9,7 @@ target 'weiBo' do
     # Swift
     pod 'Alamofire'
     pod 'Kingfisher'
-    pod 'HandyJSON', '~> 4.0.0-beta.1', :inhibit_warnings => true
+    pod 'HandyJSON'
     pod 'SnapKit'
     pod 'XCGLogger', :inhibit_warnings => true
     pod 'ImageViewer'
