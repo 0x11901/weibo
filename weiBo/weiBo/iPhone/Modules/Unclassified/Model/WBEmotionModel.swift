@@ -24,25 +24,12 @@ class WBEmotionModel: NSObject {
     /// 全路径
     var fullPath: String?
 
-    init(dict: [String : Any]) {
+    init(dict: [String: Any]) {
         super.init()
         setValuesForKeys(dict)
     }
-    
+
     override var description: String {
         return dictionaryWithValues(forKeys: ["chs", "cht", "png", "gif", "code", "type", "fullPath"]).description
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-

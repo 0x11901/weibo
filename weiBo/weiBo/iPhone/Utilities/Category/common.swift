@@ -14,30 +14,30 @@ let globalColor = UIColor.colorWithHex(hex: 0xF98200)
 /// 屏幕的宽度
 let screenWidth = UIScreen.main.bounds.size.width
 
-///屏幕的高度
+/// 屏幕的高度
 let screenHeight = UIScreen.main.bounds.size.height
 
-///分辨率的倍数
+/// 分辨率的倍数
 let screenScale = UIScreen.main.scale
 
-///OAuth
+/// OAuth
 let appKey = "469365216"
 let appSecrect = "e48bbe54548acda95d19fffdd73aa011"
 let redirectURI = "http://steamcommunity.com/id/wjk930726/"
 
-///Account
+/// Account
 let loginSuccess = "loginSuccess"
 let accountKey = "accountKey"
 
-///new feature
+/// new feature
 let isNewFeatureKey = "isNewFeature"
 
-///边距
+/// 边距
 let margin: CGFloat = 12.0
 let globalMargin: CGFloat = 15.0
 let widthHeight = (screenWidth - 4 * margin) / CGFloat(3)
 
-///通知
+/// 通知
 let clickThumbImage: Notification.Name = Notification.Name(rawValue: "clickSamllImage")
 let indexKey = "indexKey"
 let urlsKey = "urlsKey"
@@ -45,6 +45,6 @@ let addOrDeleteNotification = Notification.Name(rawValue: "addOrDeleteNotificati
 let clickHyperlink: Notification.Name = Notification.Name(rawValue: "clickHyperlink")
 let hyperlinkTextKey = "hyperlinkTextKey"
 
-///Cache
+/// Cache
 let cacheName = "Cache"
 let keyArray = "keyArray"

@@ -6,8 +6,8 @@
 //  Copyright © 2016年 王靖凯. All rights reserved.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class WBPhotoViewer: UIViewController {
     let index: Int
@@ -18,35 +18,34 @@ class WBPhotoViewer: UIViewController {
         iv.frame = self.view.bounds
         return iv
     }()
-    
-    init(index: Int,url: String) {
+
+    init(index: Int, url: String) {
         self.index = index
         self.url = url
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
-        
+
         downLoadImage()
     }
-    
+
     func downLoadImage() {
-        
         guard let url = URL(string: self.url) else {
             console.debug("download error")
             return
         }
-        
-        ImageDownloader.default.downloadImage(with: url) { (downloadImage, err, _, _) in
-            if (err != nil) {
+
+        ImageDownloader.default.downloadImage(with: url) { downloadImage, err, _, _ in
+            if err != nil {
                 print(err!)
                 return
             }
@@ -60,8 +59,5 @@ class WBPhotoViewer: UIViewController {
                 self.imageView.center = self.view.center
             }
         }
-
     }
-
-    
 }

@@ -9,11 +9,11 @@
 import UIKit
 
 extension UILabel {
-    @objc convenience init(title: String?,fontSize: CGFloat = 14,fontColor: UIColor = UIColor.black,textAlignment: NSTextAlignment = .natural,numberOfLines: NSInteger = 0) {
+    @objc convenience init(title: String?, fontSize: CGFloat = 14, fontColor: UIColor = UIColor.black, textAlignment: NSTextAlignment = .natural, numberOfLines: NSInteger = 0) {
         self.init()
-        self.text = title
-        self.font = UIFont.systemFont(ofSize: fontSize)
-        self.textColor = fontColor
+        text = title
+        font = UIFont.systemFont(ofSize: fontSize)
+        textColor = fontColor
         self.textAlignment = textAlignment
         self.numberOfLines = numberOfLines
     }

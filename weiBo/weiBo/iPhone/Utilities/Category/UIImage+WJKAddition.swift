@@ -9,8 +9,7 @@
 import UIKit
 
 extension UIImage {
-    
-    public func createCornerImage(size: CGSize = CGSize.zero,backgroundColor: UIColor = UIColor.clear,callBack: @escaping (_ cornerImage: UIImage) -> ()) {
+    public func createCornerImage(size: CGSize = CGSize.zero, backgroundColor: UIColor = UIColor.clear, callBack: @escaping (_ cornerImage: UIImage) -> Void) {
         OperationQueue().addOperation {
             let rect = CGRect(origin: CGPoint.zero, size: size)
             UIGraphicsBeginImageContext(size)
@@ -20,7 +19,7 @@ extension UIImage {
             self.draw(in: rect)
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            
+
             OperationQueue.main.addOperation {
                 if let image = image {
                     callBack(image)
@@ -28,5 +27,4 @@ extension UIImage {
             }
         }
     }
-    
 }

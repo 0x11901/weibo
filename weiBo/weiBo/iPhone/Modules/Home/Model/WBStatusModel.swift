@@ -6,8 +6,8 @@
 //  Copyright © 2016年 王靖凯. All rights reserved.
 //
 
-import UIKit
 import HandyJSON
+import UIKit
 
 class WBStatusModel: HandyJSON {
     var created_at: String?
@@ -17,6 +17,6 @@ class WBStatusModel: HandyJSON {
     var source: String?
     var retweeted_status: WBStatusModel?
     var pic_urls: [WBPicUrlsModel]?
-    
+
     required init() {}
 }

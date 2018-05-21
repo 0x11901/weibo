@@ -10,8 +10,8 @@ import UIKit
 
 class WBPictureView: UIView {
     var viewModel: WBStatusViewModel? {
-        didSet{
-            guard let vm = viewModel,let pictures = vm.pic_urls else {
+        didSet {
+            guard let vm = viewModel, let pictures = vm.pic_urls else {
                 print("vm not exist")
                 return
             }
@@ -20,19 +20,19 @@ class WBPictureView: UIView {
             }
             var isOne = false
             var isFour = false
-            if pictures.count == 1{
+            if pictures.count == 1 {
                 isOne = true
-            }else if pictures.count == 4 {
+            } else if pictures.count == 4 {
                 isFour = true
             }
             for item in pictures.enumerated() {
                 var tag = item.offset
                 if isOne {
                     subviews.first?.frame.size = vm.firstImageSize
-                }else{
+                } else {
                     subviews.first?.frame.size = CGSize(width: widthHeight, height: widthHeight)
                 }
-                if isFour,tag > 1 {
+                if isFour, tag > 1 {
                     tag += 1
                 }
                 guard let urlStr = item.element.thumbnail_pic else {
@@ -42,7 +42,7 @@ class WBPictureView: UIView {
                     if obj.tag == tag {
                         let imageV = obj as! UIImageView
                         imageV.isHidden = false
-                        imageV.setImage(urlStr: urlStr, placeHolderName: "avatar_default_big", completionHandler: { (image, _, _, _) in
+                        imageV.setImage(urlStr: urlStr, placeHolderName: "avatar_default_big", completionHandler: { image, _, _, _ in
                             guard let urlStrMid = item.element.middle_pic else {
                                 return
                             }
@@ -53,25 +53,23 @@ class WBPictureView: UIView {
             }
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension WBPictureView {
-    
     fileprivate func setupView() {
         backgroundColor = super.backgroundColor
         clipsToBounds = true
         let frame = CGRect(x: 0, y: 0, width: widthHeight, height: widthHeight)
-        for i in 0..<9 {
+        for i in 0 ..< 9 {
             let row = CGFloat(i / 3)
             let col = CGFloat(i % 3)
             let imageView = UIImageView(frame: frame.offsetBy(dx: col * (widthHeight + margin), dy: row * (widthHeight + margin)))
@@ -83,29 +81,25 @@ extension WBPictureView {
             addSubview(imageView)
         }
     }
-    
 }
 
 extension WBPictureView {
-    
-    @objc fileprivate func imageAction(tap:UITapGestureRecognizer) {
-        guard var index = tap.view?.tag,let picArr = viewModel?.pic_urls else{
+    @objc fileprivate func imageAction(tap: UITapGestureRecognizer) {
+        guard var index = tap.view?.tag, let picArr = viewModel?.pic_urls else {
             console.debug("image tag beyond bounds")
             return
         }
-        if viewModel?.pic_urls?.count == 4,index > 2 {
+        if viewModel?.pic_urls?.count == 4, index > 2 {
             index -= 1
         }
-        
-        //此处传出一个图片数组
+
+        // 此处传出一个图片数组
         var urls = [String?]()
         for url in picArr {
             urls.append(url.middle_pic)
         }
-        
-        let userinfo: [String : Any] = [indexKey : index,urlsKey : urls]
+
+        let userinfo: [String: Any] = [indexKey: index, urlsKey: urls]
         NotificationCenter.default.post(name: clickThumbImage, object: self, userInfo: userinfo)
-        
     }
-    
 }

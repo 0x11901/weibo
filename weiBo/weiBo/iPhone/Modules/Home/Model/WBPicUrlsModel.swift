@@ -6,13 +6,13 @@
 //  Copyright © 2016年 王靖凯. All rights reserved.
 //
 
-import UIKit
 import HandyJSON
+import UIKit
 
 struct WBPicUrlsModel: HandyJSON {
     var thumbnail_pic: String?
     var middle_pic: String?
-    
+
     mutating func didFinishMapping() {
         middle_pic = thumbnail_pic?.replacingOccurrences(of: "/thumbnail/", with: "/bmiddle/")
     }

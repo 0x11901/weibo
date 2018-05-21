@@ -6,12 +6,12 @@
 //  Copyright © 2017年 王靖凯. All rights reserved.
 //
 
-import UIKit
 import HandyJSON
+import UIKit
 
 class WBUserInfo {
     var weatherInfo: WeatherInfo?
-    
+
     static let shared = WBUserInfo()
     private init() {}
 }
