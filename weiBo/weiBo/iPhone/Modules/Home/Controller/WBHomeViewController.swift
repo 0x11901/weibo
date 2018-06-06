@@ -6,7 +6,7 @@
 //  Copyright © 2016年 王靖凯. All rights reserved.
 //
 
-import GTMWebKit
+//import GTMWebKit
 import UIKit
 
 class WBHomeViewController: WBBaseViewController {
@@ -105,9 +105,9 @@ extension WBHomeViewController: GalleryItemsDataSource {
             let reg = "http(s)?:\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- .\\/?%&=]*)?"
             let pre = NSPredicate(format: "SELF MATCHES %@", reg)
             if pre.evaluate(with: hyperlink) {
-                let webVC = GTMWebViewController(with: hyperlink, navigType: .navbar)
-                webVC.hidesBottomBarWhenPushed = true
-                navigationController?.pushViewController(webVC, animated: true)
+//                let webVC = GTMWebViewController(with: hyperlink, navigType: .navbar)
+//                webVC.hidesBottomBarWhenPushed = true
+//                navigationController?.pushViewController(webVC, animated: true)
             } else {
                 console.debug(hyperlink)
             }

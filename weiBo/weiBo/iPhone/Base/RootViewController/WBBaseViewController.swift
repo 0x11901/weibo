@@ -6,7 +6,7 @@
 //  Copyright © 2016年 王靖凯. All rights reserved.
 //
 
-import ESPullToRefresh
+//import ESPullToRefresh
 import SnapKit
 import UIKit
 
@@ -71,22 +71,22 @@ class WBBaseViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.es.addPullToRefresh {
-            self.headerRefresh {
-                if $0 {
-                } else {
-                }
-                self.tableView.es.stopPullToRefresh()
-            }
-        }
-        tableView.es.addInfiniteScrolling {
-            self.footerRefresh {
-                if $0 {
-                } else {
-                }
-                self.tableView.es.stopLoadingMore()
-            }
-        }
+//        tableView.es.addPullToRefresh {
+//            self.headerRefresh {
+//                if $0 {
+//                } else {
+//                }
+//                self.tableView.es.stopPullToRefresh()
+//            }
+//        }
+//        tableView.es.addInfiniteScrolling {
+//            self.footerRefresh {
+//                if $0 {
+//                } else {
+//                }
+//                self.tableView.es.stopLoadingMore()
+//            }
+//        }
     }
 
     func setupVisitorView() {

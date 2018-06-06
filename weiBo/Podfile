@@ -13,8 +13,8 @@ pod 'HandyJSON', '~> 4.0.0-beta.1', :inhibit_warnings => true
 pod 'SnapKit', '~> 4.0.0'
 pod 'XCGLogger', :inhibit_warnings => true
 pod 'ImageViewer'
-pod 'GTMWebKit', '~> 0.0.5'
-pod 'ESPullToRefresh', '~> 2.5'
+#pod 'GTMWebKit', '~> 0.0.6'
+#pod 'ESPullToRefresh', '~> 2.7'
 pod 'Toast-Swift'
 pod 'Cache', '~> 4.1.2'
 end
