@@ -60,10 +60,6 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     }
 
     std::unordered_map<size_t, size_t> ranks = zip(vector);
-    for (auto &&item : ranks) {
-        std::cout << item.first << std::endl;
-        std::cout << item.second << std::endl;
-    }
 
     if (isSame(ranks, 对子))
     {
@@ -76,9 +72,11 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     // 下面的判断必须要考虑AAA当💣的特殊情况，所以先筛选出AAA当💣的特殊情况
     if (Ruler::getInstance().isAsTrioAceBomb())
     {
-        if (ranks[牌型A] == 3)
+        // OPTIMIZE: 下面某处会修改ranks，先拷贝绕过
+        auto copy = ranks;
+        if (copy[牌型A] == 3)
         {
-            if (ranks.size() == 1)
+            if (copy.size() == 1)
             {
                 model.handsCategory = HandsCategory::炸弹;
                 model.size          = 3;
@@ -625,13 +623,6 @@ std::vector<std::vector<size_t>> Judge::restoreHands(const std::vector<std::vect
 bool Judge::isSame(const std::unordered_map<size_t, size_t> &ranks, const std::string &category) const
 {
     auto t = zip(category);
-    for (auto &&item2 : t) {
-        std::cout << item2.first << std::endl;
-        std::cout << item2.second << std::endl;
-    }
-    std::cout << ranks.size() << std::endl;
-    std::cout << t.size() << std::endl;
-
     if (ranks.size() == t.size())
     {
         std::unordered_set<size_t> s1{};
