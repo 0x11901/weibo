@@ -94,38 +94,38 @@ enum class GeoDirection
 /** 牌型 */
 enum class HandsCategory
 {
-    不成牌型,
-    单张,
-    对子,
-    三不带,
-    三带一,
-    三带二,
-    顺子,
-    连对,
-    三顺,
-    三顺带一,
-    三顺带二,
-    炸弹,
-    四带一,
-    四带二,
-    可以出任意成牌牌型
+    illegal,
+    solo,
+    pair,
+    trio,
+    trioWithSolo,
+    trioWithPair,
+    chain,
+    pairChain,
+    trioChain,
+    trioChainWithSolo,
+    trioChainWithPair,
+    bomb,
+    fourWithDualSolo,
+    fourWithDualPair,
+    anyLegalCategory
 };
 
 enum class SpecialCardsType
 {
-    连对,
-    顺子,
-    飞机,
-    炸弹,
-    三带一,
-    三带二,
-    不要,
+    pairChain,
+    chain,
+    airplane,
+    bomb,
+    trioWithSolo,
+    trioWithPair,
+    pass
 };
 
 enum class RoundType
 {
-    RoundTypeQuan,
-    RoundTypeJu,
+    round,
+    game
 };
 
 #pragma mark - 房间常量
@@ -133,24 +133,29 @@ enum class RoundType
 extern const char *const WINNER_POKER_ROOM_SOCKET_NAME;
 extern const char *const WINNER_POKER_ROOM_SOCKET_URL;
 
-//房间场景
+// 房间场景
 extern const int TAG_WINNER_POKER_SCENE;
 
 #pragma mark - 网络请求命令常量
+
 // command response code ok
 extern const char *const RESULT_OK;
 
-//复盘
+// 复盘
 extern const char *const CMD_MAIN_REPLAY;
-
-//发牌
+// 房间复盘
+extern const char *const CMD_MAIN_REPLAY_ROOM;
+// 发牌
 extern const char *const CMD_MAIN_SEND_CARDS;
-
-//加入房间
+// 加入房间
 extern const char *const CMD_MAIN_TO_IN;
-
-// FIXME: 测试用
-//创建房间
+// 出牌
+extern const char *const CMD_MAIN_HIT;
+// 不要（要不起）
+extern const char *const CMD_MAIN_PASS;
+// 轮到谁
+extern const char *const CMD_MAIN_TURNS;
+// 创建房间
 extern const char *const CMD_MAIN_CREATEROOM;
 
 #pragma mark - 工具

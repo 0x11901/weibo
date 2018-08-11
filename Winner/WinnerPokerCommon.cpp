@@ -16,7 +16,7 @@ PAGAMES_WINNER_POKER_BEGIN
 #pragma mark - 房间常量
 // socket相关
 const char *const WINNER_POKER_ROOM_SOCKET_NAME = "WINNER_POKER_ROOM_SOCKET_NAME";
-const char *const WINNER_POKER_ROOM_SOCKET_URL  = "http://tst-runfast-stg90.1768.com";
+const char *const WINNER_POKER_ROOM_SOCKET_URL  = "http://tst-runfast-stg41.1768.com";
 
 //房间场景
 const int TAG_WINNER_POKER_SCENE = 233333;
@@ -25,16 +25,20 @@ const int TAG_WINNER_POKER_SCENE = 233333;
 // command response code ok
 const char *const RESULT_OK = "200";
 
-//复盘
+// 复盘
 const char *const CMD_MAIN_REPLAY = "replay";
-
-//发牌
+// 房间复盘
+const char *const CMD_MAIN_REPLAY_ROOM = "roomReplay";
+// 发牌
 const char *const CMD_MAIN_SEND_CARDS = "dealMj";
-
-//加入房间
+// 加入房间
 const char *const CMD_MAIN_TO_IN = "toIn";
-
-// FIXME: 测试用
-//创建房间
+// 出牌
+const char *const CMD_MAIN_HIT = "hit";
+// 不要（要不起）
+const char *const CMD_MAIN_PASS = "pass";
+// 轮到谁
+const char *const CMD_MAIN_TURNS = "turns";
+// 创建房间
 const char *const CMD_MAIN_CREATEROOM = "createRoom";
 PAGAMES_WINNER_POKER_END

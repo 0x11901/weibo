@@ -16,21 +16,21 @@
 
 PAGAMES_WINNER_POKER_BEGIN
 
-std::string 对子    = "AA";
-std::string 三不带  = "AAA";
-std::string 三带一  = "AAAB";
-std::string 三带二1 = "AAABB";
-std::string 三带二2 = "AAABC";
-std::string 炸弹    = "AAAA";
-std::string 四带一  = "AAAAB";
-std::string 四带二1 = "AAAABB";
-std::string 四带二2 = "AAAABC";
+std::string duiZi     = "AA";
+std::string sanBuDai  = "AAA";
+std::string sanDaiYi  = "AAAB";
+std::string sanDaiEr1 = "AAABB";
+std::string sanDaiEr2 = "AAABC";
+std::string zhaDan    = "AAAA";
+std::string siDaiYi   = "AAAAB";
+std::string siDaiEr1  = "AAAABB";
+std::string siDaiEr2  = "AAAABC";
 
-constexpr size_t 牌型3 = 3;
-constexpr size_t 牌型A = 14;
-constexpr size_t 牌型2 = 15;
+constexpr size_t paiXing3 = 3;
+constexpr size_t paiXingA = 14;
+constexpr size_t paiXing2 = 15;
 
-constexpr size_t 红桃3 = 771;
+constexpr size_t hongTao3 = 771;
 
 #pragma mark - 单例
 Judge &Judge::getInstance()
@@ -45,7 +45,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     HandsCategoryModel model{};
     if (hands.empty())
     {
-        model.handsCategory = HandsCategory::不成牌型;
+        model.handsCategory = HandsCategory::illegal;
         return model;
     }
 
@@ -53,7 +53,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
 
     if (hands.size() == 1)
     {
-        model.handsCategory = HandsCategory::单张;
+        model.handsCategory = HandsCategory::solo;
         model.size          = 1;
         model.weight        = vector.front();
         return model;
@@ -61,9 +61,9 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
 
     std::unordered_map<size_t, size_t> ranks = zip(vector);
 
-    if (isSame(ranks, 对子))
+    if (isSame(ranks, duiZi))
     {
-        model.handsCategory = HandsCategory::对子;
+        model.handsCategory = HandsCategory::pair;
         model.size          = 2;
         model.weight        = vector.front();
         return model;
@@ -74,36 +74,36 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     {
         // OPTIMIZE: 下面某处会修改ranks，先拷贝绕过
         auto copy = ranks;
-        if (copy[牌型A] == 3)
+        if (copy[paiXingA] == 3)
         {
             if (copy.size() == 1)
             {
-                model.handsCategory = HandsCategory::炸弹;
+                model.handsCategory = HandsCategory::bomb;
                 model.size          = 3;
-                model.weight        = 牌型A;
+                model.weight        = paiXingA;
                 return model;
             }
 
             //当💣不可拆
             if (!Ruler::getInstance().isBombDetachable())
             {
-                model.handsCategory = HandsCategory::不成牌型;
+                model.handsCategory = HandsCategory::illegal;
                 return model;
             }
         }
     }
 
-    if (isSame(ranks, 三不带))
+    if (isSame(ranks, sanBuDai))
     {
-        model.handsCategory = HandsCategory::三不带;
+        model.handsCategory = HandsCategory::trio;
         model.size          = 3;
         model.weight        = vector.front();
         return model;
     }
 
-    if (isSame(ranks, 三带一))
+    if (isSame(ranks, sanDaiYi))
     {
-        model.handsCategory = HandsCategory::三带一;
+        model.handsCategory = HandsCategory::trioWithSolo;
         model.size          = 4;
         size_t weight       = 0;
         for (const auto &rank : ranks)
@@ -118,9 +118,9 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, 三带二1) || isSame(ranks, 三带二2))
+    if (isSame(ranks, sanDaiEr1) || isSame(ranks, sanDaiEr2))
     {
-        model.handsCategory = HandsCategory::三带二;
+        model.handsCategory = HandsCategory::trioWithPair;
         model.size          = 5;
         size_t weight       = 0;
         for (const auto &rank : ranks)
@@ -135,17 +135,17 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, 炸弹))
+    if (isSame(ranks, zhaDan))
     {
-        model.handsCategory = HandsCategory::炸弹;
+        model.handsCategory = HandsCategory::bomb;
         model.size          = 4;
         model.weight        = vector.front();
         return model;
     }
 
-    if (isSame(ranks, 四带一))
+    if (isSame(ranks, siDaiYi))
     {
-        model.handsCategory = HandsCategory::四带一;
+        model.handsCategory = HandsCategory::fourWithDualSolo;
         model.size          = 5;
         size_t weight       = 0;
         for (const auto &rank : ranks)
@@ -160,9 +160,9 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, 四带二1) || isSame(ranks, 四带二2))
+    if (isSame(ranks, siDaiEr1) || isSame(ranks, siDaiEr2))
     {
-        model.handsCategory = HandsCategory::四带二;
+        model.handsCategory = HandsCategory::fourWithDualPair;
         model.size          = 6;
         size_t weight       = 0;
         for (const auto &rank : ranks)
@@ -181,7 +181,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     //判断顺子
     if (isChain(ranks))
     {
-        model.handsCategory = HandsCategory::顺子;
+        model.handsCategory = HandsCategory::chain;
         // OPTIMIZE: 待优化
         std::vector<size_t> v;
         v.reserve(ranks.size());
@@ -197,7 +197,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     //判断连对
     if (isPairChain(ranks))
     {
-        model.handsCategory = HandsCategory::连对;
+        model.handsCategory = HandsCategory::pairChain;
         // OPTIMIZE: 待优化
         std::vector<size_t> v;
         v.reserve(ranks.size());
@@ -224,13 +224,13 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    model.handsCategory = HandsCategory::不成牌型;
+    model.handsCategory = HandsCategory::illegal;
     return model;
 }
 
 bool Judge::isPass(const std::vector<size_t> &hands)
 {
-    return _currentHandsCategory.handsCategory.handsCategory == HandsCategory::可以出任意成牌牌型
+    return _currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory
                ? !cardIntentions(hands).empty()
                : !cardHint(hands).empty();
 }
@@ -242,18 +242,18 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         return false;
     }
 
-    if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::可以出任意成牌牌型)
+    if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
-        return !(judgeHandsCategory(hands).handsCategory == HandsCategory::不成牌型);
+        return !(judgeHandsCategory(hands).handsCategory == HandsCategory::illegal);
     }
     else
     {
         const auto &x = judgeHandsCategory(hands);
         const auto &y = _currentHandsCategory.handsCategory;
 
-        if (y.handsCategory == HandsCategory::炸弹)
+        if (y.handsCategory == HandsCategory::bomb)
         {
-            if (x.handsCategory == HandsCategory::炸弹)
+            if (x.handsCategory == HandsCategory::bomb)
             {
                 return x.weight > y.weight;
             }
@@ -275,7 +275,7 @@ bool Judge::isTheHighestSingleCard(const std::vector<size_t> &hands, size_t sing
 
 bool Judge::isContainsThreeOfHearts(const std::vector<size_t> &hands) const
 {
-    return std::find(hands.begin(), hands.end(), 红桃3) != hands.end();
+    return std::find(hands.begin(), hands.end(), hongTao3) != hands.end();
 }
 
 #pragma mark - 提示
@@ -359,12 +359,13 @@ std::vector<size_t> Judge::hint(const std::vector<size_t> &hands)
 #pragma mark - getter & setter
 void Judge::setCurrentHandsCategory(const std::vector<size_t> &currentHandsCategory)
 {
+    Judge::_lastHandsCategory = Judge::_currentHandsCategory;
     CurrentHandsCategory category{};
     category.hands = currentHandsCategory;
     if (currentHandsCategory.empty())
     {
         HandsCategoryModel model{};
-        model.handsCategory    = HandsCategory::可以出任意成牌牌型;
+        model.handsCategory    = HandsCategory::anyLegalCategory;
         category.handsCategory = model;
     }
     else
@@ -380,10 +381,10 @@ std::multimap<size_t, size_t> Judge::getRanksMultimap(const std::vector<size_t> 
     std::multimap<size_t, size_t> multimap;
     if (isThreeOfHeartsFirst && isContainsThreeOfHearts(hands))
     {
-        multimap.insert(std::pair<size_t, size_t>(牌型3, 红桃3));
+        multimap.insert(std::pair<size_t, size_t>(paiXing3, hongTao3));
         std::vector<size_t> filter;
         std::remove_copy_if(
-            hands.begin(), hands.end(), std::back_inserter(filter), [](const size_t &$0) { return $0 == 红桃3; });
+            hands.begin(), hands.end(), std::back_inserter(filter), [](const size_t &$0) { return $0 == hongTao3; });
         for (const auto &hand : filter)
         {
             multimap.insert(std::pair<size_t, size_t>((hand >> 8) & 0xff, hand));
@@ -467,7 +468,7 @@ std::vector<size_t> Judge::filter3(const std::unordered_map<size_t, size_t> &oth
     }
     else
     {
-        return unzip(others, 牌型3);
+        return unzip(others, paiXing3);
     }
 }
 
@@ -476,9 +477,9 @@ std::unordered_map<size_t, size_t> Judge::filterA(const std::unordered_map<size_
     auto ranksCopy = ranks;
     if (!Ruler::getInstance().isBombDetachable() && Ruler::getInstance().isAsTrioAceBomb())
     {
-        if (ranks.find(牌型A) != ranks.end() && ranks.at(牌型A) == 3)
+        if (ranks.find(paiXingA) != ranks.end() && ranks.at(paiXingA) == 3)
         {
-            ranksCopy.erase(牌型A);
+            ranksCopy.erase(paiXingA);
         }
     }
     return ranksCopy;
@@ -514,7 +515,7 @@ bool Judge::isContainsTarget(const std::vector<size_t> &temp) const
 
 bool Judge::canSplit3(const std::unordered_map<size_t, size_t> &others) const
 {
-    return !(others.find(牌型3) != others.end() && others.at(牌型3) > 2);
+    return !(others.find(paiXing3) != others.end() && others.at(paiXing3) > 2);
 }
 
 std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n, ssize_t k) const
@@ -716,17 +717,17 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                         if (x == 0)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                true, HandsCategoryModel{ HandsCategory::三顺, weight, size });
+                                true, HandsCategoryModel{ HandsCategory::trioChain, weight, size });
                         }
                         else if (x == n)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                false, HandsCategoryModel{ HandsCategory::三顺带一, weight, size });
+                                false, HandsCategoryModel{ HandsCategory::trioChainWithSolo, weight, size });
                         }
                         else if (x == 2 * n)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                false, HandsCategoryModel{ HandsCategory::三顺带二, weight, size });
+                                false, HandsCategoryModel{ HandsCategory::trioChainWithPair, weight, size });
                         }
                     }
                 }
@@ -897,7 +898,7 @@ void Judge::enumerateChain(std::vector<std::vector<size_t>> &ret, const std::uno
 
     // 2不参与连牌
     auto ranksCopy = ranks;
-    ranksCopy.erase(牌型2);
+    ranksCopy.erase(paiXing2);
 
     if (ranksCopy.size() > 4)
     {
@@ -1225,7 +1226,7 @@ void Judge::exhaustiveChain(std::vector<std::vector<size_t>> &ret, const std::un
 
     // 2不参与连牌
     auto ranksCopy = copy;
-    ranksCopy.erase(牌型2);
+    ranksCopy.erase(paiXing2);
 
     if (ranksCopy.size() > length - 1)
     {
@@ -1484,12 +1485,12 @@ void Judge::exhaustiveBombs(std::vector<std::vector<size_t>> &        ret,
         }
     }
 
-    if (Ruler::getInstance().isAsTrioAceBomb() && ranks.find(牌型A) != ranks.end() && ranks.at(牌型A) == 3)
+    if (Ruler::getInstance().isAsTrioAceBomb() && ranks.find(paiXingA) != ranks.end() && ranks.at(paiXingA) == 3)
     {
         temp.clear();
         for (int i = 0; i < 3; ++i)
         {
-            temp.push_back(牌型A);
+            temp.push_back(paiXingA);
         }
 
         ret.push_back(temp);
@@ -1566,12 +1567,12 @@ void Judge::appendBombs(std::vector<std::vector<size_t>> &ret, const std::unorde
             ret.push_back(temp);
         }
     }
-    if (Ruler::getInstance().isAsTrioAceBomb() && ranks.find(牌型A) != ranks.end() && ranks.at(牌型A) == 3)
+    if (Ruler::getInstance().isAsTrioAceBomb() && ranks.find(paiXingA) != ranks.end() && ranks.at(paiXingA) == 3)
     {
         temp.clear();
         for (int i = 0; i < 3; ++i)
         {
-            temp.push_back(牌型A);
+            temp.push_back(paiXingA);
         }
         ret.push_back(temp);
     }
@@ -1634,7 +1635,7 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
 
     auto values = getCardRanks(hands);
     // 更新提示中必须包含的牌
-    _target = isThreeOfHeartsFirst && isContainsThreeOfHearts(hands) ? 牌型3
+    _target = isThreeOfHeartsFirst && isContainsThreeOfHearts(hands) ? paiXing3
                                                                      : *std::min_element(values.begin(), values.end());
 
     // FIXME:  按默认方式排序，可能和摆牌方式冲突，待摆牌完成后看是否需要处理
@@ -1660,7 +1661,7 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
 
     auto handsCategory = _currentHandsCategory.handsCategory.handsCategory;
 
-    if (handsCategory == HandsCategory::不成牌型 || handsCategory == HandsCategory::可以出任意成牌牌型) return ret;
+    if (handsCategory == HandsCategory::illegal || handsCategory == HandsCategory::anyLegalCategory) return ret;
 
     // key 为牌型，value 为约定的实数（包含牌型与花色）
     auto ranksMultimap = getRanksMultimap(hands);
@@ -1676,50 +1677,50 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     // 枚举法
     switch (_currentHandsCategory.handsCategory.handsCategory)
     {
-        case HandsCategory::单张:
+        case HandsCategory::solo:
             exhaustiveSolo(ret, copy);
             break;
-        case HandsCategory::对子:
+        case HandsCategory::pair:
             exhaustivePair(ret, copy);
             break;
-        case HandsCategory::三不带:
+        case HandsCategory::trio:
             exhaustiveTrio(ret, copy);
             break;
-        case HandsCategory::三带一:
+        case HandsCategory::trioWithSolo:
             exhaustiveTrioWithSolo(ret, copy);
             break;
-        case HandsCategory::三带二:
+        case HandsCategory::trioWithPair:
             exhaustiveTrioWithPair(ret, copy);
             break;
-        case HandsCategory::顺子:
+        case HandsCategory::chain:
             exhaustiveChain(ret, copy);
             break;
-        case HandsCategory::连对:
+        case HandsCategory::pairChain:
             exhaustivePairChain(ret, copy);
             break;
-        case HandsCategory::三顺:
+        case HandsCategory::trioChain:
             exhaustiveTrioChain(ret, copy);
             break;
-        case HandsCategory::三顺带一:
+        case HandsCategory::trioChainWithSolo:
             exhaustiveTrioChainWithSolo(ret, copy);
             break;
-        case HandsCategory::三顺带二:
+        case HandsCategory::trioChainWithPair:
             exhaustiveTrioChainWithPair(ret, copy);
             break;
-        case HandsCategory::炸弹:
+        case HandsCategory::bomb:
             exhaustiveBombs(ret, ranks);
             break;
-        case HandsCategory::四带一:
+        case HandsCategory::fourWithDualSolo:
             exhaustiveFourWithSolo(ret, ranks);
             break;
-        case HandsCategory::四带二:
+        case HandsCategory::fourWithDualPair:
             exhaustiveFourWithPair(ret, ranks);
             break;
         default:
             return ret;
     }
 
-    if (handsCategory != HandsCategory::炸弹)
+    if (handsCategory != HandsCategory::bomb)
     {
         appendBombs(ret, ranks);
     }
