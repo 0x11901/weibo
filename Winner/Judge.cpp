@@ -1238,7 +1238,7 @@ void Judge::exhaustiveChain(std::vector<std::vector<size_t>> &ret, const std::un
         {
             t.push_back(rank.first);
         }
-
+        std::sort(t.begin(), t.end());
         ssize_t size = t.size();
         for (ssize_t i = 0; i < size - 1; ++i)
         {
@@ -1286,6 +1286,8 @@ void Judge::exhaustivePairChain(std::vector<std::vector<size_t>> &        ret,
             }
         }
 
+        std::sort(t.begin(), t.end());
+
         ssize_t size = t.size();
         for (ssize_t i = 0; i < size - 1; ++i)
         {
@@ -1329,7 +1331,7 @@ void Judge::exhaustiveTrioChain(std::vector<std::vector<size_t>> &        ret,
                 t.push_back(rank.first);
             }
         }
-
+        std::sort(t.begin(), t.end());
         ssize_t size = t.size();
         for (ssize_t i = 0; i < size - 1; ++i)
         {
@@ -1375,7 +1377,7 @@ void Judge::exhaustiveTrioChainWithSolo(std::vector<std::vector<size_t>> &      
                 t.push_back(rank.first);
             }
         }
-
+        std::sort(t.begin(), t.end());
         ssize_t size = t.size();
         for (ssize_t i = 0; i < size - 1; ++i)
         {
@@ -1429,7 +1431,7 @@ void Judge::exhaustiveTrioChainWithPair(std::vector<std::vector<size_t>> &      
                 t.push_back(rank.first);
             }
         }
-
+        std::sort(t.begin(), t.end());
         ssize_t size = t.size();
         for (ssize_t i = 0; i < size - 1; ++i)
         {
