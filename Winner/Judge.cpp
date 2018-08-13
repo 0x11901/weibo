@@ -722,12 +722,12 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                         else if (x == n)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                false, HandsCategoryModel{ HandsCategory::trioChainWithSolo, weight, size });
+                                    true, HandsCategoryModel{ HandsCategory::trioChainWithSolo, weight, size });
                         }
                         else if (x == 2 * n)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                false, HandsCategoryModel{ HandsCategory::trioChainWithPair, weight, size });
+                                    true, HandsCategoryModel{ HandsCategory::trioChainWithPair, weight, size });
                         }
                     }
                 }
@@ -1323,6 +1323,7 @@ void Judge::exhaustiveTrioChain(std::vector<std::vector<size_t>> &        ret,
 
         auto length = _currentHandsCategory.handsCategory.size;
         auto weight = _currentHandsCategory.handsCategory.weight;
+        length /= 3;
 
         for (const auto &rank : ranks)
         {
@@ -1338,7 +1339,7 @@ void Judge::exhaustiveTrioChain(std::vector<std::vector<size_t>> &        ret,
             for (ssize_t j = size - 1; j > i; --j)
             {
                 auto n = j - i + 1;
-                if (n != length) continue;
+                if (n  != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
                 {
@@ -1369,6 +1370,7 @@ void Judge::exhaustiveTrioChainWithSolo(std::vector<std::vector<size_t>> &      
 
         auto length = _currentHandsCategory.handsCategory.size;
         auto weight = _currentHandsCategory.handsCategory.weight;
+        length /= 4;
 
         for (const auto &rank : ranks)
         {
@@ -1384,7 +1386,7 @@ void Judge::exhaustiveTrioChainWithSolo(std::vector<std::vector<size_t>> &      
             for (ssize_t j = size - 1; j > i; --j)
             {
                 auto n = j - i + 1;
-                if (n != length) continue;
+                if (n  != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
                 {
@@ -1423,6 +1425,7 @@ void Judge::exhaustiveTrioChainWithPair(std::vector<std::vector<size_t>> &      
 
         auto length = _currentHandsCategory.handsCategory.size;
         auto weight = _currentHandsCategory.handsCategory.weight;
+        length /= 5;
 
         for (const auto &rank : ranks)
         {
@@ -1670,7 +1673,6 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
 
     auto values = getCardRanks(hands);
 
-    // FIXME:  按默认方式排序，可能和摆牌方式冲突，待摆牌完成后看是否需要处理
     std::sort(values.begin(), values.end());
 
     auto ranks = zip(values);
