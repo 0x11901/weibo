@@ -125,7 +125,7 @@ private:
     std::vector<std::vector<size_t>> _cardIntentions{};
 
     /** 持有首出提示数组的迭代器，记录上一次提示的位置 */
-    std::__wrap_iter<std::vector<size_t, std::allocator<size_t>> *> _iteratorIntentions;
+    std::vector<std::vector<size_t>>::iterator _iteratorIntentions;
 
     /** 持有用户上一次传入首出提示的手牌 */
     std::vector<size_t> _handsHint{};
@@ -134,7 +134,7 @@ private:
     std::vector<std::vector<size_t>> _cardHint{};
 
     /** 持有首出提示数组的迭代器，记录上一次提示的位置 */
-    std::__wrap_iter<std::vector<size_t, std::allocator<size_t>> *> _iteratorHint;
+    std::vector<std::vector<size_t>>::iterator _iteratorHint;
 
 private:
 #pragma mark - 私有函数
