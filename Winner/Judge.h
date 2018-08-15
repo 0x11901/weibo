@@ -83,12 +83,21 @@ public:
 
 #pragma mark - 提示
     /**
+     * 智能提示，根据给 CurrentHandsCategory 传入的数组判断是想要首出提示还是跟牌提示
+     * 当 setCurrentHandsCategory 传入空数组时，认为当前玩家首出，传入非空认为玩家跟牌
+     * @param hands 玩家整个手牌
+     * @param isStartingHand 是不是起手牌，如果是整个牌局出的第一手牌，需要判定♥️3必出
+     * @return 手牌中符合出牌意图的某个组合，也有可能是空
+     */
+    std::vector<size_t> intentions(const std::vector<size_t> &hands, bool isStartingHand = false);
+
+    /**
      * 首出提示，通过分析用户传入的手牌，分析用户意图，给出一组符合出牌规则的牌型
      * @param hands 用户传入的手牌
      * @param isStartingHand 是不是起手牌，如果是整个牌局出的第一手牌，需要判定♥️3必出
      * @return 手牌中符合出牌意图的某个组合，也有可能是空
      */
-    std::vector<size_t> intentions(const std::vector<size_t> &hands, bool isStartingHand = false);
+    std::vector<size_t> intention(const std::vector<size_t> &hands, bool isStartingHand = false);
 
     /**
      * 跟牌提示，依据持有的当前圈的牌型以及传入的手牌，给出一组能跟牌的牌型
@@ -116,26 +125,20 @@ private:
     /** 提示中必须包含的牌，可能是♥️3，也有可能是用户传入的手牌中最小的牌型 */
     size_t _target = 0;
 
-    /** 持有用户上一次传入首出提示的手牌 */
-    std::vector<size_t> _handsIntentions{};
-
     /** 持有分析好的首出提示数组 */
     std::vector<std::vector<size_t>> _cardIntentions{};
 
     /** 持有首出提示数组的迭代器，记录上一次提示的位置 */
     std::vector<std::vector<size_t>>::iterator _iteratorIntentions;
 
-    /** 持有用户上一次传入首出提示的手牌 */
-    std::vector<size_t> _handsHint{};
-
-    /** 持有分析好的首出提示数组 */
-    std::vector<std::vector<size_t>> _cardHint{};
-
-    /** 持有首出提示数组的迭代器，记录上一次提示的位置 */
-    std::vector<std::vector<size_t>>::iterator _iteratorHint;
-
     /** 是否需要重新计算首出提示 */
     bool _needRecalculateIntentions = true;
+
+    /** 持有分析好的跟牌提示数组 */
+    std::vector<std::vector<size_t>> _cardHint{};
+
+    /** 持有跟牌提示数组的迭代器，记录上一次提示的位置 */
+    std::vector<std::vector<size_t>>::iterator _iteratorHint;
 
     /** 是否需要重新计算跟牌提示 */
     bool _needRecalculateHint = true;
@@ -247,8 +250,6 @@ private:
                                 const std::unordered_map<size_t, size_t> &ranks) const;
 
     void appendBombs(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const;
-
-    bool needRecalculate(const std::vector<size_t> &newer, std::vector<size_t> &older, bool isIgnoreHandsCategory);
 
 public:
     std::vector<std::vector<size_t>> cardIntentions(const std::vector<size_t> &hands, bool isStartingHand = false);

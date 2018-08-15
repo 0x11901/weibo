@@ -279,7 +279,10 @@ bool Judge::isContainsThreeOfHearts(const std::vector<size_t> &hands) const
 }
 
 #pragma mark - 提示
-std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isStartingHand)
+std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isStartingHand) {
+    return std::vector<size_t>();
+}
+std::vector<size_t> Judge::intention(const std::vector<size_t> &hands, bool isStartingHand)
 {
     /**
      首出提示：
@@ -309,7 +312,7 @@ std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isS
         23. 344555566，提示3； （炸弹不可拆）
         24. 45667888999QQQQ ，最小牌是4，匹配到飞机，8889994566
      */
-    if (needRecalculate(hands, _handsIntentions, true))
+    if (_needRecalculateIntentions)
     {
         _cardIntentions     = cardIntentions(hands, isStartingHand);
         _iteratorIntentions = _cardIntentions.begin();
@@ -333,7 +336,7 @@ std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isS
 std::vector<size_t> Judge::hint(const std::vector<size_t> &hands)
 {
     // 给出符合牌型的所有组合，不考虑拆牌情况
-    if (needRecalculate(hands, _handsHint, false))
+    if (_needRecalculateHint)
     {
         _cardHint     = cardHint(hands);
         _iteratorHint = _cardHint.begin();
@@ -1583,47 +1586,6 @@ void Judge::appendBombs(std::vector<std::vector<size_t>> &ret, const std::unorde
         }
         ret.push_back(temp);
     }
-}
-
-bool Judge::needRecalculate(const std::vector<size_t> &newer, std::vector<size_t> &older, bool isIgnoreHandsCategory)
-{
-    const auto &x = _lastHandsCategory.handsCategory;
-    const auto &y = _currentHandsCategory.handsCategory;
-    auto        b = true;
-
-    // OPTIMIZE: 待优化
-    if (isIgnoreHandsCategory)
-    {
-        auto copy = newer;
-        std::sort(copy.begin(), copy.end());
-        b = copy != older;
-        if (b)
-        {
-            older = copy;
-        }
-    }
-    else
-    {
-        if (x.handsCategory != y.handsCategory || x.size != y.size || x.weight != y.weight)
-        {
-            Judge::_lastHandsCategory = Judge::_currentHandsCategory;
-            auto copy                 = newer;
-            std::sort(copy.begin(), copy.end());
-            older = copy;
-        }
-        else
-        {
-            auto copy = newer;
-            std::sort(copy.begin(), copy.end());
-            b = copy != older;
-            if (b)
-            {
-                older = copy;
-            }
-        }
-    }
-
-    return b;
 }
 
 std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t> &hands, bool isStartingHand)
