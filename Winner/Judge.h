@@ -110,8 +110,6 @@ public:
 
 private:
 #pragma mark - 私有变量
-    /** 持有上一圈的牌型，用以判断能否跟牌和提示跟牌 */
-    CurrentHandsCategory _lastHandsCategory{};
     /** 持有这一圈的牌型，用以判断能否跟牌和提示跟牌 */
     CurrentHandsCategory _currentHandsCategory{};
 
@@ -135,6 +133,12 @@ private:
 
     /** 持有首出提示数组的迭代器，记录上一次提示的位置 */
     std::vector<std::vector<size_t>>::iterator _iteratorHint;
+
+    /** 是否需要重新计算首出提示 */
+    bool _needRecalculateIntentions = true;
+
+    /** 是否需要重新计算跟牌提示 */
+    bool _needRecalculateHint = true;
 
 private:
 #pragma mark - 私有函数

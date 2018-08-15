@@ -359,7 +359,6 @@ std::vector<size_t> Judge::hint(const std::vector<size_t> &hands)
 #pragma mark - getter & setter
 void Judge::setCurrentHandsCategory(const std::vector<size_t> &currentHandsCategory)
 {
-    Judge::_lastHandsCategory = Judge::_currentHandsCategory;
     CurrentHandsCategory category{};
     category.hands = currentHandsCategory;
     if (currentHandsCategory.empty())
@@ -372,7 +371,10 @@ void Judge::setCurrentHandsCategory(const std::vector<size_t> &currentHandsCateg
     {
         category.handsCategory = judgeHandsCategory(currentHandsCategory);
     }
-    Judge::_currentHandsCategory = category;
+    _currentHandsCategory = category;
+
+    _needRecalculateIntentions = true;
+    _needRecalculateHint       = true;
 }
 
 #pragma mark - 私有函数
@@ -722,12 +724,12 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                         else if (x == n)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                    true, HandsCategoryModel{ HandsCategory::trioChainWithSolo, weight, size });
+                                true, HandsCategoryModel{ HandsCategory::trioChainWithSolo, weight, size });
                         }
                         else if (x == 2 * n)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
-                                    true, HandsCategoryModel{ HandsCategory::trioChainWithPair, weight, size });
+                                true, HandsCategoryModel{ HandsCategory::trioChainWithPair, weight, size });
                         }
                     }
                 }
@@ -1339,7 +1341,7 @@ void Judge::exhaustiveTrioChain(std::vector<std::vector<size_t>> &        ret,
             for (ssize_t j = size - 1; j > i; --j)
             {
                 auto n = j - i + 1;
-                if (n  != length) continue;
+                if (n != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
                 {
@@ -1386,7 +1388,7 @@ void Judge::exhaustiveTrioChainWithSolo(std::vector<std::vector<size_t>> &      
             for (ssize_t j = size - 1; j > i; --j)
             {
                 auto n = j - i + 1;
-                if (n  != length) continue;
+                if (n != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
                 {
@@ -1626,6 +1628,8 @@ bool Judge::needRecalculate(const std::vector<size_t> &newer, std::vector<size_t
 
 std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t> &hands, bool isStartingHand)
 {
+    if (!_needRecalculateIntentions) return _cardIntentions;
+
     std::vector<std::vector<size_t>> ret;
     if (hands.empty()) return ret;
 
@@ -1653,13 +1657,16 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
 
     // 将筛选出的组合结果还原为约定的实数
     const auto &temp = restoreHands(ret, ranksMultimap);
-    ret              = temp;
+    _cardIntentions  = temp;
 
-    return ret;
+    _needRecalculateIntentions = false;
+    return _cardIntentions;
 }
 
 std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hands)
 {
+    if (!_needRecalculateHint) return _cardHint;
+
     // 排除特殊情况
     std::vector<std::vector<size_t>> ret;
     if (hands.empty()) return ret;
@@ -1731,9 +1738,10 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
 
     // 将筛选出的组合结果还原为约定的实数
     const auto &temp = restoreHands(ret, ranksMultimap);
-    ret              = temp;
+    _cardHint        = temp;
 
-    return ret;
+    _needRecalculateHint = false;
+    return _cardHint;
 }
 
 PAGAMES_WINNER_POKER_END
