@@ -18,7 +18,7 @@ std::vector<size_t> test(const std::vector<size_t> &t)
     ss.seekp(-2, ss.end);
     ss << " }" << std::endl;
 
-    // std::cout << ss.str();
+    std::cout << ss.str();
 
     std::vector<size_t> vector;
     auto                zip = Judge::getInstance().zip(t);
@@ -40,7 +40,7 @@ std::vector<size_t> test(const std::vector<size_t> &t)
     ss << " }" << std::endl;
 
     // std::cout << ss.str();
-
+    std::cout << std::endl;
     return vector;
 }
 
@@ -49,54 +49,54 @@ int main()
     // std::vector<size_t> hands = { 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7 };
     // std::vector<size_t> hands = { 3, 3, 4, 6, 6, 7, 8, 10, 10, 11, 12, 13, 13, 14, 15 };
     // std::vector<size_t> hands = { 3, 3, 4, 4, 5, 5, 7, 7 };
-    // std::vector<size_t> hands = { 3, 4, 5, 5, 5, 5, 7, 7, 8, 9, 10 };
+    std::vector<size_t> hands = { 3, 4, 5, 5, 5, 5, 7, 7, 8, 9, 10 };
 
-    std::vector<size_t> hands = { 3, 3, 3, 3, 4,  4,  4,  4,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  7,
-                                  8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15 };
+    // std::vector<size_t> hands = { 3, 3, 3, 3, 4,  4,  4,  4,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  7,
+    //                              8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15 };
 
-    //std::vector<size_t> tv = {3, 3, 3, 4, 4, 4, 4, 5, 5, 6};
-    std::vector<size_t> tv = {3, 3, 3, 4, 4, 4};
+    // std::vector<size_t> tv = {3, 3, 3, 4, 4, 4, 4, 5, 5, 6};
+    // std::vector<size_t> tv = {3, 3, 3, 4, 4, 4};
+    // Judge::getInstance().setCurrentHandsCategory(test(tv));
 
-    Judge::getInstance().setCurrentHandsCategory(test(tv));
+    Judge::getInstance().setCurrentHandsCategory(std::vector<size_t>{});
+
+    auto              ret = Judge::getInstance().cardIntentions(test(hands));
+    std::stringstream ss;
+
+    for (auto &&item : ret)
+    {
+        ss.str("");
+
+        ss << "{ ";
+        for (auto &&element : item)
+        {
+            ss << element << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+
+        // std::cout << ss.str();
+    }
+
+    for (auto &&item : ret)
+    {
+        ss.str("");
+
+        ss << "{ ";
+        for (auto &&element : item)
+        {
+            ss << (element >> 8) << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+
+        std::cout << ss.str();
+    }
 
     /*
-   auto              ret = Judge::getInstance().cardIntentions(test(hands));
-   std::stringstream ss;
-
-   for (auto &&item : ret)
-   {
-       ss.str("");
-
-       ss << "{ ";
-       for (auto &&element : item)
-       {
-           ss << element << ", ";
-       }
-       ss.seekp(-2, ss.end);
-       ss << " }" << std::endl;
-
-       std::cout << ss.str();
-   }
-
-   for (auto &&item : ret)
-   {
-       ss.str("");
-
-       ss << "{ ";
-       for (auto &&element : item)
-       {
-           ss << (element >> 8) << ", ";
-       }
-       ss.seekp(-2, ss.end);
-       ss << " }" << std::endl;
-
-       std::cout << ss.str();
-   }
-  */
-
     for (int i = 0; i < 1024; ++i)
     {
-        const auto &ret = Judge::getInstance().hint(test(hands));
+        const auto &ret = Judge::getInstance().intentions(test(hands));
 
         std::stringstream ss;
 
@@ -111,6 +111,6 @@ int main()
 
         std::cout << ss.str();
     }
-
+ */
     return 0;
 }
