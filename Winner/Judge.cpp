@@ -279,9 +279,18 @@ bool Judge::isContainsThreeOfHearts(const std::vector<size_t> &hands) const
 }
 
 #pragma mark - 提示
-std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isStartingHand) {
-    return std::vector<size_t>();
+std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isStartingHand)
+{
+    if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
+    {
+        return intention(hands, isStartingHand);
+    }
+    else
+    {
+        return hint(hands);
+    }
 }
+
 std::vector<size_t> Judge::intention(const std::vector<size_t> &hands, bool isStartingHand)
 {
     /**
