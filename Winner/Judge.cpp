@@ -230,6 +230,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
 
 bool Judge::isPass(const std::vector<size_t> &hands)
 {
+    // FIXME: 如果用户首出，那么应该可以出牌，其实只用考虑跟牌时能不能出牌
     return _currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory
                ? !cardIntentions(hands).empty()
                : !cardHint(hands).empty();
@@ -829,14 +830,14 @@ void Judge::enumerateTrio(std::vector<std::vector<size_t>> &ret, const std::unor
 
     auto ranksCopy = filterA(ranks);
 
-    auto canSplitBomb     = Ruler::getInstance().isBombDetachable();
+    auto isBombDetachable = Ruler::getInstance().isBombDetachable();
     auto isAlwaysWithPair = Ruler::getInstance().isAlwaysWithPair();
 
     for (const auto &rank : ranksCopy)
     {
         std::vector<size_t> temp;
         // FIXME: 如果可以四带自然也能三带，此处不知道如何操作
-        if (canSplitBomb ? rank.second > 2 : rank.second == 3)
+        if (isBombDetachable ? rank.second > 2 : rank.second == 3)
         {
             //三不带
             temp.clear();
@@ -853,7 +854,9 @@ void Judge::enumerateTrio(std::vector<std::vector<size_t>> &ret, const std::unor
             auto others = ranksCopy;
             others.erase(rank.first);
 
-            const auto &x = filter3(others, canSplit3(others));
+            auto xx = others;
+            if (!isBombDetachable) xx = filterBombs(xx);
+            const auto &x = filter3(xx, canSplit3(others));
 
             //三带一
             if (!isAlwaysWithPair)
@@ -1090,7 +1093,9 @@ void Judge::enumerateTrioChain(std::vector<std::vector<size_t>> &        ret,
 
                     // 如果最小牌是3且有三张3时，3不可拆牌
                     // 所以当3不可拆牌时，组合时排除3
-                    const auto &x = filter3(others, canSplit3(others));
+                    auto xx = others;
+                    if (!isBombDetachable) xx = filterBombs(xx);
+                    const auto &x = filter3(xx, canSplit3(others));
 
                     if (!isAlwaysWithPair)
                     {
