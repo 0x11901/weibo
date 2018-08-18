@@ -231,6 +231,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
 bool Judge::isPass(const std::vector<size_t> &hands)
 {
     // FIXME: 如果用户首出，那么应该可以出牌，其实只用考虑跟牌时能不能出牌
+    cardIntentions(hands);
     return _currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory
                ? !cardIntentions(hands).empty()
                : !cardHint(hands).empty();

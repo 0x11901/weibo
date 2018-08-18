@@ -56,7 +56,10 @@ int main()
 
     std::vector<size_t> tv = {3, 3, 3, 4, 4, 4, 4, 5};
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
+    tv = {};
     Judge::getInstance().setCurrentHandsCategory(test(tv));
+
+    std::cout << Judge::getInstance().isPass(hands) << std::endl;
 
     // std::vector<size_t> hands;
     // hands = { 3, 3, 3, 4, 5, 5, 5, 6, 6, 7 };
@@ -115,25 +118,26 @@ int main()
 
         std::cout << ss.str();
     }
-*/
+   */
 
-    for (int i = 0; i < 1024; ++i)
-    {
-        const auto &ret = Judge::getInstance().intentions(test(hands));
+    /*
+       for (int i = 0; i < 1024; ++i)
+       {
+           const auto &ret = Judge::getInstance().intentions(test(hands));
 
-        std::stringstream ss;
+           std::stringstream ss;
 
-        ss.str("");
-        ss << "{ ";
-        for (auto &&item : ret)
-        {
-            ss << (item >> 8) << ", ";
-        }
-        ss.seekp(-2, ss.end);
-        ss << " }" << std::endl;
+           ss.str("");
+           ss << "{ ";
+           for (auto &&item : ret)
+           {
+               ss << (item >> 8) << ", ";
+           }
+           ss.seekp(-2, ss.end);
+           ss << " }" << std::endl;
 
-        std::cout << ss.str();
-    }
-
+           std::cout << ss.str();
+       }
+       */
     return 0;
 }
