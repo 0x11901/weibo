@@ -91,22 +91,18 @@ public:
      */
     std::vector<size_t> intentions(const std::vector<size_t> &hands, bool isStartingHand = false);
 
-    /**
-     * 首出提示，通过分析用户传入的手牌，分析用户意图，给出一组符合出牌规则的牌型
-     * @param hands 用户传入的手牌
-     * @param isStartingHand 是不是起手牌，如果是整个牌局出的第一手牌，需要判定♥️3必出
-     * @return 手牌中符合出牌意图的某个组合，也有可能是空
-     */
-    std::vector<size_t> intention(const std::vector<size_t> &hands, bool isStartingHand = false);
-
-    /**
-     * 跟牌提示，依据持有的当前圈的牌型以及传入的手牌，给出一组能跟牌的牌型
-     * @param hands 用户传入的手牌
-     * @return 暗示用户可以出的牌，可能为空
-     */
-    std::vector<size_t> hint(const std::vector<size_t> &hands);
-
 #pragma mark - 转换手牌
+    /**
+     * 转换手牌，将服务端传回的手牌数据结构转换为跑得快客户端约定的手牌数据结构
+     * @param hands 服务端手牌的数据结构
+     * @return 客户端约定的手牌数据结构
+     */
+
+    /**
+     * 恢复手牌，将跑得快客户端约定的手牌数据结构恢复为服务端使用的手牌数据结构
+     * @param hands 客户端约定的手牌数据结构
+     * @return 服务端手牌的数据结构
+     */
 
 #pragma mark - getter & setter
     /**
@@ -252,7 +248,11 @@ private:
     void appendBombs(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const;
 
 public:
+    std::vector<size_t> intention(const std::vector<size_t> &hands, bool isStartingHand = false);
+
     std::vector<std::vector<size_t>> cardIntentions(const std::vector<size_t> &hands, bool isStartingHand = false);
+
+    std::vector<size_t> hint(const std::vector<size_t> &hands);
 
     std::vector<std::vector<size_t>> cardHint(const std::vector<size_t> &hands);
 };
