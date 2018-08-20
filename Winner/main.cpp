@@ -51,18 +51,18 @@ int main()
     // std::vector<size_t> hands = { 3, 3, 4, 4, 5, 5, 7, 7 };
     // std::vector<size_t> hands = { 3, 4, 5, 5, 5, 5, 7, 7, 8, 9, 10 };
 
-    // std::vector<size_t> hands = { 3, 3, 3, 3, 4,  4,  4,  4,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  7,
-    //                               8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15 };
+    std::vector<size_t> hands = { 3, 3, 3, 3, 4,  4,  4,  4,  5,  5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  7,
+                                  8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15 };
 
-    std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
+    std::vector<size_t> tv = {3, 3, 3, 4, 4, 4, 4, 5};
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = {};
+    // tv = {};
     Judge::getInstance().setCurrentHandsCategory(test(tv));
 
     // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
 
-    std::vector<size_t> hands;
-    hands = { 3, 3, 3, 4, 5, 5, 5, 6, 6, 7 };
+    // std::vector<size_t> hands;
+    // hands = { 3, 3, 3, 4, 5, 5, 5, 6, 6, 7 };
     // hands = { 3, 3, 3, 4, 4, 5, 5, 7 };
     // hands = { 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7 };
     // hands = { 3, 3, 5, 6, 6, 7, 7, 8 };
@@ -83,7 +83,7 @@ int main()
     // hands = { 3, 4, 4, 5, 5, 5, 5, 6, 6 };
     // hands = { 4, 5, 6, 6, 7, 8, 8, 8, 9, 9, 9, 12, 12, 12, 12 };
 
-    std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
+    // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
 
 
     /*
@@ -123,7 +123,7 @@ int main()
     }
    */
 
-    /*
+
     for (int i = 0; i < 1024; ++i)
     {
         const auto &ret = Judge::getInstance().intentions(test(hands));
@@ -141,6 +141,6 @@ int main()
 
         std::cout << ss.str();
     }
-    */
+
     return 0;
 }

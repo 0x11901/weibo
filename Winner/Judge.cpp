@@ -557,8 +557,15 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
         ssize_t size = node.size();
         for (ssize_t j = size - 1; j >= size - flag; j--)
         {
-            // OPTIMIZE: 应用回溯算法优化
-            node.push_back(node[j]);
+            if (node[j].size() <= k)
+            {
+                node.push_back(node[j]);
+            }
+            else
+            {
+                continue;
+            }
+
             node.back().push_back(i);
             if (node.back().size() == k)
             {
