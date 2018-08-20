@@ -569,7 +569,12 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
             node.back().push_back(i);
             if (node.back().size() == k)
             {
-                ret.push_back(node.back());
+                const auto &temp = node.back();
+                if (std::find_if(ret.begin(), ret.end(), [&temp](std::vector<size_t> i) -> bool { return i == temp; })
+                    == ret.end())
+                {
+                    ret.push_back(node.back());
+                }
             }
         }
     }
