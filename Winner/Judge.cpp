@@ -570,6 +570,7 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
             if (node.back().size() == k)
             {
                 const auto &temp = node.back();
+                // OPTIMIZE: 应用回溯法优化
                 if (std::find_if(ret.begin(), ret.end(), [&temp](std::vector<size_t> i) -> bool { return i == temp; })
                     == ret.end())
                 {
@@ -1640,8 +1641,14 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
 
     auto ranks = zip(values);
 
-    //枚举法
+    // 枚举法
     enumerate(ret, ranks);
+
+    // 根据拆牌多少排序结果，以接近测试要求
+    if (ret.size() > 1)
+    {
+        sortHands(ret, ranks);
+    }
 
     // 将筛选出的组合结果还原为约定的实数
     const auto &temp = restoreHands(ret, ranksMultimap);
@@ -1730,6 +1737,30 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
 
     _needRecalculateHint = false;
     return _cardHint;
+}
+
+size_t Judge::getSplitCount(const std::vector<size_t> &hands, const std::unordered_map<size_t, size_t> &ranks) const
+{
+    size_t      count  = 0;
+    const auto &zipped = zip(hands);
+    for (const auto &pair : zipped)
+    {
+        count += ranks.at(pair.first) - pair.second;
+    }
+    return count;
+}
+
+void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
+{
+    sort(ret.begin(), ret.end(), [&](const std::__1::vector<size_t> &x, const std::__1::vector<size_t> &y) -> bool {
+        auto n = getSplitCount(x, ranks);
+        auto m = getSplitCount(y, ranks);
+        if (n == m)
+        {
+            return x.size() < y.size();
+        }
+        return n < m;
+    });
 }
 
 PAGAMES_WINNER_POKER_END

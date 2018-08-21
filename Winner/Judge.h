@@ -255,6 +255,10 @@ public:
     std::vector<size_t> hint(const std::vector<size_t> &hands);
 
     std::vector<std::vector<size_t>> cardHint(const std::vector<size_t> &hands);
+
+    size_t getSplitCount(const std::vector<size_t> &hands, const std::unordered_map<size_t, size_t> &ranks) const;
+
+    void sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const;
 };
 PAGAMES_WINNER_POKER_END
 #endif // PAGAMES_WINNER_JUDGE_H
