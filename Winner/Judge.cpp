@@ -12,6 +12,7 @@
 #include "Judge.h"
 #include "Ruler.h"
 #include <algorithm>
+#include <numeric>
 #include <unordered_set>
 
 PAGAMES_WINNER_POKER_BEGIN
@@ -1636,9 +1637,6 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
     _target = isThreeOfHeartsFirst && isContainsThreeOfHearts(hands) ? paiXing3
                                                                      : *std::min_element(values.begin(), values.end());
 
-    // FIXME:  按默认方式排序，可能和摆牌方式冲突，待摆牌完成后看是否需要处理
-    std::sort(values.begin(), values.end());
-
     auto ranks = zip(values);
 
     // 枚举法
@@ -1752,12 +1750,19 @@ size_t Judge::getSplitCount(const std::vector<size_t> &hands, const std::unorder
 
 void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
 {
-    sort(ret.begin(), ret.end(), [&](const std::__1::vector<size_t> &x, const std::__1::vector<size_t> &y) -> bool {
+    sort(ret.begin(), ret.end(), [&](const std::vector<size_t> &x, const std::__1::vector<size_t> &y) -> bool {
         auto n = getSplitCount(x, ranks);
         auto m = getSplitCount(y, ranks);
         if (n == m)
         {
-            return x.size() > y.size();
+            if (x.size() != y.size())
+            {
+                return x.size() > y.size();
+            }
+            else
+            {
+                return std::accumulate(x.begin(), x.end(), 0) < std::accumulate(y.begin(), y.end(), 0);
+            }
         }
         return n < m;
     });
