@@ -1757,7 +1757,7 @@ void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordere
         auto m = getSplitCount(y, ranks);
         if (n == m)
         {
-            return x.size() < y.size();
+            return x.size() > y.size();
         }
         return n < m;
     });
