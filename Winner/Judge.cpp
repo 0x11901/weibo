@@ -1750,7 +1750,7 @@ size_t Judge::getSplitCount(const std::vector<size_t> &hands, const std::unorder
 
 void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
 {
-    sort(ret.begin(), ret.end(), [&](const std::vector<size_t> &x, const std::__1::vector<size_t> &y) -> bool {
+    sort(ret.begin(), ret.end(), [&](const std::vector<size_t> &x, const std::vector<size_t> &y) -> bool {
         auto n = getSplitCount(x, ranks);
         auto m = getSplitCount(y, ranks);
         if (n == m)
