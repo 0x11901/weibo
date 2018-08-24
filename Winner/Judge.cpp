@@ -968,9 +968,8 @@ void Judge::enumerateChain(std::vector<std::vector<size_t>> &ret, const std::uno
                     if (!isContainsTarget(temp)) continue;
 
                     // OPTIMIZE: 此处通过暴力计算是否拆牌超过两张
-                    size_t ul = 0;
-
-                    auto count = std::accumulate(temp.begin(), temp.end(), ul, [&ranksCopy](size_t $0, size_t $1) {
+                    size_t ul    = 0;
+                    auto   count = std::accumulate(temp.begin(), temp.end(), ul, [&ranksCopy](size_t $0, size_t $1) {
                         return $0 + (ranksCopy[$1] - 1);
                     });
 
@@ -1729,9 +1728,17 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
         appendBombs(ret, ranks);
     }
 
+    // 根据拆牌多少排序结果，以接近测试要求
+    if (ret.size() > 1)
+    {
+        sortHands(ret, ranks);
+    }
+
     // 将筛选出的组合结果还原为约定的实数
     const auto &temp = restoreHands(ret, ranksMultimap);
     _cardHint        = temp;
+    // FIXME: 这里这样写不好
+    _iteratorHint = _cardHint.begin();
 
     _needRecalculateHint = false;
     return _cardHint;
