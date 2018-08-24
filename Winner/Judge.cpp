@@ -969,11 +969,11 @@ void Judge::enumerateChain(std::vector<std::vector<size_t>> &ret, const std::uno
                     if (!isContainsTarget(temp)) continue;
 
                     // OPTIMIZE: 此处通过暴力计算是否拆牌超过两张
-                    size_t count = 0;
-                    for (const auto &item : temp)
-                    {
-                        count += (ranksCopy[item] - 1);
-                    }
+                    size_t ul = 0;
+
+                    auto count = std::accumulate(temp.begin(), temp.end(), ul, [&ranksCopy](size_t $0, size_t $1) {
+                        return $0 + (ranksCopy[$1] - 1);
+                    });
 
                     if (count < 3)
                     {
