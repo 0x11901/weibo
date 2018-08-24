@@ -1761,7 +1761,8 @@ void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordere
             }
             else
             {
-                return std::accumulate(x.begin(), x.end(), 0) < std::accumulate(y.begin(), y.end(), 0);
+                size_t ul = 0;
+                return std::accumulate(x.begin(), x.end(), ul) < std::accumulate(y.begin(), y.end(), ul);
             }
         }
         return n < m;
