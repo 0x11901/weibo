@@ -231,7 +231,6 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
 
 bool Judge::isPass(const std::vector<size_t> &hands)
 {
-    // FIXME: 如果用户首出，那么应该可以出牌，其实只用考虑跟牌时能不能出牌
     return _currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory
                ? false
                : cardHint(hands).empty();
@@ -1009,6 +1008,8 @@ void Judge::enumeratePairChain(std::vector<std::vector<size_t>> &        ret,
         // OPTIMIZE: 连对中必须要有最小牌型，使用一个垃圾办法筛选
         if (!isContainsTarget(t)) return;
 
+        std::sort(t.begin(), t.end());
+
         ssize_t size = t.size();
         for (ssize_t i = 0; i < size - 1; ++i)
         {
@@ -1021,7 +1022,6 @@ void Judge::enumeratePairChain(std::vector<std::vector<size_t>> &        ret,
                 {
                     temp.clear();
 
-                    // FIXME: 此处已经假设数组是有序的
                     for (ssize_t k = i; k <= j; ++k)
                     {
                         temp.push_back(t[k]);
