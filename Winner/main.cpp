@@ -95,8 +95,9 @@ int main()
     hands = { 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 15 };
     hands = { 3, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8 };
     hands = { 3, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8 };
-    hands = { 4,5,6,6,7,8,9,10,10,11,11,12 };
-    hands={5,5,5,5,3};
+    hands = { 4, 5, 6, 6, 7, 8, 9, 10, 10, 11, 11, 12 };
+    hands = { 5, 5, 5, 5, 3 };
+    hands = { 12, 12, 12, 12 };
 
     std::vector<size_t> tv;
     tv = { 3 };
@@ -106,9 +107,13 @@ int main()
     tv = { 3 };
     tv = { 3, 3, 3, 4, 4, 4, 5, 12, 12, 12 };
     tv = { 3, 4, 5, 6, 7 };
-    tv = {3,3,3,4};
+    tv = { 3, 3, 3, 4 };
+    tv = { 14 };
 
     Judge::getInstance().setCurrentHandsCategory(test(tv));
+    auto b = Judge::getInstance().canPlay(test(hands));
+
+    std::cout << b << std::endl;
 
     // auto              ret = Judge::getInstance().intentions(test(hands));
     // std::stringstream ss;

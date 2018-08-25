@@ -252,13 +252,13 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         const auto &x = judgeHandsCategory(hands);
         const auto &y = _currentHandsCategory.handsCategory;
 
-        if (y.handsCategory == HandsCategory::bomb)
+        if (x.handsCategory == HandsCategory::bomb)
         {
-            if (x.handsCategory == HandsCategory::bomb)
+            if (y.handsCategory == HandsCategory::bomb)
             {
                 return x.weight > y.weight;
             }
-            return false;
+            return true;
         }
 
         return x.handsCategory == y.handsCategory && x.size == y.size && x.weight > y.weight;
