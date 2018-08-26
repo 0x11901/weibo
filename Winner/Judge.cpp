@@ -968,10 +968,10 @@ void Judge::enumerateChain(std::vector<std::vector<size_t>> &ret, const std::uno
                     if (!isContainsTarget(temp)) continue;
 
                     // OPTIMIZE: 此处通过暴力计算是否拆牌超过两张
-                    size_t ul    = 0;
-                    auto   count = std::accumulate(temp.begin(), temp.end(), ul, [&ranksCopy](size_t $0, size_t $1) {
-                        return $0 + (ranksCopy[$1] - 1);
-                    });
+                    auto count = std::accumulate(
+                        temp.begin(), temp.end(), static_cast<size_t>(0), [&ranksCopy](size_t $0, size_t $1) {
+                            return $0 + (ranksCopy[$1] - 1);
+                        });
 
                     if (count < 3)
                     {
@@ -1768,8 +1768,8 @@ void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordere
             }
             else
             {
-                size_t ul = 0;
-                return std::accumulate(x.begin(), x.end(), ul) < std::accumulate(y.begin(), y.end(), ul);
+                return std::accumulate(x.begin(), x.end(), static_cast<size_t>(0))
+                       < std::accumulate(y.begin(), y.end(), static_cast<size_t>(0));
             }
         }
         return n < m;
