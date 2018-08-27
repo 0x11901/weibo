@@ -91,6 +91,20 @@ public:
      */
     std::vector<size_t> intentions(const std::vector<size_t> &hands, bool isStartingHand = false);
 
+    /**
+     * 应该提示最大单牌
+     * 在2018年 8月27日 星期一，测试提出想要修改下家报单的逻辑
+     * 当下家报单，如果首出提示是提示的单牌，那么应该提示最大的单牌，而不是最小的单牌
+     * @param hands 玩家整个手牌
+     */
+    void shouldHintTheHighestSingleCard(const std::vector<size_t> &hands);
+
+    /**
+     * 在2018年 8月27日 星期一，测试提出想在把提示的牌点下去之后重置提示索引，想从头开始提示
+     * 故开放本方法重置提示索引，调用后点击提示会从头开始
+     */
+    void reindex();
+
 #pragma mark - 转换手牌
     /**
      * 转换手牌，将服务端传回的手牌数据结构转换为跑得快客户端约定的手牌数据结构

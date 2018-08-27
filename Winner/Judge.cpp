@@ -292,6 +292,38 @@ std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isS
     }
 }
 
+void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
+{
+    if (!_needRecalculateIntentions && _cardIntentions.size() == 1 && _cardIntentions.front().size() == 1)
+    {
+        _cardIntentions.clear();
+        // FIXME: 此处逻辑较为复杂，暂时出手牌中最大的单牌吧
+
+        std::vector<size_t> filter;
+        std::remove_copy_if(hands.begin(), hands.end(), std::back_inserter(filter), [&hands](const size_t &$0) {
+            return std::count(hands.begin(), hands.end(), $0) != 1;
+        });
+
+        std::vector<size_t> temp;
+        temp.push_back(*std::max_element(filter.begin(), filter.end()));
+        _cardIntentions.push_back(temp);
+        _iteratorIntentions = _cardIntentions.begin();
+    }
+}
+
+void Judge::reindex()
+{
+    if (!_cardIntentions.empty())
+    {
+        _iteratorIntentions = _cardIntentions.begin();
+    }
+
+    if (!_cardHint.empty())
+    {
+        _iteratorHint = _cardHint.begin();
+    }
+}
+
 std::vector<size_t> Judge::intention(const std::vector<size_t> &hands, bool isStartingHand)
 {
     /**
@@ -1622,11 +1654,7 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
     std::vector<std::vector<size_t>> ret;
     if (hands.empty()) return ret;
 
-    auto isThreeOfHeartsFirst = false;
-    if (isStartingHand && Ruler::getInstance().isThreeOfHeartsFirst())
-    {
-        isThreeOfHeartsFirst = true;
-    }
+    auto isThreeOfHeartsFirst = isStartingHand && Ruler::getInstance().isThreeOfHeartsFirst();
 
     // key 为牌型，value 为约定的实数（包含牌型与花色）
     auto ranksMultimap = getRanksMultimap(hands, isThreeOfHeartsFirst);
