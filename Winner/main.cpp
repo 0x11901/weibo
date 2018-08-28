@@ -46,6 +46,10 @@ std::vector<size_t> test(const std::vector<size_t> &t)
 
 int main()
 {
+    ssize_t i = 100000000;
+    auto a = std::to_string(i);
+    // std::cout << a << std::endl;
+    
     /*
     // std::vector<size_t> hands = { 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7 };
     // std::vector<size_t> hands = { 3, 3, 4, 6, 6, 7, 8, 10, 10, 11, 12, 13, 13, 14, 15 };
@@ -111,9 +115,6 @@ int main()
     tv = { 14 };
 
     Judge::getInstance().setCurrentHandsCategory(test(tv));
-    auto b = Judge::getInstance().canPlay(test(hands));
-
-    std::cout << b << std::endl;
 
     // auto              ret = Judge::getInstance().intentions(test(hands));
     // std::stringstream ss;
