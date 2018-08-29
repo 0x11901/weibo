@@ -44,11 +44,23 @@ std::vector<size_t> test(const std::vector<size_t> &t)
     return vector;
 }
 
+enum class E : int
+{
+    a = 1,
+    b = 2,
+    c = 3,
+    d = 4,
+    e = 5,
+    f,
+    g
+};
+
 int main()
 {
-    ssize_t i = 100000000;
-    auto a = std::to_string(i);
-    // std::cout << a << std::endl;
+    auto e = E(-1);
+    auto e1 = E(1);
+
+    std::cout << static_cast<int>(e) << std::endl;
     
     /*
     // std::vector<size_t> hands = { 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7 };
@@ -149,7 +161,7 @@ int main()
     //     std::cout << ss.str();
     // }
 
-    for (int i = 0; i < 1024; ++i)
+    for (int i = 0; i < 1; ++i)
     {
         const auto &ret = Judge::getInstance().intentions(test(hands));
 
