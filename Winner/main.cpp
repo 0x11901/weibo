@@ -87,6 +87,7 @@ int main()
     hands = { 4, 5, 6, 6, 7, 8, 8, 8, 9, 9, 9, 12, 12, 12, 12 };
     hands = { 3, 3, 3, 4, 5, 5, 5, 6, 6, 7 };
     hands = { 3, 4, 4, 5, 5, 5, 6 };
+    hands = { 3, 4, 4, 5, 5, 5, 5, 6 };
 
 #pragma mark - 跟牌提示
     // std::vector<size_t> hands;
