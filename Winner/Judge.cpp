@@ -261,6 +261,15 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
             return true;
         }
 
+        // FIXME: 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
+        if (Ruler::getInstance().isBombDetachable() && !Ruler::getInstance().isAlwaysWithPair())
+        {
+            if (x.handsCategory == HandsCategory::fourWithDualSolo && y.handsCategory == HandsCategory::trioWithPair)
+            {
+                return x.weight > y.weight;
+            }
+        }
+
         return x.handsCategory == y.handsCategory && x.size == y.size && x.weight > y.weight;
     }
 }
