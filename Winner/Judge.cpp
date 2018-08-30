@@ -1766,7 +1766,7 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     }
 
     // 根据拆牌多少排序结果，以接近测试要求
-    if (ret.size() > 1)
+    if (ret.size() > 1 && handsCategory != HandsCategory::pair)
     {
         sortHands(ret, ranks);
     }

@@ -57,7 +57,7 @@ int main()
 
     std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4, 4, 5 };
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = {};
+    tv = {3, 3};
     Judge::getInstance().setCurrentHandsCategory(test(tv));
 
     // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
@@ -114,7 +114,7 @@ int main()
     //
     // Judge::getInstance().setCurrentHandsCategory(test(tv));
 
-    auto              ret = Judge::getInstance().cardIntentions(test(hands));
+    auto              ret = Judge::getInstance().cardHint(test(hands));
     std::stringstream ss;
 
     for (auto &&item : ret)
