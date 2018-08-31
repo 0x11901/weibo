@@ -441,6 +441,19 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
             {
                 auto n = j - i + 1;
                 if (n < 2) continue;
+                if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
+                if (isContinuous(temp[i], temp[j], n))
+                {
+                }
+            }
+        }
+
+        for (ssize_t i = 0; i < size - 1; ++i)
+        {
+            for (ssize_t j = size - 1; j > i; --j)
+            {
+                auto n = j - i + 1;
+                if (n < 2) continue;
 
                 if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
 
@@ -480,6 +493,7 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
     {
         ret = hands;
         std::sort(ret.begin(), ret.end());
+        return ret;
     }
 
     return restoreHands(ret, ranksMultimap);
@@ -981,6 +995,9 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                     if (isContinuous(vector[i], vector[j], n))
                     {
                         // FIXME: 三顺的权重以等差数列的首项决定
+                        // FIXME: 3334445555 展示为，444555 3335；以最大的牌型显示
+                        // FIXME: 这里的权重判断出来会是3，有隐患
+                        // OPTIMIZE: 等测试提出来或者有空再改吧
                         size_t weight = vector[i];
                         size_t size   = 0;
                         for (const auto &rank : ranks)

@@ -165,17 +165,24 @@ int main()
     //     std::cout << ss.str();
     // }
 
-    std::vector<size_t> tttttt = { 3, 3, 3, 4, 4, 4, 4, 5 };
-    std::vector<size_t> hhhhhh = { 3, 3, 3, 4, 4, 4, 4, 5 };
+    std::vector<size_t> weight        = {};
+    std::vector<size_t> handsCategory = { 3, 3, 3, 4, 4 };
+    handsCategory                     = {};
 
-    // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tttttt = {};
-    hhhhhh = { 3, 3, 3, 3, 4, 4, 4, 4 };
-    hhhhhh = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
+    std::vector<size_t> hand = { 3 };
+    hand                     = { 3, 3 };
+    hand                     = { 3, 3, 3 };
+    hand                     = { 3, 3, 3, 3 };
+    hand                     = { 3, 3, 4, 3 };
+    hand                     = { 6, 7, 6, 4, 6 };
+    hand                     = { 6, 7, 6, 4, 6, 6 };
+    hand                     = { 3, 3, 3, 3, 4, 4, 4, 4 };
+    hand                     = { 8, 8, 8, 8, 4 };
+    hand                     = { 14, 14, 14, 13, 13, 13, 12, 12, 12, 4, 4, 3, 3, 3, 3 };
+    hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
 
-    hhhhhh = { 3 };
-    Judge::getInstance().setCurrentHandsCategory(test(hhhhhh), test(hhhhhh));
-    auto r = Judge::getInstance().rearrangeHands(test(hhhhhh));
+    Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
+    auto r = Judge::getInstance().rearrangeHands(test(hand));
 
     ss.str("");
     ss << "{ ";
