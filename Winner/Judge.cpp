@@ -2027,8 +2027,18 @@ void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordere
             }
             else
             {
-                return std::accumulate(x.begin(), x.end(), static_cast<size_t>(0))
-                       < std::accumulate(y.begin(), y.end(), static_cast<size_t>(0));
+                std::vector<size_t> uniqueX, uniqueY;
+                std::unique_copy(x.begin(), x.end(), std::back_inserter(uniqueX));
+                std::unique_copy(y.begin(), y.end(), std::back_inserter(uniqueY));
+                if (uniqueX.size() != uniqueY.size())
+                {
+                    return uniqueX.size() > uniqueY.size();
+                }
+                else
+                {
+                    return std::accumulate(x.begin(), x.end(), static_cast<size_t>(0))
+                           < std::accumulate(y.begin(), y.end(), static_cast<size_t>(0));
+                }
             }
         }
         return n < m;

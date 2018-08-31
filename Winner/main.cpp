@@ -46,7 +46,6 @@ std::vector<size_t> test(const std::vector<size_t> &t)
 
 int main()
 {
-
     // std::vector<size_t> hands = { 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7 };
     // std::vector<size_t> hands = { 3, 3, 4, 6, 6, 7, 8, 10, 10, 11, 12, 13, 13, 14, 15 };
     // std::vector<size_t> hands = { 3, 3, 4, 4, 5, 5, 7, 7 };
@@ -57,7 +56,7 @@ int main()
 
     std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4, 4, 5 };
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = { 3, 3 };
+    tv = { 3, 3, 3, 4, 4, 4, 5, 5, 6, 6 };
     Judge::getInstance().setCurrentHandsCategory(test(tv), test(tv));
 
     // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
@@ -88,6 +87,7 @@ int main()
     hands = { 3, 3, 3, 4, 5, 5, 5, 6, 6, 7 };
     hands = { 3, 4, 4, 5, 5, 5, 6 };
     hands = { 3, 4, 4, 5, 5, 5, 5, 6 };
+    hands = { 7, 7, 7, 8, 8, 8, 5, 5, 5, 10, 11, 12, 13 };
 
 #pragma mark - 跟牌提示
     // std::vector<size_t> hands;
@@ -117,20 +117,20 @@ int main()
     auto              ret = Judge::getInstance().cardHint(test(hands));
     std::stringstream ss;
 
-    for (auto &&item : ret)
-    {
-        ss.str("");
-
-        ss << "{ ";
-        for (auto &&element : item)
-        {
-            ss << element << ", ";
-        }
-        ss.seekp(-2, ss.end);
-        ss << " }" << std::endl;
-
-        // std::cout << ss.str();
-    }
+    // for (auto &&item : ret)
+    // {
+    //     ss.str("");
+    //
+    //     ss << "{ ";
+    //     for (auto &&element : item)
+    //     {
+    //         ss << element << ", ";
+    //     }
+    //     ss.seekp(-2, ss.end);
+    //     ss << " }" << std::endl;
+    //
+    //     std::cout << ss.str();
+    // }
 
     for (auto &&item : ret)
     {
@@ -144,7 +144,7 @@ int main()
         ss.seekp(-2, ss.end);
         ss << " }" << std::endl;
 
-        // std::cout << ss.str();
+        std::cout << ss.str();
     }
 
     // for (int i = 0; i < 1; ++i)
@@ -165,36 +165,36 @@ int main()
     //     std::cout << ss.str();
     // }
 
-    std::vector<size_t> weight        = {};
-    std::vector<size_t> handsCategory = { 3, 3, 3, 4, 4 };
-    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 7, 8, 9, 7, 9 };
+    // std::vector<size_t> weight        = {};
+    // std::vector<size_t> handsCategory = { 3, 3, 3, 4, 4 };
+    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 7, 8, 9, 7, 9 };
+    //
+    // std::vector<size_t> hand = { 3 };
+    // hand                     = { 3, 3 };
+    // hand                     = { 3, 3, 3 };
+    // hand                     = { 3, 3, 3, 3 };
+    // hand                     = { 3, 3, 4, 3 };
+    // hand                     = { 6, 7, 6, 4, 6 };
+    // hand                     = { 6, 7, 6, 4, 6, 6 };
+    // hand                     = { 3, 3, 3, 3, 4, 4, 4, 4 };
+    // hand                     = { 8, 8, 8, 8, 4 };
+    // hand                     = { 14, 14, 14, 13, 13, 13, 12, 12, 12, 4, 4, 3, 3, 3, 3 };
+    // hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
+    // hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
 
-    std::vector<size_t> hand = { 3 };
-    hand                     = { 3, 3 };
-    hand                     = { 3, 3, 3 };
-    hand                     = { 3, 3, 3, 3 };
-    hand                     = { 3, 3, 4, 3 };
-    hand                     = { 6, 7, 6, 4, 6 };
-    hand                     = { 6, 7, 6, 4, 6, 6 };
-    hand                     = { 3, 3, 3, 3, 4, 4, 4, 4 };
-    hand                     = { 8, 8, 8, 8, 4 };
-    hand                     = { 14, 14, 14, 13, 13, 13, 12, 12, 12, 4, 4, 3, 3, 3, 3 };
-    hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
-    hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
-
-    Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
-    auto r = Judge::getInstance().rearrangeHands(test(hand));
-
-    ss.str("");
-    ss << "{ ";
-    for (auto &&item : r)
-    {
-        ss << (item >> 8) << ", ";
-    }
-    ss.seekp(-2, ss.end);
-    ss << " }" << std::endl;
-
-    std::cout << ss.str();
+    // Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
+    // auto r = Judge::getInstance().rearrangeHands(test(hand));
+    //
+    // ss.str("");
+    // ss << "{ ";
+    // for (auto &&item : r)
+    // {
+    //     ss << (item >> 8) << ", ";
+    // }
+    // ss.seekp(-2, ss.end);
+    // ss << " }" << std::endl;
+    //
+    // std::cout << ss.str();
 
     return 0;
 }
