@@ -435,6 +435,8 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
         std::sort(temp.begin(), temp.end());
         auto size = temp.size();
 
+        // OPTIMIZE: 为了是实现："3334445555 展示为，444555 3335；以最大的牌型显示"，下面代码开始瞎写了
+        std::vector<std::tuple<ssize_t, ssize_t, size_t, size_t>> woyebuzhidaowozaixieshenmele;
         for (ssize_t i = 0; i < size - 1; ++i)
         {
             for (ssize_t j = size - 1; j > i; --j)
@@ -444,44 +446,42 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
                 if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
                 if (isContinuous(temp[i], temp[j], n))
                 {
+                    woyebuzhidaowozaixieshenmele.push_back(std::make_tuple<ssize_t, ssize_t, size_t, size_t>(
+                        std::move(i), std::move(j), std::move(temp[i]), std::move(temp[j])));
+                    // FIXME: 上面强行把左值转成了右值，可能会出现隐患
                 }
             }
         }
 
-        for (ssize_t i = 0; i < size - 1; ++i)
+        const auto max = std::max_element(woyebuzhidaowozaixieshenmele.begin(),
+                                          woyebuzhidaowozaixieshenmele.end(),
+                                          [](const std::tuple<ssize_t, ssize_t, size_t, size_t> &$0,
+                                             const std::tuple<ssize_t, ssize_t, size_t, size_t> &$1) {
+                                              size_t a_1, a_n, b_1, b_n;
+                                              std::tie(std::ignore, std::ignore, a_1, a_n) = $0;
+                                              std::tie(std::ignore, std::ignore, b_1, b_n) = $1;
+
+                                              return a_1 + a_n < b_1 + b_n;
+                                          });
+
+        ssize_t m, n;
+        std::tie(m, n, std::ignore, std::ignore) = *max;
+
+        for (ssize_t k = m; k <= n; ++k)
         {
-            for (ssize_t j = size - 1; j > i; --j)
+            ret.push_back(temp[k]);
+            ret.push_back(temp[k]);
+            ret.push_back(temp[k]);
+
+            if (ranksCopy[temp[k]] == 3)
             {
-                auto n = j - i + 1;
-                if (n < 2) continue;
-
-                if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
-
-                if (isContinuous(temp[i], temp[j], n))
-                {
-                    for (ssize_t k = i; k <= j; ++k)
-                    {
-                        ret.push_back(temp[k]);
-                        ret.push_back(temp[k]);
-                        ret.push_back(temp[k]);
-
-                        if (ranksCopy[temp[k]] == 3)
-                        {
-                            ranksCopy.erase(temp[k]);
-                        }
-                        else
-                        {
-                            ranksCopy[temp[k]] = 1;
-                        }
-                    }
-
-                    goto rearrangeHandsLoopEnd;
-                }
+                ranksCopy.erase(temp[k]);
+            }
+            else
+            {
+                ranksCopy[temp[k]] = 1;
             }
         }
-        if (ret.empty()) return hands;
-
-    rearrangeHandsLoopEnd:
 
         auto unzipped = unzip(ranksCopy);
 

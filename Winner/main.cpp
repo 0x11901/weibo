@@ -167,7 +167,7 @@ int main()
 
     std::vector<size_t> weight        = {};
     std::vector<size_t> handsCategory = { 3, 3, 3, 4, 4 };
-    handsCategory                     = {};
+    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 7, 8, 9, 7, 9 };
 
     std::vector<size_t> hand = { 3 };
     hand                     = { 3, 3 };
@@ -180,6 +180,7 @@ int main()
     hand                     = { 8, 8, 8, 8, 4 };
     hand                     = { 14, 14, 14, 13, 13, 13, 12, 12, 12, 4, 4, 3, 3, 3, 3 };
     hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
+    hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
 
     Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
     auto r = Judge::getInstance().rearrangeHands(test(hand));
