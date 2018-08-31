@@ -99,6 +99,15 @@ public:
      */
     void shouldHintTheHighestSingleCard(const std::vector<size_t> &hands);
 
+#pragma mark - 排序 & 重置索引
+    /**
+     * 重新排列打出的牌。
+     *
+     * @param hands 打出的牌。
+     * @return 排列好的按照牌型排列的牌。
+     */
+    std::vector<size_t> rearrangeHands(const std::vector<size_t> &hands) const;
+
     /**
      * 在2018年 8月27日 星期一，测试提出想在把提示的牌点下去之后重置提示索引，想从头开始提示
      * 故开放本方法重置提示索引，调用后点击提示会从头开始
@@ -123,9 +132,10 @@ public:
      * 设置决定当前这一圈牌型的牌。
      * 如果设置为空的话说明当前用户拥有决定权，可以出符合牌型的任意牌。
      *
-     * @param currentHandsCategory 决定当前这一圈牌型的牌数组
+     * @param weight 决定出牌权重的牌数组（上家出牌）。
+     * @param handsCategory 决定出牌及展示牌型的牌数组（本小轮首家出牌）。
      */
-    void setCurrentHandsCategory(const std::vector<size_t> &currentHandsCategory);
+    void setCurrentHandsCategory(const std::vector<size_t> &weight, const std::vector<size_t> &handsCategory);
 
 private:
 #pragma mark - 私有变量
@@ -191,6 +201,9 @@ private:
                                   const std::vector<size_t> &       combination,
                                   const std::vector<size_t> &       primal,
                                   ssize_t                           kicker) const;
+
+    std::vector<size_t> restoreHands(const std::vector<size_t> &          ret,
+                                     const std::multimap<size_t, size_t> &ranksMultimap) const;
 
     std::vector<std::vector<size_t>> restoreHands(const std::vector<std::vector<size_t>> &ret,
                                                   const std::multimap<size_t, size_t> &   ranksMultimap) const;

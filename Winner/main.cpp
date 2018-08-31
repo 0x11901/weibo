@@ -57,8 +57,8 @@ int main()
 
     std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4, 4, 5 };
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = {3, 3};
-    Judge::getInstance().setCurrentHandsCategory(test(tv));
+    tv = { 3, 3 };
+    Judge::getInstance().setCurrentHandsCategory(test(tv), test(tv));
 
     // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
 

@@ -245,7 +245,17 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
 
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
-        return !(judgeHandsCategory(hands).handsCategory == HandsCategory::illegal);
+        const auto handsCategory = judgeHandsCategory(hands).handsCategory;
+        if (Ruler::getInstance().isAlwaysWithPair())
+        {
+            if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
+                || handsCategory == HandsCategory::fourWithDualSolo
+                || handsCategory == HandsCategory::trioChainWithSolo)
+            {
+                return false;
+            }
+        }
+        return !(handsCategory == HandsCategory::illegal);
     }
     else
     {
@@ -318,6 +328,100 @@ void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
         _cardIntentions.push_back(temp);
         _iteratorIntentions = _cardIntentions.begin();
     }
+}
+
+#pragma mark - 排序 & 重置索引
+std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) const
+{
+    std::vector<size_t> ret;
+    auto                handsCategory = _currentHandsCategory.handsCategory.handsCategory;
+
+    if (handsCategory == HandsCategory::anyLegalCategory)
+    {
+        auto h        = judgeHandsCategory(hands);
+        handsCategory = h.handsCategory;
+    }
+    if (handsCategory == HandsCategory::illegal)
+    {
+        // OPTIMIZE: 程序闪退
+        return hands;
+    }
+
+    auto copy = hands;
+    std::sort(copy.begin(), copy.end());
+
+    auto ranksMultimap = getRanksMultimap(copy, false);
+    auto values        = getCardRanks(copy);
+    auto ranks         = zip(values);
+
+    if (handsCategory == HandsCategory::trioWithSolo || handsCategory == HandsCategory::trioWithPair
+        || handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair)
+    {
+        std::vector<size_t> temp;
+        auto                ranksCopy = ranks;
+
+        for (const auto &rank : ranks)
+        {
+            if (rank.second > 2)
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    temp.push_back(rank.first);
+                }
+                if (rank.second == 3)
+                {
+                    ranksCopy.erase(rank.first);
+                }
+                else
+                {
+                    ranksCopy[rank.first] = 1;
+                }
+            }
+        }
+
+        auto unzipped = unzip(ranksCopy);
+
+        std::sort(temp.begin(), temp.end());
+        std::sort(unzipped.begin(), unzipped.end());
+
+        temp.insert(temp.end(), unzipped.begin(), unzipped.end());
+
+        ret = temp;
+    }
+    else if (handsCategory == HandsCategory::fourWithDualSolo || handsCategory == HandsCategory::fourWithDualPair)
+    {
+        std::vector<size_t> temp;
+        auto                ranksCopy = ranks;
+
+        for (const auto &rank : ranks)
+        {
+            if (rank.second > 3)
+            {
+                for (int i = 0; i < 4; ++i)
+                {
+                    temp.push_back(rank.first);
+                }
+
+                ranksCopy.erase(rank.first);
+            }
+        }
+
+        auto unzipped = unzip(ranksCopy);
+
+        std::sort(temp.begin(), temp.end());
+        std::sort(unzipped.begin(), unzipped.end());
+
+        temp.insert(temp.end(), unzipped.begin(), unzipped.end());
+
+        ret = temp;
+    }
+    else
+    {
+        ret = hands;
+        std::sort(ret.begin(), ret.end());
+    }
+
+    return restoreHands(ret, ranksMultimap);
 }
 
 void Judge::reindex()
@@ -411,21 +515,36 @@ std::vector<size_t> Judge::hint(const std::vector<size_t> &hands)
 #pragma mark - 转换手牌
 
 #pragma mark - getter & setter
-void Judge::setCurrentHandsCategory(const std::vector<size_t> &currentHandsCategory)
+void Judge::setCurrentHandsCategory(const std::vector<size_t> &weight, const std::vector<size_t> &handsCategory)
 {
-    CurrentHandsCategory category{};
-    category.hands = currentHandsCategory;
-    if (currentHandsCategory.empty())
+    if (handsCategory.empty())
     {
-        HandsCategoryModel model{};
+        CurrentHandsCategory category{};
+        HandsCategoryModel   model{};
+
+        category.hands         = handsCategory;
         model.handsCategory    = HandsCategory::anyLegalCategory;
         category.handsCategory = model;
+
+        _currentHandsCategory = category;
     }
     else
     {
-        category.handsCategory = judgeHandsCategory(currentHandsCategory);
+        const auto &h = judgeHandsCategory(handsCategory);
+        const auto &w = judgeHandsCategory(weight);
+
+        if (w.handsCategory == HandsCategory::bomb)
+        {
+            _currentHandsCategory.handsCategory.handsCategory = w.handsCategory;
+            _currentHandsCategory.handsCategory.weight        = w.weight;
+        }
+        else
+        {
+            _currentHandsCategory.handsCategory.size          = h.size;
+            _currentHandsCategory.handsCategory.handsCategory = h.handsCategory;
+            _currentHandsCategory.handsCategory.weight        = w.weight;
+        }
     }
-    _currentHandsCategory = category;
 
     _needRecalculateIntentions = true;
     _needRecalculateHint       = true;
@@ -659,10 +778,35 @@ void Judge::withKickerContainsTarget(std::vector<std::vector<size_t>> &ret,
     }
 }
 
+std::vector<size_t> Judge::restoreHands(const std::vector<size_t> &          ret,
+                                        const std::multimap<size_t, size_t> &ranksMultimap) const
+{
+    std::vector<size_t>        temp;
+    std::unordered_set<size_t> unordered_set;
+
+    for (const auto &item : ret)
+    {
+        auto iterator = ranksMultimap.find(item);
+        while (iterator != ranksMultimap.end())
+        {
+            auto key = iterator->second;
+            if (unordered_set.find(key) == unordered_set.end())
+            {
+                unordered_set.insert(key);
+                temp.push_back(key);
+                break;
+            }
+
+            ++iterator;
+        }
+    }
+
+    return temp;
+}
+
 std::vector<std::vector<size_t>> Judge::restoreHands(const std::vector<std::vector<size_t>> &ret,
                                                      const std::multimap<size_t, size_t> &   ranksMultimap) const
 {
-    // ranksMultimap
     std::vector<std::vector<size_t>> temp1;
     std::vector<size_t>              temp2;
     for (const auto &v : ret)
@@ -1766,7 +1910,7 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     }
 
     // 根据拆牌多少排序结果，以接近测试要求
-    if (ret.size() > 1 && handsCategory != HandsCategory::pair)
+    if (ret.size() > 1 && handsCategory != HandsCategory::pair && handsCategory != HandsCategory::bomb)
     {
         sortHands(ret, ranks);
     }
