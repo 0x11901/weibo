@@ -371,6 +371,7 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
                 {
                     temp.push_back(rank.first);
                 }
+
                 if (rank.second == 3)
                 {
                     ranksCopy.erase(rank.first);
@@ -418,9 +419,63 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
 
         ret = temp;
     }
-    // else if (handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair)
-    // {
-    // }
+    else if (handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair)
+    {
+        std::vector<size_t> temp;
+        auto                ranksCopy = ranks;
+
+        for (const auto &rank : ranksCopy)
+        {
+            if (rank.second > 2)
+            {
+                temp.push_back(rank.first);
+            }
+        }
+
+        std::sort(temp.begin(), temp.end());
+        auto size = temp.size();
+
+        for (ssize_t i = 0; i < size - 1; ++i)
+        {
+            for (ssize_t j = size - 1; j > i; --j)
+            {
+                auto n = j - i + 1;
+                if (n < 2) continue;
+
+                if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
+
+                if (isContinuous(temp[i], temp[j], n))
+                {
+                    for (ssize_t k = i; k <= j; ++k)
+                    {
+                        ret.push_back(temp[k]);
+                        ret.push_back(temp[k]);
+                        ret.push_back(temp[k]);
+
+                        if (ranksCopy[temp[k]] == 3)
+                        {
+                            ranksCopy.erase(temp[k]);
+                        }
+                        else
+                        {
+                            ranksCopy[temp[k]] = 1;
+                        }
+                    }
+
+                    goto rearrangeHandsLoopEnd;
+                }
+            }
+        }
+        if (ret.empty()) return hands;
+
+    rearrangeHandsLoopEnd:
+
+        auto unzipped = unzip(ranksCopy);
+
+        std::sort(unzipped.begin(), unzipped.end());
+
+        ret.insert(ret.end(), unzipped.begin(), unzipped.end());
+    }
     else
     {
         ret = hands;
