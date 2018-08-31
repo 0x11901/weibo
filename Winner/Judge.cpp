@@ -333,6 +333,10 @@ void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
 #pragma mark - 排序 & 重置索引
 std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) const
 {
+    if (hands.size() < 3)
+    {
+        return hands;
+    }
     std::vector<size_t> ret;
     auto                handsCategory = _currentHandsCategory.handsCategory.handsCategory;
 
@@ -354,8 +358,7 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
     auto values        = getCardRanks(copy);
     auto ranks         = zip(values);
 
-    if (handsCategory == HandsCategory::trioWithSolo || handsCategory == HandsCategory::trioWithPair
-        || handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair)
+    if (handsCategory == HandsCategory::trioWithSolo || handsCategory == HandsCategory::trioWithPair)
     {
         std::vector<size_t> temp;
         auto                ranksCopy = ranks;
@@ -415,6 +418,9 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
 
         ret = temp;
     }
+    // else if (handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair)
+    // {
+    // }
     else
     {
         ret = hands;
