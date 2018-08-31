@@ -144,7 +144,7 @@ int main()
         ss.seekp(-2, ss.end);
         ss << " }" << std::endl;
 
-        std::cout << ss.str();
+        // std::cout << ss.str();
     }
 
     // for (int i = 0; i < 1; ++i)
@@ -164,6 +164,27 @@ int main()
     //
     //     std::cout << ss.str();
     // }
+
+    std::vector<size_t> tttttt = { 3, 3, 3, 4, 4, 4, 4, 5 };
+    std::vector<size_t> hhhhhh = { 3, 3, 3, 4, 4, 4, 4, 5 };
+    // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
+    tttttt = {};
+    hhhhhh = { 3, 3, 3, 3, 4, 4, 4, 4 };
+    Judge::getInstance().setCurrentHandsCategory(test(tttttt), test(hhhhhh));
+    auto r = Judge::getInstance().rearrangeHands(test(hhhhhh));
+
+
+        ss.str("");
+        ss << "{ ";
+        for (auto &&item : r)
+        {
+            ss << (item >> 8) << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+
+        std::cout << ss.str();
+
 
     return 0;
 }
