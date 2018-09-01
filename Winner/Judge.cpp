@@ -246,6 +246,13 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
         const auto handsCategory = judgeHandsCategory(hands).handsCategory;
+        if (!Ruler::getInstance().isBombDetachable())
+        {
+            if (handsCategory == HandsCategory::fourWithDualSolo || handsCategory == HandsCategory::fourWithDualPair)
+            {
+                return false;
+            }
+        }
         if (Ruler::getInstance().isAlwaysWithPair())
         {
             if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
@@ -453,16 +460,16 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
             }
         }
 
-        const auto max = std::max_element(woyebuzhidaowozaixieshenmele.begin(),
-                                          woyebuzhidaowozaixieshenmele.end(),
-                                          [](const std::tuple<ssize_t, ssize_t, size_t, size_t> &$0,
-                                             const std::tuple<ssize_t, ssize_t, size_t, size_t> &$1) {
-                                              size_t a_1, a_n, b_1, b_n;
-                                              std::tie(std::ignore, std::ignore, a_1, a_n) = $0;
-                                              std::tie(std::ignore, std::ignore, b_1, b_n) = $1;
+        const auto &max = std::max_element(woyebuzhidaowozaixieshenmele.begin(),
+                                           woyebuzhidaowozaixieshenmele.end(),
+                                           [](const std::tuple<ssize_t, ssize_t, size_t, size_t> &$0,
+                                              const std::tuple<ssize_t, ssize_t, size_t, size_t> &$1) {
+                                               size_t a_1, a_n, b_1, b_n;
+                                               std::tie(std::ignore, std::ignore, a_1, a_n) = $0;
+                                               std::tie(std::ignore, std::ignore, b_1, b_n) = $1;
 
-                                              return a_1 + a_n < b_1 + b_n;
-                                          });
+                                               return a_1 + a_n < b_1 + b_n;
+                                           });
 
         ssize_t m, n;
         std::tie(m, n, std::ignore, std::ignore) = *max;
