@@ -56,7 +56,7 @@ int main()
 
     std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4, 4, 5 };
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = { 3, 3, 3, 4, 4, 4, 5, 5, 6, 6 };
+    tv = {};
     Judge::getInstance().setCurrentHandsCategory(test(tv), test(tv));
 
     // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
@@ -87,7 +87,7 @@ int main()
     hands = { 3, 3, 3, 4, 5, 5, 5, 6, 6, 7 };
     hands = { 3, 4, 4, 5, 5, 5, 6 };
     hands = { 3, 4, 4, 5, 5, 5, 5, 6 };
-    hands = { 7, 7, 7, 8, 8, 8, 5, 5, 5, 10, 11, 12, 13 };
+    hands = { 3, 3, 3, 8, 8, 8, 5, 5, 5, 5, 10, 11, 12, 13 };
 
 #pragma mark - 跟牌提示
     // std::vector<size_t> hands;
@@ -114,7 +114,7 @@ int main()
     //
     // Judge::getInstance().setCurrentHandsCategory(test(tv));
 
-    auto              ret = Judge::getInstance().cardHint(test(hands));
+    auto              ret = Judge::getInstance().cardIntentions(test(hands));
     std::stringstream ss;
 
     // for (auto &&item : ret)
