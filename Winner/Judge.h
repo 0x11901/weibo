@@ -186,6 +186,8 @@ private:
 
     std::unordered_map<size_t, size_t> filterBombs(const std::unordered_map<size_t, size_t> &ranks) const;
 
+    std::unordered_map<size_t, size_t> filterFour(const std::unordered_map<size_t, size_t> &ranks) const;
+
     bool isContainsTarget(const std::vector<size_t> &temp) const;
 
     bool canSplit3(const std::unordered_map<size_t, size_t> &others) const;

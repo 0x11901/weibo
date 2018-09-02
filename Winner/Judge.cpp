@@ -765,6 +765,20 @@ std::unordered_map<size_t, size_t> Judge::filterBombs(const std::unordered_map<s
     return copy;
 }
 
+std::unordered_map<size_t, size_t> Judge::filterFour(const std::unordered_map<size_t, size_t> &ranks) const
+{
+    auto copy = filterA(ranks);
+    for (const auto &item : copy)
+    {
+        if (item.second == 4)
+        {
+            copy.erase(item.first);
+        }
+    }
+
+    return copy;
+}
+
 bool Judge::isContainsTarget(const std::vector<size_t> &temp) const
 {
     return std::find(temp.begin(), temp.end(), _target) != temp.end();
@@ -1051,9 +1065,11 @@ void Judge::enumerate(std::vector<std::vector<size_t>> &ret, const std::unordere
     enumerateTrio(ret, ranks);
     if (!ret.empty()) return;
 
-    // 4. 匹配四带X
-    enumerateFour(ret, ranks);
-    if (!ret.empty()) return;
+    /** 在2018年 9月 2日，产品更改需求不想在首出中提示四带X，故先注释掉
+        // 4. 匹配四带X
+        enumerateFour(ret, ranks);
+        if (!ret.empty()) return;
+    */
 
     // 5. 匹配顺子
     enumerateChain(ret, ranks);
@@ -1111,16 +1127,14 @@ void Judge::enumerateTrio(std::vector<std::vector<size_t>> &ret, const std::unor
 {
     if (ranks.empty()) return;
 
-    auto ranksCopy = filterA(ranks);
-
-    auto isBombDetachable = Ruler::getInstance().isBombDetachable();
+    auto ranksCopy        = filterFour(ranks);
     auto isAlwaysWithPair = Ruler::getInstance().isAlwaysWithPair();
 
     for (const auto &rank : ranksCopy)
     {
         std::vector<size_t> temp;
-        // FIXME: 如果可以四带自然也能三带，此处不知道如何操作
-        if (isBombDetachable ? rank.second > 2 : rank.second == 3)
+        // 在2018年9月2日，产品不想在提示三带的时候出现四张的拆牌，以及当AAA算炸时，AAA的拆牌在三带中的"三"或带牌中出现
+        if (rank.second == 3)
         {
             //三不带
             temp.clear();
@@ -1137,9 +1151,7 @@ void Judge::enumerateTrio(std::vector<std::vector<size_t>> &ret, const std::unor
             auto others = ranksCopy;
             others.erase(rank.first);
 
-            auto xx = others;
-            if (!isBombDetachable) xx = filterBombs(xx);
-            const auto &x = filter3(xx, canSplit3(others));
+            const auto &x = filter3(others, canSplit3(others));
 
             //三带一
             if (!isAlwaysWithPair)
