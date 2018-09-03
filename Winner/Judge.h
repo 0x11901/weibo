@@ -137,10 +137,20 @@ public:
      */
     void setCurrentHandsCategory(const std::vector<size_t> &weight, const std::vector<size_t> &handsCategory);
 
+    /**
+     * 设置当前的手牌，当玩家手牌发生变化时，应将手牌传给Judge，用在判断出牌是是否含有💣
+     * 用以当💣不可拆，作出正确的能否出牌判定
+     * @param hands
+     */
+    void setCurrentHands(const std::vector<size_t> &hands);
+
 private:
 #pragma mark - 私有变量
     /** 持有这一圈的牌型，用以判断能否跟牌和提示跟牌 */
     CurrentHandsCategory _currentHandsCategory{};
+
+    /** 持有这一圈玩家的手牌，用以当💣不可拆，作出正确的能否出牌判定 */
+    std::vector<size_t> _currentHands;
 
     /** 提示中必须包含的牌，可能是♥️3，也有可能是用户传入的手牌中最小的牌型 */
     size_t _target = 0;

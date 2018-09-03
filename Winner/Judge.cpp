@@ -245,23 +245,49 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
 
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
-        const auto handsCategory = judgeHandsCategory(hands).handsCategory;
-        if (!Ruler::getInstance().isBombDetachable())
+        const auto handsCategoryModel = Judge::getInstance().judgeHandsCategory(hands);
+        const auto handsCategory      = handsCategoryModel.handsCategory;
+
+        // 当💣不可拆时，判断传来的牌中有无💣，如有则无法出牌
+        if (!Ruler::getInstance().isBombDetachable() && handsCategory != HandsCategory::bomb)
         {
-            if (handsCategory == HandsCategory::fourWithDualSolo || handsCategory == HandsCategory::fourWithDualPair)
+            const auto &values = getCardRanks(_currentHands);
+            const auto &ranks  = zip(values);
+
+            std::vector<size_t> bombs;
+            auto                isAsTrioAceBomb = Ruler::getInstance().isAsTrioAceBomb();
+            for (auto &&rank : ranks)
             {
-                return false;
+                if (isAsTrioAceBomb)
+                {
+                    if (rank.first == paiXingA && rank.second == 3)
+                    {
+                        bombs.push_back(paiXingA);
+                        continue;
+                    }
+                }
+                if (rank.second == 4)
+                {
+                    bombs.push_back(rank.first);
+                }
+            }
+
+            const auto &v = getCardRanks(hands);
+            for (auto &&item : v)
+            {
+                if (std::find(bombs.begin(), bombs.end(), item) != bombs.end()) return false;
             }
         }
+
+        // 当强制三带二时，所有的带牌不满两张都无法出牌
         if (Ruler::getInstance().isAlwaysWithPair())
         {
             if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
-                || handsCategory == HandsCategory::fourWithDualSolo
-                || handsCategory == HandsCategory::trioChainWithSolo)
-            {
+                || handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo
+                || handsCategory == HandsCategory::fourWithDualSolo)
                 return false;
-            }
         }
+
         return !(handsCategory == HandsCategory::illegal);
     }
     else
@@ -630,6 +656,11 @@ void Judge::setCurrentHandsCategory(const std::vector<size_t> &weight, const std
 
     _needRecalculateIntentions = true;
     _needRecalculateHint       = true;
+}
+
+void Judge::setCurrentHands(const std::vector<size_t> &hands)
+{
+    _currentHands = hands;
 }
 
 #pragma mark - 私有函数
