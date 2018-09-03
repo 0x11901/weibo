@@ -56,7 +56,7 @@ int main()
 
     std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4, 4, 5 };
     // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = { 5, 5, 5, 3, 4 };
+    tv = { 3, 3, 3, 5, 4 };
     Judge::getInstance().setCurrentHandsCategory(test(tv), test(tv));
 
     // std::cout << Judge::getInstance().isPass(test(hands)) << std::endl;
@@ -90,6 +90,7 @@ int main()
     hands = { 3, 3, 3, 8, 8, 8, 5, 5, 5, 5, 10, 11, 12, 13, 14, 14, 14 };
     hands = { 3, 4, 5, 10, 10, 10, 10, 9, 9 };
     hands = { 13, 12, 11, 11, 11, 10, 10, 10, 10, 8, 7, 6, 5, 5, 4, 3, 3 };
+    hands = { 13, 12, 11, 11, 10, 10, 10, 10, 8, 7, 6, 5, 5, 5, 5, 4, 3, 3 };
 
 #pragma mark - 跟牌提示
     // std::vector<size_t> hands;
