@@ -245,8 +245,8 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
 
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
-        const auto handsCategoryModel = Judge::getInstance().judgeHandsCategory(hands);
-        const auto handsCategory      = handsCategoryModel.handsCategory;
+        const auto &handsCategoryModel = Judge::getInstance().judgeHandsCategory(hands);
+        const auto &handsCategory      = handsCategoryModel.handsCategory;
 
         // 当💣不可拆时，判断传来的牌中有无💣，如有则无法出牌
         if (!Ruler::getInstance().isBombDetachable() && handsCategory != HandsCategory::bomb)
@@ -1984,7 +1984,7 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     std::sort(values.begin(), values.end());
 
     auto ranks = zip(values);
-    auto copy  = filterBombs(ranks);
+    auto copy  = filterFour(ranks);
 
     // 枚举法
     switch (_currentHandsCategory.handsCategory.handsCategory)
@@ -2022,25 +2022,28 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
         case HandsCategory::bomb:
             exhaustiveBombs(ret, ranks);
             break;
+            // 在2018年 9月 3日，测试说当上家出四带一/二时，只提示💣，不提示四带一/二
         case HandsCategory::fourWithDualSolo:
-            exhaustiveFourWithSolo(ret, ranks);
+            exhaustiveFourWithSolo(ret, copy);
             break;
         case HandsCategory::fourWithDualPair:
-            exhaustiveFourWithPair(ret, ranks);
+            exhaustiveFourWithPair(ret, copy);
             break;
         default:
             return ret;
-    }
-
-    if (handsCategory != HandsCategory::bomb)
-    {
-        appendBombs(ret, ranks);
     }
 
     // 根据拆牌多少排序结果，以接近测试要求
     if (ret.size() > 1 && handsCategory != HandsCategory::pair && handsCategory != HandsCategory::bomb)
     {
         sortHands(ret, ranks);
+    }
+
+    // 💣放在提示数组最后
+    if (handsCategory != HandsCategory::bomb)
+    {
+        // FIXME: 💣并未排序
+        appendBombs(ret, ranks);
     }
 
     // 将筛选出的组合结果还原为约定的实数
