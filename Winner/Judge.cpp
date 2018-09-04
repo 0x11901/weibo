@@ -280,6 +280,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         }
 
         // 当强制三带二时，所有的带牌不满两张都无法出牌
+        // 但是当💣可拆时，可以认为四带一为三带二，此时四带一可以当三带二打出
         if (Ruler::getInstance().isAlwaysWithPair())
         {
             if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
@@ -2034,7 +2035,7 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     }
 
     // 根据拆牌多少排序结果，以接近测试要求
-    if (ret.size() > 1 && handsCategory != HandsCategory::pair && handsCategory != HandsCategory::bomb)
+    if (ret.size() > 1 && handsCategory != HandsCategory::bomb)
     {
         sortHands(ret, ranks);
     }
