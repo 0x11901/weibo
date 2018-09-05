@@ -17,7 +17,7 @@ Ruler::Ruler()
     _isAlwaysWithPair     = true;
     _isBombDetachable     = true;
     _isAsTrioAceBomb      = true;
-    _isThreeOfHeartsFirst = false;
+    _isThreeOfHeartsFirst = true;
 }
 
 Ruler &Ruler::getInstance()

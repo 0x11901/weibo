@@ -799,12 +799,20 @@ std::unordered_map<size_t, size_t> Judge::filterBombs(const std::unordered_map<s
 
 std::unordered_map<size_t, size_t> Judge::filterFour(const std::unordered_map<size_t, size_t> &ranks) const
 {
-    auto copy = filterA(ranks);
+    auto copy = ranks;
     for (const auto &item : copy)
     {
         if (item.second == 4)
         {
             copy.erase(item.first);
+        }
+    }
+
+    if (Ruler::getInstance().isAsTrioAceBomb())
+    {
+        if (copy.find(paiXingA) != copy.end() && copy[paiXingA] == 3)
+        {
+            copy.erase(paiXingA);
         }
     }
 
@@ -1948,6 +1956,14 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
 
     auto ranks = zip(values);
 
+    // 当必出♥️3且手牌中有四个3时，直接提示四个3即可
+    if (isThreeOfHeartsFirst && ranks.find(paiXing3) != ranks.end() && ranks[paiXing3] == 4)
+    {
+        std::vector<size_t> vector{ 3, 3, 3, 3 };
+        ret.push_back(vector);
+        goto cardIntentionsRestoreHands;
+    }
+
     // 枚举法
     enumerate(ret, ranks);
 
@@ -1957,6 +1973,7 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         sortHands(ret, ranks);
     }
 
+cardIntentionsRestoreHands:
     // 将筛选出的组合结果还原为约定的实数
     const auto &temp = restoreHands(ret, ranksMultimap);
     _cardIntentions  = temp;
