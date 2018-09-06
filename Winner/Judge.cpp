@@ -280,7 +280,6 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         }
 
         // 当强制三带二时，所有的带牌不满两张都无法出牌
-        // 但是当💣可拆时，可以认为四带一为三带二，此时四带一可以当三带二打出
         if (Ruler::getInstance().isAlwaysWithPair())
         {
             if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
@@ -367,10 +366,11 @@ void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
 #pragma mark - 排序 & 重置索引
 std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) const
 {
-    if (hands.size() < 3)
+    if (hands.size() < 2)
     {
         return hands;
     }
+
     std::vector<size_t> ret;
     auto                handsCategory = _currentHandsCategory.handsCategory.handsCategory;
 
@@ -391,6 +391,11 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
     auto ranksMultimap = getRanksMultimap(copy, false);
     auto values        = getCardRanks(copy);
     auto ranks         = zip(values);
+
+    if (ranks.size() == 1)
+    {
+        return copy;
+    }
 
     if (handsCategory == HandsCategory::trioWithSolo || handsCategory == HandsCategory::trioWithPair)
     {
@@ -800,7 +805,7 @@ std::unordered_map<size_t, size_t> Judge::filterBombs(const std::unordered_map<s
 std::unordered_map<size_t, size_t> Judge::filterFour(const std::unordered_map<size_t, size_t> &ranks) const
 {
     auto copy = ranks;
-    for (const auto &item : copy)
+    for (const auto &item : ranks)
     {
         if (item.second == 4)
         {
@@ -1007,6 +1012,9 @@ bool Judge::isContinuous(size_t a_1, size_t a_n, ssize_t n) const
 
 bool Judge::isChain(const std::unordered_map<size_t, size_t> &ranks) const
 {
+    // 顺子中不能有牌型2
+    if (ranks.find(paiXing2) != ranks.end()) return false;
+
     if (ranks.size() >= 5)
     {
         std::vector<size_t> vector;
