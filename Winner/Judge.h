@@ -67,14 +67,6 @@ public:
     bool canPlay(const std::vector<size_t> &hands, bool isStartingHand = false) const;
 
     /**
-     * 是否是传入手牌中的最大单牌
-     * @param hands 用户当前的整个手牌
-     * @param singleCard 待判定的单牌
-     * @return 是否是最大单张
-     */
-    bool isTheHighestSingleCard(const std::vector<size_t> &hands, size_t singleCard) const;
-
-    /**
      * 是否在传入的手牌中包含♥️3
      * @param hands 用户当前的整个手牌
      * @return 是否包含♥️3
@@ -298,6 +290,10 @@ public:
     size_t getSplitCount(const std::vector<size_t> &hands, const std::unordered_map<size_t, size_t> &ranks) const;
 
     void sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const;
+
+    void setTheHighestSingleCard(const std::vector<size_t> &                 hands,
+                                 std::vector<std::vector<size_t>> &          vector,
+                                 std::vector<std::vector<size_t>>::iterator &iterator);
 };
 PAGAMES_WINNER_POKER_END
 #endif // PAGAMES_WINNER_JUDGE_H

@@ -317,15 +317,6 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
     }
 }
 
-bool Judge::isTheHighestSingleCard(const std::vector<size_t> &hands, size_t singleCard) const
-{
-    std::vector<size_t> filter;
-    std::remove_copy_if(hands.begin(), hands.end(), std::back_inserter(filter), [&](size_t $0) {
-        return std::count(hands.begin(), hands.end(), $0) != 1;
-    });
-    return *std::max_element(filter.begin(), filter.end()) == singleCard;
-}
-
 bool Judge::isContainsThreeOfHearts(const std::vector<size_t> &hands) const
 {
     return std::find(hands.begin(), hands.end(), hongTao3) != hands.end();
@@ -346,20 +337,15 @@ std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isS
 
 void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
 {
-    if (!_needRecalculateIntentions && _cardIntentions.size() == 1 && _cardIntentions.front().size() == 1)
+    if (hands.empty()) return;
+    if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
-        _cardIntentions.clear();
-        // FIXME: 此处逻辑较为复杂，暂时出手牌中最大的单牌吧
-
-        std::vector<size_t> filter;
-        std::remove_copy_if(hands.begin(), hands.end(), std::back_inserter(filter), [&hands](const size_t &$0) {
-            return std::count(hands.begin(), hands.end(), $0) != 1;
-        });
-
-        std::vector<size_t> temp;
-        temp.push_back(*std::max_element(filter.begin(), filter.end()));
-        _cardIntentions.push_back(temp);
-        _iteratorIntentions = _cardIntentions.begin();
+        cardIntentions(hands, false);
+        setTheHighestSingleCard(hands, _cardIntentions, _iteratorIntentions);
+    }
+    else
+    {
+        setTheHighestSingleCard(hands, _cardHint, _iteratorHint);
     }
 }
 
@@ -2122,6 +2108,44 @@ void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordere
         }
         return n < m;
     });
+}
+
+void Judge::setTheHighestSingleCard(const std::vector<size_t> &                 hands,
+                                    std::vector<std::vector<size_t>> &          vector,
+                                    std::vector<std::vector<size_t>>::iterator &iterator)
+{
+    if (vector.size() == 1 && vector.front().size() == 1)
+    {
+        vector.clear();
+
+        std::vector<size_t> ret;
+
+        auto ranksMultimap = getRanksMultimap(hands, false);
+        auto values        = getCardRanks(hands);
+
+        auto max = *(max_element(values.begin(), values.end()));
+        if (Ruler::getInstance().isAsTrioAceBomb() && max == paiXingA
+            && count(values.begin(), values.end(), paiXingA) == 3)
+        {
+            ret.emplace_back(paiXingA);
+            ret.emplace_back(paiXingA);
+            ret.emplace_back(paiXingA);
+        }
+        else if (count(values.begin(), values.end(), max) == 4)
+        {
+            ret.emplace_back(max);
+            ret.emplace_back(max);
+            ret.emplace_back(max);
+            ret.emplace_back(max);
+        }
+        else
+        {
+            ret.emplace_back(max);
+        }
+
+        vector.push_back(restoreHands(ret, ranksMultimap));
+        iterator = vector.begin();
+    }
 }
 
 PAGAMES_WINNER_POKER_END
