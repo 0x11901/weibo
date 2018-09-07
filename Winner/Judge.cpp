@@ -50,9 +50,10 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
+    auto size   = hands.size();
     auto vector = getCardRanks(hands);
 
-    if (hands.size() == 1)
+    if (size == 1)
     {
         model.handsCategory = HandsCategory::solo;
         model.size          = 1;
@@ -62,7 +63,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
 
     std::unordered_map<size_t, size_t> ranks = zip(vector);
 
-    if (isSame(ranks, duiZi))
+    if (size == 2 && isSame(ranks, duiZi))
     {
         model.handsCategory = HandsCategory::pair;
         model.size          = 2;
@@ -94,7 +95,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         }
     }
 
-    if (isSame(ranks, sanBuDai))
+    if (size == 3 && isSame(ranks, sanBuDai))
     {
         model.handsCategory = HandsCategory::trio;
         model.size          = 3;
@@ -102,7 +103,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, sanDaiYi))
+    if (size == 4 && isSame(ranks, sanDaiYi))
     {
         model.handsCategory = HandsCategory::trioWithSolo;
         model.size          = 4;
@@ -119,7 +120,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, sanDaiEr1) || isSame(ranks, sanDaiEr2))
+    if (size == 5 && (isSame(ranks, sanDaiEr1) || isSame(ranks, sanDaiEr2)))
     {
         model.handsCategory = HandsCategory::trioWithPair;
         model.size          = 5;
@@ -136,7 +137,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, zhaDan))
+    if (size == 4 && isSame(ranks, zhaDan))
     {
         model.handsCategory = HandsCategory::bomb;
         model.size          = 4;
@@ -144,7 +145,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, siDaiYi))
+    if (size == 5 && isSame(ranks, siDaiYi))
     {
         model.handsCategory = HandsCategory::fourWithDualSolo;
         model.size          = 5;
@@ -161,7 +162,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    if (isSame(ranks, siDaiEr1) || isSame(ranks, siDaiEr2))
+    if (size == 6 && (isSame(ranks, siDaiEr1) || isSame(ranks, siDaiEr2)))
     {
         model.handsCategory = HandsCategory::fourWithDualPair;
         model.size          = 6;
@@ -179,7 +180,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     }
 
     // FIXME: 目前以顺子中最小的牌作为牌型的权重
-    //判断顺子
+    // 判断顺子
     if (isChain(ranks))
     {
         model.handsCategory = HandsCategory::chain;
@@ -195,8 +196,8 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    //判断连对
-    if (isPairChain(ranks))
+    // 判断连对
+    if (size % 2 == 0 && isPairChain(ranks))
     {
         model.handsCategory = HandsCategory::pairChain;
         // OPTIMIZE: 待优化
@@ -211,7 +212,7 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    //判断三顺
+    // 判断三顺
     auto tuple = isTrioChain(ranks);
     bool isTrioChain;
     std::tie(isTrioChain, std::ignore) = tuple;
