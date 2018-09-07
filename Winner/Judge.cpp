@@ -445,7 +445,9 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
 
         ret = temp;
     }
-    else if (handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair)
+    // XXX: 当强制三带二时，打出的三顺不带实际上认为是三顺带二
+    else if (handsCategory == HandsCategory::trioChainWithSolo || handsCategory == HandsCategory::trioChainWithPair
+             || (Ruler::getInstance().isAlwaysWithPair() && handsCategory == HandsCategory::trioChain))
     {
         std::vector<size_t> temp;
         auto                ranksCopy = ranks;
