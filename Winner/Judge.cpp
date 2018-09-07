@@ -50,8 +50,8 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    auto size   = hands.size();
-    auto vector = getCardRanks(hands);
+    auto        size   = hands.size();
+    const auto &vector = getCardRanks(hands);
 
     if (size == 1)
     {
@@ -254,12 +254,49 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
         // 当强制三带二时，所有的带牌不满两张都无法出牌
+        // FIXME: 但是其中三顺又需要特殊处理，暂时先🦐写了
         if (Ruler::getInstance().isAlwaysWithPair())
         {
             if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
-                || handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo
                 || handsCategory == HandsCategory::fourWithDualSolo)
                 return false;
+
+            if (handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo)
+            {
+                std::unordered_map<size_t, size_t> ranks = zip(getCardRanks(hands));
+                std::vector<size_t>                vector;
+                for (const auto &rank : ranks)
+                {
+                    if (rank.second >= 3) vector.push_back(rank.first);
+                }
+                if (vector.size() > 1)
+                {
+                    std::sort(vector.begin(), vector.end());
+                    auto count = vector.size();
+                    for (ssize_t i = 0; i < count - 1; ++i)
+                    {
+                        for (ssize_t j = count - 1; j > i; --j)
+                        {
+                            ssize_t n = j - i + 1;
+                            if (isContinuous(vector[i], vector[j], n))
+                            {
+                                auto size = std::accumulate(
+                                    ranks.begin(),
+                                    ranks.end(),
+                                    static_cast<size_t>(0),
+                                    [](size_t $0, const std::unordered_map<size_t, size_t>::value_type &$1) {
+                                        return $0 + $1.second;
+                                    });
+                                if (size - 3 * n == 2 * n)
+                                {
+                                    // TODO: 满足三顺带二的条件
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
         }
 
         return !(handsCategory == HandsCategory::illegal);
@@ -278,7 +315,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
             return true;
         }
 
-        // FIXME: 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
+        // 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
         if (Ruler::getInstance().isBombDetachable())
         {
             if (x.handsCategory == HandsCategory::fourWithDualSolo && y.handsCategory == HandsCategory::trioWithPair)
