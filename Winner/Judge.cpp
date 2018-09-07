@@ -249,34 +249,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
     const auto &handsCategory      = handsCategoryModel.handsCategory;
     // 当💣不可拆时，判断传来的牌中有无💣，如有则无法出牌
     if (!Ruler::getInstance().isBombDetachable() && handsCategory != HandsCategory::bomb)
-    {
-        const auto &values = getCardRanks(_currentHands);
-        const auto &ranks  = zip(values);
-
-        std::vector<size_t> bombs;
-        auto                isAsTrioAceBomb = Ruler::getInstance().isAsTrioAceBomb();
-        for (auto &&rank : ranks)
-        {
-            if (isAsTrioAceBomb)
-            {
-                if (rank.first == paiXingA && rank.second == 3)
-                {
-                    bombs.push_back(paiXingA);
-                    continue;
-                }
-            }
-            if (rank.second == 4)
-            {
-                bombs.push_back(rank.first);
-            }
-        }
-
-        const auto &v = getCardRanks(hands);
-        for (auto &&item : v)
-        {
-            if (std::find(bombs.begin(), bombs.end(), item) != bombs.end()) return false;
-        }
-    }
+        if (isContainsBombs(hands)) return false;
 
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
@@ -816,6 +789,38 @@ std::unordered_map<size_t, size_t> Judge::filterFour(const std::unordered_map<si
 bool Judge::isContainsTarget(const std::vector<size_t> &temp) const
 {
     return std::find(temp.begin(), temp.end(), _target) != temp.end();
+}
+
+bool Judge::isContainsBombs(const std::vector<size_t> &hands) const
+{
+    const auto &values = getCardRanks(_currentHands);
+    const auto &ranks  = zip(values);
+
+    std::vector<size_t> bombs;
+    auto                isAsTrioAceBomb = Ruler::getInstance().isAsTrioAceBomb();
+    for (const auto &rank : ranks)
+    {
+        if (isAsTrioAceBomb)
+        {
+            if (rank.first == paiXingA && rank.second == 3)
+            {
+                bombs.push_back(paiXingA);
+                continue;
+            }
+        }
+        if (rank.second == 4)
+        {
+            bombs.push_back(rank.first);
+        }
+    }
+
+    const auto &v = getCardRanks(hands);
+    for (auto &&item : v)
+    {
+        if (find(bombs.begin(), bombs.end(), item) != bombs.end()) return true;
+    }
+
+    return false;
 }
 
 bool Judge::canSplit3(const std::unordered_map<size_t, size_t> &others) const

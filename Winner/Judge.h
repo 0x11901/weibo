@@ -192,6 +192,8 @@ private:
 
     bool isContainsTarget(const std::vector<size_t> &temp) const;
 
+    bool isContainsBombs(const std::vector<size_t> &hands) const;
+
     bool canSplit3(const std::unordered_map<size_t, size_t> &others) const;
 
     std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k) const;
