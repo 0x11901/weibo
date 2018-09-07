@@ -245,13 +245,76 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         return false;
     }
 
+    const auto &handsCategoryModel = Judge::getInstance().judgeHandsCategory(hands);
+    const auto &handsCategory      = handsCategoryModel.handsCategory;
+    // 当💣不可拆时，判断传来的牌中有无💣，如有则无法出牌
+    if (!Ruler::getInstance().isBombDetachable() && handsCategory != HandsCategory::bomb)
+    {
+        const auto &values = getCardRanks(_currentHands);
+        const auto &ranks  = zip(values);
+
+        std::vector<size_t> bombs;
+        auto                isAsTrioAceBomb = Ruler::getInstance().isAsTrioAceBomb();
+        for (auto &&rank : ranks)
+        {
+            if (isAsTrioAceBomb)
+            {
+                if (rank.first == paiXingA && rank.second == 3)
+                {
+                    bombs.push_back(paiXingA);
+                    continue;
+                }
+            }
+            if (rank.second == 4)
+            {
+                bombs.push_back(rank.first);
+            }
+        }
+
+        const auto &v = getCardRanks(hands);
+        for (auto &&item : v)
+        {
+            if (std::find(bombs.begin(), bombs.end(), item) != bombs.end()) return false;
+        }
+    }
+
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
-        return canPlayWhenPlay(hands);
+        // 当强制三带二时，所有的带牌不满两张都无法出牌
+        if (Ruler::getInstance().isAlwaysWithPair())
+        {
+            if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
+                || handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo
+                || handsCategory == HandsCategory::fourWithDualSolo)
+                return false;
+        }
+
+        return !(handsCategory == HandsCategory::illegal);
     }
     else
     {
-        return canPlayWhenCall(hands);
+        const auto &x = judgeHandsCategory(hands);
+        const auto &y = _currentHandsCategory.handsCategory;
+
+        if (x.handsCategory == HandsCategory::bomb)
+        {
+            if (y.handsCategory == HandsCategory::bomb)
+            {
+                return x.weight > y.weight;
+            }
+            return true;
+        }
+
+        // FIXME: 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
+        if (Ruler::getInstance().isBombDetachable())
+        {
+            if (x.handsCategory == HandsCategory::fourWithDualSolo && y.handsCategory == HandsCategory::trioWithPair)
+            {
+                return x.weight > y.weight;
+            }
+        }
+
+        return x.handsCategory == y.handsCategory && x.size == y.size && x.weight > y.weight;
     }
 }
 
@@ -1019,80 +1082,6 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
         }
     }
     return std::make_tuple<bool, HandsCategoryModel>(false, HandsCategoryModel{});
-}
-
-bool Judge::canPlayWhenPlay(const std::vector<size_t> &hands) const
-{
-    const auto &handsCategoryModel = Judge::getInstance().judgeHandsCategory(hands);
-    const auto &handsCategory      = handsCategoryModel.handsCategory;
-
-    // 当💣不可拆时，判断传来的牌中有无💣，如有则无法出牌
-    if (!Ruler::getInstance().isBombDetachable() && handsCategory != HandsCategory::bomb)
-    {
-        const auto &values = getCardRanks(_currentHands);
-        const auto &ranks  = zip(values);
-
-        std::vector<size_t> bombs;
-        auto                isAsTrioAceBomb = Ruler::getInstance().isAsTrioAceBomb();
-        for (auto &&rank : ranks)
-        {
-            if (isAsTrioAceBomb)
-            {
-                if (rank.first == paiXingA && rank.second == 3)
-                {
-                    bombs.push_back(paiXingA);
-                    continue;
-                }
-            }
-            if (rank.second == 4)
-            {
-                bombs.push_back(rank.first);
-            }
-        }
-
-        const auto &v = getCardRanks(hands);
-        for (auto &&item : v)
-        {
-            if (std::find(bombs.begin(), bombs.end(), item) != bombs.end()) return false;
-        }
-    }
-
-    // 当强制三带二时，所有的带牌不满两张都无法出牌
-    if (Ruler::getInstance().isAlwaysWithPair())
-    {
-        if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
-            || handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo
-            || handsCategory == HandsCategory::fourWithDualSolo)
-            return false;
-    }
-
-    return !(handsCategory == HandsCategory::illegal);
-}
-
-bool Judge::canPlayWhenCall(const std::vector<size_t> &hands) const
-{
-    const auto &x = judgeHandsCategory(hands);
-    const auto &y = _currentHandsCategory.handsCategory;
-
-    if (x.handsCategory == HandsCategory::bomb)
-    {
-        if (y.handsCategory == HandsCategory::bomb)
-        {
-            return x.weight > y.weight;
-        }
-        return true;
-    }
-
-    // FIXME: 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
-    if (Ruler::getInstance().isBombDetachable())
-    {
-        if (x.handsCategory == HandsCategory::fourWithDualSolo && y.handsCategory == HandsCategory::trioWithPair)
-        {
-            return x.weight > y.weight;
-        }
-    }
-
-    return x.handsCategory == y.handsCategory && x.size == y.size && x.weight > y.weight;
 }
 
 void Judge::enumerate(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
