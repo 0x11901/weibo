@@ -290,12 +290,12 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
                                 if (size - 3 * n == 2 * n)
                                 {
                                     // TODO: 满足三顺带二的条件
+                                    
                                 }
                             }
                         }
                     }
                 }
-                return false;
             }
         }
 
@@ -1099,11 +1099,13 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                         // FIXME: 这里的权重判断出来会是3，有隐患
                         // OPTIMIZE: 等测试提出来或者有空再改吧
                         size_t weight = vector[i];
-                        size_t size   = 0;
-                        for (const auto &rank : ranks)
-                        {
-                            size += rank.second;
-                        }
+                        auto   size =
+                            std::accumulate(ranks.begin(),
+                                            ranks.end(),
+                                            static_cast<size_t>(0),
+                                            [](size_t $0, const std::unordered_map<size_t, size_t>::value_type &$1) {
+                                                return $0 + $1.second;
+                                            });
                         auto x = size - 3 * n;
                         if (x == 0)
                         {
