@@ -336,7 +336,8 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
             && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo
                 || x.handsCategory == HandsCategory::trioChainWithPair))
         {
-            return getTrioChainWeight(hands) > getTrioChainWeight(_currentHandsCategory.hands);
+            return (x.handsCategory == HandsCategory::trioChain ? getTrioChainWeight(hands) : x.weight)
+                   > getTrioChainWeight(_currentHandsCategory.hands);
         }
 
         return x.handsCategory == y.handsCategory && x.weight > y.weight;
