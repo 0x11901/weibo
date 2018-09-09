@@ -223,6 +223,10 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         model.handsCategory              = tempModel.handsCategory;
         model.weight                     = tempModel.weight;
         model.size                       = tempModel.size;
+
+        // OPTIMIZE: 三顺带一和三顺带二权重有可能会炸裂，总之重算一下
+        if (tempModel.handsCategory != HandsCategory::trioChain) model.weight = getTrioChainWeight(hands);
+
         return model;
     }
 
@@ -328,60 +332,11 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         }
 
         // 当强制三带二时，玩家出出来的三顺实际上是三顺带二
-        if (Ruler::getInstance().isAlwaysWithPair() && y.handsCategory == HandsCategory::trioChain)
+        if (Ruler::getInstance().isAlwaysWithPair() && y.handsCategory == HandsCategory::trioChain
+            && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo
+                || x.handsCategory == HandsCategory::trioChainWithPair))
         {
-            const auto &                                              h    = _currentHandsCategory.hands;
-            auto                                                      size = h.size();
-
-            getCardRanks(h);
-
-            // std::vector<std::tuple<ssize_t, ssize_t, size_t, size_t>> woyebuzhidaowozaixieshenmele;
-            // for (ssize_t i = 0; i < size - 1; ++i)
-            // {
-            //     for (ssize_t j = size - 1; j > i; --j)
-            //     {
-            //         auto n = j - i + 1;
-            //         if (n < 2) continue;
-            //         if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
-            //         if (isContinuous(temp[i], temp[j], n))
-            //         {
-            //             woyebuzhidaowozaixieshenmele.push_back(std::make_tuple<ssize_t, ssize_t, size_t, size_t>(
-            //                 std::move(i), std::move(j), std::move(temp[i]), std::move(temp[j])));
-            //             // FIXME: 上面强行把左值转成了右值，可能会出现隐患
-            //         }
-            //     }
-            // }
-            //
-            // const auto &max = std::max_element(woyebuzhidaowozaixieshenmele.begin(),
-            //                                    woyebuzhidaowozaixieshenmele.end(),
-            //                                    [](const std::tuple<ssize_t, ssize_t, size_t, size_t> &$0,
-            //                                       const std::tuple<ssize_t, ssize_t, size_t, size_t> &$1) {
-            //                                        size_t a_1, a_n, b_1, b_n;
-            //                                        std::tie(std::ignore, std::ignore, a_1, a_n) = $0;
-            //                                        std::tie(std::ignore, std::ignore, b_1, b_n) = $1;
-            //
-            //                                        return a_1 + a_n < b_1 + b_n;
-            //                                    });
-            //
-            // ssize_t m, n;
-            // std::tie(m, n, std::ignore, std::ignore) = *max;
-            //
-            // for (ssize_t k = m; k <= n; ++k)
-            // {
-            //     ret.push_back(temp[k]);
-            //     ret.push_back(temp[k]);
-            //     ret.push_back(temp[k]);
-            //
-            //     if (ranksCopy[temp[k]] == 3)
-            //     {
-            //         ranksCopy.erase(temp[k]);
-            //     }
-            //     else
-            //     {
-            //         ranksCopy[temp[k]] = 1;
-            //     }
-            // }
-
+            return getTrioChainWeight(hands) > getTrioChainWeight(_currentHandsCategory.hands);
         }
 
         return x.handsCategory == y.handsCategory && x.weight > y.weight;
@@ -1157,7 +1112,7 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                         // FIXME: 三顺的权重以等差数列的首项决定
                         // FIXME: 3334445555 展示为，444555 3335；以最大的牌型显示
                         // FIXME: 这里的权重判断出来会是3，有隐患
-                        // OPTIMIZE: 等测试提出来或者有空再改吧
+                        // OPTIMIZE: 此处并不好修改，所以暂时将三顺带一和三顺带二放在外面再计算一次权重
                         size_t weight = vector[i];
                         auto   size =
                             std::accumulate(ranks.begin(),
@@ -1188,6 +1143,46 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
         }
     }
     return std::make_tuple<bool, HandsCategoryModel>(false, HandsCategoryModel{});
+}
+
+size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands) const
+{
+    auto size = hands.size();
+
+    auto values = getCardRanks(hands);
+    sort(values.begin(), values.end());
+
+    std::vector<std::tuple<ssize_t, ssize_t, size_t, size_t>> woyebuzhidaowozaixieshenmele;
+    for (ssize_t i = 0; i < size - 1; ++i)
+    {
+        for (ssize_t j = size - 1; j > i; --j)
+        {
+            auto n = j - i + 1;
+            if (n * 5 != size) continue;
+            if (isContinuous(values[i], values[j], n))
+            {
+                woyebuzhidaowozaixieshenmele.push_back(std::make_tuple<ssize_t, ssize_t, size_t, size_t>(
+                    std::move(i), std::move(j), std::move(values[i]), std::move(values[j])));
+            }
+        }
+    }
+
+    if (woyebuzhidaowozaixieshenmele.empty()) return 0;
+
+    const auto &max = max_element(woyebuzhidaowozaixieshenmele.begin(),
+                                  woyebuzhidaowozaixieshenmele.end(),
+                                  [](const std::tuple<ssize_t, ssize_t, size_t, size_t> &$0,
+                                     const std::tuple<ssize_t, ssize_t, size_t, size_t> &$1) {
+                                      size_t a_1, a_n, b_1, b_n;
+                                      tie(std::ignore, std::ignore, a_1, a_n) = $0;
+                                      tie(std::ignore, std::ignore, b_1, b_n) = $1;
+
+                                      return a_1 + a_n < b_1 + b_n;
+                                  });
+
+    ssize_t m;
+    tie(m, std::ignore, std::ignore, std::ignore) = *max;
+    return static_cast<size_t>(m);
 }
 
 void Judge::enumerate(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
