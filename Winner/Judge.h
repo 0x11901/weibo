@@ -226,7 +226,7 @@ private:
 
     std::tuple<bool, HandsCategoryModel> isTrioChain(const std::unordered_map<size_t, size_t> &ranks) const;
 
-    size_t getTrioChainWeight(const std::vector<size_t> &hands) const;
+    size_t getTrioChainWeight(const std::vector<size_t> &hands, HandsCategory handsCategory) const;
 
     void enumerate(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const;
 

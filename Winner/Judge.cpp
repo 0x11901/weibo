@@ -231,7 +231,8 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         model.size                       = tempModel.size;
 
         // OPTIMIZE: 三顺带一和三顺带二权重有可能会炸裂，总之重算一下
-        if (tempModel.handsCategory != HandsCategory::trioChain) model.weight = getTrioChainWeight(hands);
+        if (tempModel.handsCategory != HandsCategory::trioChain)
+            model.weight = getTrioChainWeight(hands, tempModel.handsCategory);
 
         return model;
     }
@@ -308,8 +309,6 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
         const auto &x = judgeHandsCategory(hands);
         const auto &y = _currentHandsCategory.handsCategory;
 
-        if (x.size != y.size) return false;
-
         if (x.handsCategory == HandsCategory::bomb)
         {
             if (y.handsCategory == HandsCategory::bomb)
@@ -318,6 +317,8 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
             }
             return true;
         }
+
+        if (x.size != y.size) return false;
 
         // 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
         if (Ruler::getInstance().isBombDetachable())
@@ -328,13 +329,24 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
             }
         }
 
-        // 当强制三带二时，玩家出出来的三顺实际上是三顺带二
+        // 当强制三带二时，玩家出出来的三顺实际上可能是三顺带二
         if (Ruler::getInstance().isAlwaysWithPair() && y.handsCategory == HandsCategory::trioChain
             && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo
                 || x.handsCategory == HandsCategory::trioChainWithPair))
         {
-            return (x.handsCategory == HandsCategory::trioChain ? getTrioChainWeight(hands) : x.weight)
-                   > getTrioChainWeight(_currentHandsCategory.hands);
+            return getTrioChainWeight(hands, HandsCategory::trioChainWithPair)
+                   > getTrioChainWeight(_currentHandsCategory.hands, HandsCategory::trioChainWithPair);
+        }
+
+        if (y.handsCategory == HandsCategory::trioChainWithSolo && x.handsCategory == HandsCategory::trioChain)
+        {
+            return getTrioChainWeight(hands, HandsCategory::trioChainWithSolo) > y.weight;
+        }
+
+        if (y.handsCategory == HandsCategory::trioChainWithPair
+            && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo))
+        {
+            return getTrioChainWeight(hands, HandsCategory::trioChainWithPair) > y.weight;
         }
 
         return x.handsCategory == y.handsCategory && x.weight > y.weight;
@@ -1137,12 +1149,24 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
     return std::make_tuple<bool, HandsCategoryModel>(false, HandsCategoryModel{});
 }
 
-size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands) const
+size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands, HandsCategory handsCategory) const
 {
-    auto size = hands.size();
+    if (handsCategory != HandsCategory::trioChainWithSolo && handsCategory != HandsCategory::trioChainWithPair)
+        return 0;
+    std::vector<size_t> temp;
+    const auto &        values    = getCardRanks(hands);
+    auto                ranksCopy = zip(values);
 
-    auto values = getCardRanks(hands);
-    sort(values.begin(), values.end());
+    for (const auto &rank : ranksCopy)
+    {
+        if (rank.second > 2)
+        {
+            temp.push_back(rank.first);
+        }
+    }
+
+    std::sort(temp.begin(), temp.end());
+    auto size = temp.size();
 
     std::vector<std::tuple<ssize_t, ssize_t, size_t, size_t>> woyebuzhidaowozaixieshenmele;
     for (ssize_t i = 0; i < size - 1; ++i)
@@ -1150,11 +1174,11 @@ size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands) const
         for (ssize_t j = size - 1; j > i; --j)
         {
             auto n = j - i + 1;
-            if (n * 5 != size) continue;
-            if (isContinuous(values[i], values[j], n))
+            if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
+            if (isContinuous(temp[i], temp[j], n))
             {
                 woyebuzhidaowozaixieshenmele.push_back(std::make_tuple<ssize_t, ssize_t, size_t, size_t>(
-                    std::move(i), std::move(j), std::move(values[i]), std::move(values[j])));
+                    std::move(i), std::move(j), std::move(temp[i]), std::move(temp[j])));
             }
         }
     }
@@ -1174,7 +1198,7 @@ size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands) const
 
     ssize_t m;
     tie(m, std::ignore, std::ignore, std::ignore) = *max;
-    return static_cast<size_t>(m);
+    return temp[m];
 }
 
 void Judge::enumerate(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
