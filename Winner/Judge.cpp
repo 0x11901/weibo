@@ -16,7 +16,7 @@
 #include <unordered_set>
 
 PAGAMES_WINNER_POKER_BEGIN
-
+#pragma mark - 常量
 std::string duiZi     = "AA";
 std::string sanBuDai  = "AAA";
 std::string sanDaiYi  = "AAAB";
@@ -32,6 +32,15 @@ constexpr size_t paiXingA = 14;
 constexpr size_t paiXing2 = 15;
 
 constexpr size_t hongTao3 = 771;
+
+#pragma mark - 函子
+struct Functor
+{
+    template <typename T, typename U> T operator()(T $0, const U &$1) const
+    {
+        return $0 + $1.second;
+    }
+};
 
 #pragma mark - 单例
 Judge &Judge::getInstance()
@@ -284,18 +293,9 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
                             ssize_t n = j - i + 1;
                             if (isContinuous(vector[i], vector[j], n))
                             {
-                                auto size = std::accumulate(
-                                    ranks.begin(),
-                                    ranks.end(),
-                                    static_cast<size_t>(0),
-                                    [](size_t $0, const std::unordered_map<size_t, size_t>::value_type &$1) {
-                                        return $0 + $1.second;
-                                    });
-                                if (size == 5 * n)
-                                {
-                                    // TODO: 满足三顺带二的条件
-                                    return true;
-                                }
+                                auto size =
+                                    std::accumulate(ranks.begin(), ranks.end(), static_cast<size_t>(0), Functor());
+                                if (size == 5 * n) return true;
                             }
                         }
                     }
@@ -1115,14 +1115,8 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
                         // FIXME: 这里的权重判断出来会是3，有隐患
                         // OPTIMIZE: 此处并不好修改，所以暂时将三顺带一和三顺带二放在外面再计算一次权重
                         size_t weight = vector[i];
-                        auto   size =
-                            std::accumulate(ranks.begin(),
-                                            ranks.end(),
-                                            static_cast<size_t>(0),
-                                            [](size_t $0, const std::unordered_map<size_t, size_t>::value_type &$1) {
-                                                return $0 + $1.second;
-                                            });
-                        auto x = size - 3 * n;
+                        auto   size   = std::accumulate(ranks.begin(), ranks.end(), static_cast<size_t>(0), Functor());
+                        auto   x      = size - 3 * n;
                         if (x == 0)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
