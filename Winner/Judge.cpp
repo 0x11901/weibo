@@ -668,6 +668,8 @@ void Judge::setCurrentHandsCategory(const std::vector<size_t> &weight, const std
     }
     else
     {
+        _currentHandsCategory.hands = weight;
+
         const auto &h = judgeHandsCategory(handsCategory);
         const auto &w = judgeHandsCategory(weight);
 
@@ -675,6 +677,13 @@ void Judge::setCurrentHandsCategory(const std::vector<size_t> &weight, const std
         {
             _currentHandsCategory.handsCategory.handsCategory = w.handsCategory;
             _currentHandsCategory.handsCategory.weight        = w.weight;
+        }
+        // 当强制三带二的时候，实际上打出去三顺被认作三顺带二
+        else if (Ruler::getInstance().isAlwaysWithPair() && h.handsCategory == HandsCategory::trioChain)
+        {
+            _currentHandsCategory.handsCategory.size          = h.size;
+            _currentHandsCategory.handsCategory.handsCategory = HandsCategory::trioChainWithPair;
+            _currentHandsCategory.handsCategory.weight = getTrioChainWeight(weight, HandsCategory::trioChainWithPair);
         }
         else
         {
