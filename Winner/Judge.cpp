@@ -188,20 +188,18 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
         return model;
     }
 
-    // FIXME: 目前以顺子中最小的牌作为牌型的权重
     // 判断顺子
     if (isChain(ranks))
     {
         model.handsCategory = HandsCategory::chain;
-        // OPTIMIZE: 待优化
-        std::vector<size_t> v;
-        v.reserve(ranks.size());
-        for (const auto &rank : ranks)
-        {
-            v.push_back(rank.first);
-        }
-        model.weight = *std::min_element(v.begin(), v.end());
-        model.size   = ranks.size();
+        model.weight        = (*std::min_element(ranks.begin(),
+                                          ranks.end(),
+                                          [](const std::unordered_map<size_t, size_t>::value_type &$0,
+                                             const std::unordered_map<size_t, size_t>::value_type &$1) {
+                                              return $0.first < $1.first;
+                                          }))
+                           .first;
+        model.size = ranks.size();
         return model;
     }
 
@@ -209,15 +207,14 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     if (size % 2 == 0 && isPairChain(ranks))
     {
         model.handsCategory = HandsCategory::pairChain;
-        // OPTIMIZE: 待优化
-        std::vector<size_t> v;
-        v.reserve(ranks.size());
-        for (const auto &rank : ranks)
-        {
-            v.push_back(rank.first);
-        }
-        model.weight = *std::min_element(v.begin(), v.end());
-        model.size   = ranks.size();
+        model.weight        = (*std::min_element(ranks.begin(),
+                                          ranks.end(),
+                                          [](const std::unordered_map<size_t, size_t>::value_type &$0,
+                                             const std::unordered_map<size_t, size_t>::value_type &$1) {
+                                              return $0.first < $1.first;
+                                          }))
+                           .first;
+        model.size = ranks.size();
         return model;
     }
 
