@@ -56,10 +56,9 @@ int main()
     //                               8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 14, 14, 14, 15 };
 
     std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4, 4, 5 };
-    // std::vector<size_t> tv = { 3, 3, 3, 4, 4, 4 };
-    tv = { 3, 3, 3, 5, 4 };
-    tv = { 4, 4, 4, 3, 3, 3, 9, 9 };
-    tv = { 4, 4, 3, 3 };
+    tv                     = { 3, 3, 3, 5, 4 };
+    tv                     = { 4, 4, 4, 3, 3, 3, 9, 9 };
+    tv                     = {};
 
     Judge::getInstance().setCurrentHandsCategory(test(tv), test(tv));
 
@@ -101,6 +100,7 @@ int main()
     hands = { 14, 14, 14, 8, 8, 10, 11, 12, 13, 7, 6, 5, 5, 4, 3 };
     hands = { 13, 13, 11, 10, 8, 7, 6, 6, 6, 4, 4, 3, 3, 3, 3 };
     hands = { 7, 7, 8, 8, 8, 9, 9, 10, 10, 10, 15 };
+    hands = { 9, 9, 8, 8, 8, 8, 11,11 };
 
 #pragma mark - 跟牌提示
     // std::vector<size_t> hands;
@@ -126,7 +126,7 @@ int main()
     // tv = { 14 };
     // Judge::getInstance().setCurrentHandsCategory(test(tv));
     //玩家A出33344，玩家B手上有345888899点击提示，88883，提示不了8888
-    auto              ret = Judge::getInstance().cardHint(test(hands));
+    auto              ret = Judge::getInstance().cardIntentions(test(hands));
     std::stringstream ss;
 
     // for (auto &&item : ret)

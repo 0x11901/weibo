@@ -2044,11 +2044,7 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
     auto ranksMultimap = getRanksMultimap(hands, isThreeOfHeartsFirst);
 
     auto values = getCardRanks(hands);
-    // 更新提示中必须包含的牌
-    _target = isThreeOfHeartsFirst && isContainsThreeOfHearts(hands) ? paiXing3
-                                                                     : *std::min_element(values.begin(), values.end());
-
-    auto ranks = zip(values);
+    auto ranks  = zip(values);
 
     // 当必出♥️3且手牌中有四个3时，直接提示四个3即可
     if (isThreeOfHeartsFirst && ranks.find(paiXing3) != ranks.end() && ranks[paiXing3] == 4)
@@ -2056,6 +2052,27 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         std::vector<size_t> vector{ 3, 3, 3, 3 };
         ret.push_back(vector);
         goto cardIntentionsRestoreHands;
+    }
+
+    // 更新提示中必须包含的牌
+    // FIXME: 当💣不可拆且当最小牌又是💣的时候，会提示出拆牌后的💣，故最小牌其实不能有💣
+    if (isThreeOfHeartsFirst && isContainsThreeOfHearts(hands))
+    {
+        _target = paiXing3;
+    }
+    else
+    {
+        const auto &filter = filterFour(ranks);
+        if (filter.empty())
+        {
+            _target = values.front();
+        }
+        _target = (*std::min_element(
+                       filter.begin(),
+                       filter.end(),
+                       [](const std::unordered_map<size_t, size_t>::value_type &$0,
+                          const std::unordered_map<size_t, size_t>::value_type &$1) { return $0.first < $1.first; }))
+                      .first;
     }
 
     // 枚举法
