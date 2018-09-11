@@ -46,7 +46,6 @@ std::vector<size_t> test(const std::vector<size_t> &t)
 
 int main()
 {
-    /*
 
     // std::vector<size_t> hands = { 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7 };
     // std::vector<size_t> hands = { 3, 3, 4, 6, 6, 7, 8, 10, 10, 11, 12, 13, 13, 14, 15 };
@@ -178,8 +177,6 @@ int main()
     //     std::cout << ss.str();
     // }
 
-     */
-
 #pragma mark - 测试重排手牌
     // std::stringstream   ss;
     // std::vector<size_t> weight        = {};
@@ -234,25 +231,25 @@ int main()
     // std::cout << can << std::endl;
 
 #pragma mark - 测试is pass
-    std::stringstream   ss;
-    std::vector<size_t> weight        = {};
-    std::vector<size_t> handsCategory = {};
-    weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9 };
-    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9 };
-    weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 11, 12, 13 };
-    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 11, 12, 13 };
-    weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
-    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
-
-    std::vector<size_t> hands = {};
-    hands                     = { 3, 3 };
-    hands                     = { 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 13 };
-    hands                     = { 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10 };
-    hands                     = { 3, 4, 5, 6, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 12 };
-
-    Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
-    auto pass = Judge::getInstance().isPass(test(hands));
-    std::cout << pass << std::endl;
+    // std::stringstream   ss;
+    // std::vector<size_t> weight        = {};
+    // std::vector<size_t> handsCategory = {};
+    // weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9 };
+    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9 };
+    // weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 11, 12, 13 };
+    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 11, 12, 13 };
+    // weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
+    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
+    //
+    // std::vector<size_t> hands = {};
+    // hands                     = { 3, 3 };
+    // hands                     = { 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 13 };
+    // hands                     = { 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10 };
+    // hands                     = { 3, 4, 5, 6, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 12 };
+    //
+    // Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
+    // auto pass = Judge::getInstance().isPass(test(hands));
+    // std::cout << pass << std::endl;
 
     return 0;
 }
