@@ -1223,10 +1223,18 @@ void Judge::enumerate(std::vector<std::vector<size_t>> &ret, const std::unordere
 
 void Judge::enumerateSolo(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
 {
-    auto temp = filter3(ranks, canSplit3(ranks));
+    auto                temp = filter3(ranks, canSplit3(ranks));
+    std::vector<size_t> vector;
+
+    if (std::find(temp.begin(), temp.end(), _target) != temp.end())
+    {
+        vector.push_back(_target);
+        ret.push_back(vector);
+        return;
+    }
+
     if (!temp.empty())
     {
-        std::vector<size_t> vector;
         vector.push_back(*std::min_element(temp.begin(), temp.end()));
         ret.push_back(vector);
     }
