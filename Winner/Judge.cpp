@@ -2075,12 +2075,7 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         {
             _target = values.front();
         }
-        _target = (*std::min_element(
-                       filter.begin(),
-                       filter.end(),
-                       [](const std::unordered_map<size_t, size_t>::value_type &$0,
-                          const std::unordered_map<size_t, size_t>::value_type &$1) { return $0.first < $1.first; }))
-                      .first;
+        _target = (*std::min_element(filter.begin(), filter.end(), Functor())).first;
     }
 
     // 枚举法
@@ -2206,7 +2201,7 @@ size_t Judge::getSplitCount(const std::vector<size_t> &hands, const std::unorder
 
 void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
 {
-    sort(ret.begin(), ret.end(), [&](const std::vector<size_t> &x, const std::vector<size_t> &y) -> bool {
+    sort(ret.begin(), ret.end(), [&](const std::vector<size_t> &x, const std::vector<size_t> &y) {
         auto n = getSplitCount(x, ranks);
         auto m = getSplitCount(y, ranks);
         if (n == m)
