@@ -40,6 +40,11 @@ struct Functor
     {
         return $0 + $1.second;
     }
+
+    template <typename T> bool operator()(const T &$0, const T &$1) const
+    {
+        return $0.first < $1.first;
+    }
 };
 
 #pragma mark - 单例
@@ -192,14 +197,8 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     if (isChain(ranks))
     {
         model.handsCategory = HandsCategory::chain;
-        model.weight        = (*std::min_element(ranks.begin(),
-                                          ranks.end(),
-                                          [](const std::unordered_map<size_t, size_t>::value_type &$0,
-                                             const std::unordered_map<size_t, size_t>::value_type &$1) {
-                                              return $0.first < $1.first;
-                                          }))
-                           .first;
-        model.size = ranks.size();
+        model.weight        = (*std::min_element(ranks.begin(), ranks.end(), Functor())).first;
+        model.size          = ranks.size();
         return model;
     }
 
@@ -207,14 +206,8 @@ HandsCategoryModel Judge::judgeHandsCategory(const std::vector<size_t> &hands) c
     if (size % 2 == 0 && isPairChain(ranks))
     {
         model.handsCategory = HandsCategory::pairChain;
-        model.weight        = (*std::min_element(ranks.begin(),
-                                          ranks.end(),
-                                          [](const std::unordered_map<size_t, size_t>::value_type &$0,
-                                             const std::unordered_map<size_t, size_t>::value_type &$1) {
-                                              return $0.first < $1.first;
-                                          }))
-                           .first;
-        model.size = ranks.size();
+        model.weight        = (*std::min_element(ranks.begin(), ranks.end(), Functor())).first;
+        model.size          = ranks.size();
         return model;
     }
 
@@ -250,11 +243,8 @@ bool Judge::isPass(const std::vector<size_t> &hands)
 
 bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
 {
-    // FIXME: 首出♥️3已经由外部处理，其实下面几行已经可以无需判断
-    if (isStartingHand && Ruler::getInstance().isThreeOfHeartsFirst() && !isContainsThreeOfHearts(hands))
-    {
-        return false;
-    }
+    // FIXME: 首出♥️3已经由外部处理，其实下面一行已经可以无需判断
+    if (isStartingHand && Ruler::getInstance().isThreeOfHeartsFirst() && !isContainsThreeOfHearts(hands)) return false;
 
     const auto &handsCategoryModel = Judge::getInstance().judgeHandsCategory(hands);
     const auto &handsCategory      = handsCategoryModel.handsCategory;
@@ -362,13 +352,9 @@ bool Judge::isContainsThreeOfHearts(const std::vector<size_t> &hands) const
 std::vector<size_t> Judge::intentions(const std::vector<size_t> &hands, bool isStartingHand)
 {
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
-    {
         return intention(hands, isStartingHand);
-    }
     else
-    {
         return hint(hands);
-    }
 }
 
 void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
@@ -388,10 +374,7 @@ void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
 #pragma mark - 排序 & 重置索引
 std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) const
 {
-    if (hands.size() < 2)
-    {
-        return hands;
-    }
+    if (hands.size() < 2) return hands;
 
     std::vector<size_t> ret;
     auto                handsCategory = _currentHandsCategory.handsCategory.handsCategory;
@@ -401,11 +384,8 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
         auto h        = judgeHandsCategory(hands);
         handsCategory = h.handsCategory;
     }
-    if (handsCategory == HandsCategory::illegal)
-    {
-        // OPTIMIZE: 程序闪退
+    if (handsCategory == HandsCategory::illegal) // OPTIMIZE: 程序闪退
         return hands;
-    }
 
     auto copy = hands;
     std::sort(copy.begin(), copy.end());
@@ -414,10 +394,7 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
     auto values        = getCardRanks(copy);
     auto ranks         = zip(values);
 
-    if (ranks.size() == 1)
-    {
-        return copy;
-    }
+    if (ranks.size() == 1) return copy;
 
     if (handsCategory == HandsCategory::trioWithSolo || handsCategory == HandsCategory::trioWithPair)
     {
@@ -790,13 +767,9 @@ std::vector<size_t> Judge::unzip(const std::unordered_map<size_t, size_t> &zippe
 std::vector<size_t> Judge::filter3(const std::unordered_map<size_t, size_t> &others, bool canSplit3) const
 {
     if (canSplit3)
-    {
         return unzip(others);
-    }
     else
-    {
         return unzip(others, paiXing3);
-    }
 }
 
 std::unordered_map<size_t, size_t> Judge::filterA(const std::unordered_map<size_t, size_t> &ranks) const
