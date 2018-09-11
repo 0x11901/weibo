@@ -2170,13 +2170,13 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
 
 size_t Judge::getSplitCount(const std::vector<size_t> &hands, const std::unordered_map<size_t, size_t> &ranks) const
 {
-    size_t      count  = 0;
     const auto &zipped = zip(hands);
-    for (const auto &pair : zipped)
-    {
-        count += ranks.at(pair.first) - pair.second;
-    }
-    return count;
+    return std::accumulate(zipped.begin(),
+                           zipped.end(),
+                           static_cast<size_t>(0),
+                           [&ranks](size_t $0, const std::unordered_map<size_t, size_t>::value_type &$1) {
+                               return $0 + ranks.at($1.first) - $1.second;
+                           });
 }
 
 void Judge::sortHands(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
