@@ -720,18 +720,14 @@ std::vector<size_t> Judge::getCardRanks(const std::vector<size_t> &hands) const
 
 template <typename T> std::unordered_map<size_t, size_t> Judge::zip(const T &t) const
 {
-    // FIXME: 多次循环，可优化
-    std::unordered_set<size_t> set{};
-    for (const auto &t1 : t)
+    std::vector<size_t>                unique;
+    std::unordered_map<size_t, size_t> map;
+    std::unique_copy(t.begin(), t.end(), std::back_inserter(unique));
+    for (size_t u : unique)
     {
-        set.insert(t1);
+        map[u] = static_cast<size_t>(std::count(t.begin(), t.end(), u));
     }
 
-    std::unordered_map<size_t, size_t> map;
-    for (size_t s : set)
-    {
-        map[s] = static_cast<size_t>(std::count(t.begin(), t.end(), s));
-    }
     return map;
 }
 
@@ -864,9 +860,9 @@ bool Judge::isContainsBombs(const std::vector<size_t> &hands) const
     }
 
     const auto &v = getCardRanks(hands);
-    for (auto &&item : v)
+    for (const auto &item : v)
     {
-        if (find(bombs.begin(), bombs.end(), item) != bombs.end()) return true;
+        if (std::find(bombs.begin(), bombs.end(), item) != bombs.end()) return true;
     }
 
     return false;
@@ -2115,10 +2111,7 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
 
     // key 为牌型，value 为约定的实数（包含牌型与花色）
     auto ranksMultimap = getRanksMultimap(hands);
-
-    auto values = getCardRanks(hands);
-
-    std::sort(values.begin(), values.end());
+    auto values        = getCardRanks(hands);
 
     auto ranks = zip(values);
     auto copy  = filterFour(ranks);
