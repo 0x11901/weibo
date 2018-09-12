@@ -142,7 +142,7 @@ private:
     CurrentHandsCategory _currentHandsCategory{};
 
     /** 持有这一圈玩家的手牌，用以当💣不可拆，作出正确的能否出牌判定 */
-    std::vector<size_t> _currentHands;
+    std::vector<size_t> _currentHands{};
 
     /** 提示中必须包含的牌，可能是♥️3，也有可能是用户传入的手牌中最小的牌型 */
     size_t _target = 0;
@@ -151,7 +151,7 @@ private:
     std::vector<std::vector<size_t>> _cardIntentions{};
 
     /** 持有首出提示数组的迭代器，记录上一次提示的位置 */
-    std::vector<std::vector<size_t>>::iterator _iteratorIntentions;
+    std::vector<std::vector<size_t>>::iterator _iteratorIntentions{};
 
     /** 是否需要重新计算首出提示 */
     bool _needRecalculateIntentions = true;
@@ -160,7 +160,7 @@ private:
     std::vector<std::vector<size_t>> _cardHint{};
 
     /** 持有跟牌提示数组的迭代器，记录上一次提示的位置 */
-    std::vector<std::vector<size_t>>::iterator _iteratorHint;
+    std::vector<std::vector<size_t>>::iterator _iteratorHint{};
 
     /** 是否需要重新计算跟牌提示 */
     bool _needRecalculateHint = true;
