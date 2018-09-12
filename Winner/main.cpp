@@ -179,37 +179,40 @@ int main()
 
 #pragma mark - 测试重排手牌
     // std::stringstream   ss;
-    // std::vector<size_t> weight        = {};
-    // std::vector<size_t> handsCategory = { 3, 3, 3, 4, 4 };
-    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 7, 8, 9, 7, 9 };
-    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
-    //
-    // std::vector<size_t> hand = { 3 };
-    // hand                     = { 3, 3 };
-    // hand                     = { 3, 3, 3 };
-    // hand                     = { 3, 3, 3, 3 };
-    // hand                     = { 3, 3, 4, 3 };
-    // hand                     = { 6, 7, 6, 4, 6 };
-    // hand                     = { 6, 7, 6, 4, 6, 6 };
-    // hand                     = { 3, 3, 3, 3, 4, 4, 4, 4 };
-    // hand                     = { 8, 8, 8, 8, 4 };
-    // hand                     = { 14, 14, 14, 13, 13, 13, 12, 12, 12, 4, 4, 3, 3, 3, 3 };
-    // hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
-    // hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
-    //
-    // Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
-    // auto r = Judge::getInstance().rearrangeHands(test(hand));
+    std::vector<size_t> weight        = {};
+    std::vector<size_t> handsCategory = { 3, 3, 3, 4, 4 };
+    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 7, 8, 9, 7, 9 };
+    handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
+    handsCategory                     = {};
+
+    std::vector<size_t> hand = { 3 };
+    hand                     = { 3, 3 };
+    hand                     = { 3, 3, 3 };
+    hand                     = { 3, 3, 3, 3 };
+    hand                     = { 3, 3, 4, 3 };
+    hand                     = { 6, 7, 6, 4, 6 };
+    hand                     = { 6, 7, 6, 4, 6, 6 };
+    hand                     = { 3, 3, 3, 3, 4, 4, 4, 4 };
+    hand                     = { 8, 8, 8, 8, 4 };
+    hand                     = { 14, 14, 14, 13, 13, 13, 12, 12, 12, 4, 4, 3, 3, 3, 3 };
+    hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 5 };
+    hand                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
+    hand                     = { 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9 };
+
+    Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
+    auto r = Judge::getInstance().rearrangeHands(test(hand));
     //
     // ss.str("");
-    // ss << "{ ";
-    // for (auto &&item : r)
-    // {
-    //     ss << (item >> 8) << ", ";
-    // }
-    // ss.seekp(-2, ss.end);
-    // ss << " }" << std::endl;
-    //
-    // std::cout << ss.str();
+    ss << "{ ";
+    for (auto &&item : r)
+    {
+        // ss << (item >> 8) << ", ";
+        ss << item << ", ";
+    }
+    ss.seekp(-2, ss.end);
+    ss << " }" << std::endl;
+
+    std::cout << ss.str();
 
 #pragma mark - 测试can play
     // std::stringstream   ss;

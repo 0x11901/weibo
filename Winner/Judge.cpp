@@ -529,6 +529,11 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
 
         ret.insert(ret.end(), unzipped.begin(), unzipped.end());
     }
+    else if (handsCategory == HandsCategory::chain || handsCategory == HandsCategory::pairChain)
+    {
+        std::sort(values.begin(), values.end(), [](size_t $0, size_t $1) { return $0 > $1; });
+        ret.insert(ret.end(), values.begin(), values.end());
+    }
     else
     {
         ret = hands;
