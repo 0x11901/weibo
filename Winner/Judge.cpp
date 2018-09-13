@@ -2243,13 +2243,13 @@ void Judge::setTheHighestSingleCard(const std::vector<size_t> &                 
 
         auto max = *(max_element(values.begin(), values.end()));
         if (Ruler::getInstance().isAsTrioAceBomb() && max == paiXingA
-            && count(values.begin(), values.end(), paiXingA) == 3)
+            && std::count(values.begin(), values.end(), paiXingA) == 3)
         {
             ret.emplace_back(paiXingA);
             ret.emplace_back(paiXingA);
             ret.emplace_back(paiXingA);
         }
-        else if (count(values.begin(), values.end(), max) == 4)
+        else if (std::count(values.begin(), values.end(), max) == 4)
         {
             ret.emplace_back(max);
             ret.emplace_back(max);
