@@ -1474,8 +1474,7 @@ void Judge::enumerateTrioChain(std::vector<std::vector<size_t>> &        ret,
         std::vector<size_t> t;
 
         auto isBombDetachable = Ruler::getInstance().isBombDetachable();
-
-        auto ranksCopy = filterA(ranks);
+        auto ranksCopy        = filterFour(ranks);
 
         for (const auto &rank : ranksCopy)
         {
