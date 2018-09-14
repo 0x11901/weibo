@@ -363,6 +363,8 @@ void Judge::shouldHintTheHighestSingleCard(const std::vector<size_t> &hands)
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory)
     {
         cardIntentions(hands, false);
+        _iteratorIntentions = _cardIntentions.begin();
+
         setTheHighestSingleCard(hands, _cardIntentions, _iteratorIntentions);
     }
     else
@@ -2231,7 +2233,7 @@ void Judge::setTheHighestSingleCard(const std::vector<size_t> &                 
                                     std::vector<std::vector<size_t>> &          vector,
                                     std::vector<std::vector<size_t>>::iterator &iterator)
 {
-    if (vector.size() == 1 && vector.front().size() == 1)
+    if (!vector.empty() && vector.front().size() == 1)
     {
         vector.clear();
 
