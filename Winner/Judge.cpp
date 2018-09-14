@@ -1665,9 +1665,7 @@ void Judge::exhaustiveTrioWithPair(std::vector<std::vector<size_t>> &        ret
                     auto copy1 = temp;
                     copy1.insert(copy1.end(), z.begin(), z.end());
 
-                    // FIXME: 特意把最后一个"四"放在最后
                     copy1.push_back(item.first);
-
                     ret.push_back(copy1);
                 }
             }
