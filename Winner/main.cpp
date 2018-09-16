@@ -261,7 +261,7 @@
 #include <sstream>
 #include <vector>
 
-std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k) const
+std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k)
 {
     std::vector<std::vector<size_t>> ret;
 
@@ -313,7 +313,7 @@ std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize
 
 int main()
 {
-    std::vector<size_t> vector{ 1, 2, 3, 4, 5, 6 };
+    std::vector<size_t> vector{ 1, 2, 3, 4, 1 };
     const auto &        ret = combination(vector, 2);
 
     std::stringstream ss;
