@@ -258,9 +258,77 @@
 // }
 
 #include <iostream>
+#include <sstream>
+#include <vector>
+
+std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k) const
+{
+    std::vector<std::vector<size_t>> ret;
+
+    if (n.empty() || k > n.size()) return ret;
+
+    auto copy = n;
+    std::sort(copy.begin(), copy.end());
+
+    std::vector<std::vector<size_t>> node(1);
+    auto                             last = copy[0];
+    ssize_t                          flag = 1;
+
+    for (const auto &i : copy)
+    {
+        if (i != last)
+        {
+            last = i;
+            flag = node.size();
+        }
+
+        ssize_t size = node.size();
+        for (ssize_t j = size - 1; j >= size - flag; j--)
+        {
+            if (node[j].size() <= k)
+            {
+                node.push_back(node[j]);
+            }
+            else
+            {
+                continue;
+            }
+
+            node.back().push_back(i);
+            if (node.back().size() == k)
+            {
+                const auto &temp = node.back();
+                // OPTIMIZE: 应用回溯法优化
+                if (std::find_if(ret.begin(), ret.end(), [&temp](std::vector<size_t> i) -> bool { return i == temp; })
+                    == ret.end())
+                {
+                    ret.push_back(node.back());
+                }
+            }
+        }
+    }
+
+    return ret;
+}
 
 int main()
 {
-    std::cout << "hello, world!" << std::endl;
+    std::vector<size_t> vector{ 1, 2, 3, 4, 5, 6 };
+    const auto &        ret = combination(vector, 2);
+
+    std::stringstream ss;
+    for (auto &&item : ret)
+    {
+        ss << "{ ";
+        for (auto &&n : item)
+        {
+            ss << n << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+    }
+
+    std::cout << ss.str() << std::endl;
+
     return 0;
 }
