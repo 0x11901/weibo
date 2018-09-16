@@ -261,6 +261,52 @@
 #include <sstream>
 #include <vector>
 
+std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
+
+void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
+
+int main()
+{
+    std::vector<size_t> vector{ 1, 2, 3, 4 };
+    const auto &        ret = combination(vector, 2);
+
+    std::stringstream ss;
+    for (auto &&item : ret)
+    {
+        ss << "{ ";
+        for (auto &&n : item)
+        {
+            ss << n << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+    }
+
+    std::cout << ss.str() << std::endl;
+
+    auto                          lineL = 2;
+    auto *                        out   = new int[lineL];
+    int                           arr[] = { 1, 2, 3, 4 };
+    std::vector<std::vector<int>> indexVec;
+    combination(arr, 4, lineL, out, lineL, indexVec);
+
+    ss.str("");
+    for (auto &&item : indexVec)
+    {
+        ss << "{ ";
+        for (auto &&n : item)
+        {
+            ss << n << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+    }
+
+    std::cout << ss.str() << std::endl;
+
+    return 0;
+}
+
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k)
 {
     std::vector<std::vector<size_t>> ret;
@@ -311,24 +357,22 @@ std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize
     return ret;
 }
 
-int main()
+void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec)
 {
-    std::vector<size_t> vector{ 1, 2, 3, 4, 1 };
-    const auto &        ret = combination(vector, 2);
-
-    std::stringstream ss;
-    for (auto &&item : ret)
+    if (n == 0)
     {
-        ss << "{ ";
-        for (auto &&n : item)
+        std::vector<int> temp;
+        for (int i = 0; i < outL; i++)
         {
-            ss << n << ", ";
+            temp.push_back(out[i]);
         }
-        ss.seekp(-2, ss.end);
-        ss << " }" << std::endl;
+        vec.push_back(temp);
+        return;
     }
 
-    std::cout << ss.str() << std::endl;
-
-    return 0;
+    for (int i = m; i >= n; --i)
+    {
+        out[n - 1] = arr[i - 1];
+        combination(arr, i - 1, n - 1, out, outL, vec);
+    }
 }
