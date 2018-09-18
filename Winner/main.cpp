@@ -259,19 +259,54 @@
 //
 
 #include <algorithm>
+#include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <vector>
 
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
+void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
 
 int main()
 {
-    std::vector<size_t> vector{ 1, 2, 3, 4 };
-    const auto &        ret = combination(vector, 2);
+    std::vector<size_t> vector{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+
+    std::clock_t c_start, c_end;
+
+    c_start = std::clock();
+    combination(vector, 4);
+    c_end = std::clock();
+    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
+
+    const auto &ret = combination(vector, 2);
 
     std::stringstream ss;
     for (auto &&item : ret)
+    {
+        ss << "{ ";
+        for (auto &&n : item)
+        {
+            ss << n << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+    }
+
+    // std::cout << ss.str() << std::endl;
+
+    auto                          lineL = 2;
+    auto *                        out   = new int[lineL];
+    int                           arr[] = { 1, 2, 3, 4, 1};
+    std::vector<std::vector<int>> indexVec;
+
+    c_start = std::clock();
+    combination(arr, sizeof(arr) / sizeof(int), lineL, out, lineL, indexVec);
+    c_end = std::clock();
+    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
+
+    ss.str("");
+    for (auto &&item : indexVec)
     {
         ss << "{ ";
         for (auto &&n : item)
@@ -335,4 +370,24 @@ std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize
     }
 
     return ret;
+}
+
+void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec)
+{
+    if (n == 0)
+    {
+        std::vector<int> temp;
+        for (int i = 0; i < outL; i++)
+        {
+            temp.push_back(out[i]);
+        }
+        vec.push_back(temp);
+        return;
+    }
+
+    for (int i = m; i >= n; --i)
+    {
+        out[n - 1] = arr[i - 1];
+        combination(arr, i - 1, n - 1, out, outL, vec);
+    }
 }
