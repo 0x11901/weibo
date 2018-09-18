@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_COMPILER "/usr/local/bin/gcc-4.9")
 set(CMAKE_CXX_COMPILER "/usr/local/bin/g++-4.9")
 
-add_executable(Winner main.cpp Judge.cpp Judge.h Ruler.cpp Ruler.h WinnerPokerCommon.cpp WinnerPokerCommon.h)
+#add_executable(Winner main.cpp Judge.cpp Judge.h Ruler.cpp Ruler.h WinnerPokerCommon.cpp WinnerPokerCommon.h)
+
+add_executable(Winner main.cpp)
