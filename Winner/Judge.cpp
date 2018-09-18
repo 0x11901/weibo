@@ -488,9 +488,8 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
                 if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
                 if (isContinuous(temp[i], temp[j], n))
                 {
-                    woyebuzhidaowozaixieshenmele.push_back(std::make_tuple<ssize_t, ssize_t, size_t, size_t>(
-                        std::move(i), std::move(j), std::move(temp[i]), std::move(temp[j])));
-                    // FIXME: 上面强行把左值转成了右值，可能会出现隐患
+                    woyebuzhidaowozaixieshenmele.emplace_back(
+                        std::tie<ssize_t, ssize_t, size_t, size_t>(i, j, temp[i], temp[j]));
                 }
             }
         }
@@ -1162,8 +1161,8 @@ size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands, HandsCategory
             if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
             if (isContinuous(temp[i], temp[j], n))
             {
-                woyebuzhidaowozaixieshenmele.push_back(std::make_tuple<ssize_t, ssize_t, size_t, size_t>(
-                    std::move(i), std::move(j), std::move(temp[i]), std::move(temp[j])));
+                woyebuzhidaowozaixieshenmele.emplace_back(
+                    std::tie<ssize_t, ssize_t, size_t, size_t>(i, j, temp[i], temp[j]));
             }
         }
     }
