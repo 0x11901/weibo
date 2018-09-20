@@ -2074,7 +2074,10 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         {
             _target = values.front();
         }
-        _target = (*std::min_element(filter.begin(), filter.end(), Functor())).first;
+        else
+        {
+            _target = (*std::min_element(filter.begin(), filter.end(), Functor())).first;
+        }
     }
 
     // 枚举法
