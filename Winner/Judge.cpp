@@ -2072,7 +2072,7 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         const auto &filter = filterFour(ranks);
         if (filter.empty())
         {
-            _target = values.front();
+            goto cardIntentionsRestoreHands;
         }
         else
         {
