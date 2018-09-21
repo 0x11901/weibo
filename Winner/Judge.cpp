@@ -2072,6 +2072,17 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         const auto &filter = filterFour(ranks);
         if (filter.empty())
         {
+            auto m = *std::min_element(values.begin(), values.end());
+            auto c = std::count(values.begin(), values.end(), m);
+
+            std::vector<size_t> vector;
+            vector.reserve(c);
+            for (int i = 0; i < c; ++i)
+            {
+                vector.push_back(m);
+            }
+            ret.push_back(vector);
+
             goto cardIntentionsRestoreHands;
         }
         else
