@@ -262,11 +262,13 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <vector>
 
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
 void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
+long GetCombinations(std::vector<double> nums);
 
 int main()
 {
@@ -297,7 +299,7 @@ int main()
 
     auto                          lineL = 2;
     auto *                        out   = new int[lineL];
-    int                           arr[] = { 1, 2, 3, 4, 1};
+    int                           arr[] = { 1, 2, 3, 4, 1 };
     std::vector<std::vector<int>> indexVec;
 
     c_start = std::clock();
@@ -360,8 +362,7 @@ std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize
             {
                 const auto &temp = node.back();
                 // OPTIMIZE: 应用回溯法优化
-                if (std::find_if(ret.begin(), ret.end(), [&temp](std::vector<size_t> i) -> bool { return i == temp;
-                })
+                if (std::find_if(ret.begin(), ret.end(), [&temp](std::vector<size_t> i) -> bool { return i == temp; })
                     == ret.end())
                 {
                     ret.push_back(node.back());
@@ -391,4 +392,26 @@ void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::
         out[n - 1] = arr[i - 1];
         combination(arr, i - 1, n - 1, out, outL, vec);
     }
+}
+
+long GetCombinations(std::vector<double> nums)
+{
+    long combinations = 0;
+    std::sort(nums.begin(), nums.end());
+    std::set<std::multiset<double>> super_set;
+
+    do
+    {
+        std::multiset<double> multi_set;
+
+        for (unsigned int i = 0; i < nums.size() / 2; ++i)
+            multi_set.insert(nums[i]);
+
+        auto el = (super_set.insert(multi_set));
+
+        if (el.second) ++combinations;
+
+    } while (std::next_permutation(nums.begin(), nums.end()));
+
+    return combinations;
 }
