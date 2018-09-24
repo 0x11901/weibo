@@ -268,7 +268,7 @@
 
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
 void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
-long GetCombinations(std::vector<double> nums);
+long GetCombinations(std::vector<size_t> nums);
 
 int main()
 {
@@ -295,7 +295,7 @@ int main()
         ss << " }" << std::endl;
     }
 
-    // std::cout << ss.str() << std::endl;
+    std::cout << ss.str() << std::endl;
 
     auto                          lineL = 2;
     auto *                        out   = new int[lineL];
@@ -321,6 +321,8 @@ int main()
 
     std::cout << ss.str() << std::endl;
 
+    auto count = GetCombinations(vector);
+    std::cout << count << std::endl;
     return 0;
 }
 
@@ -394,24 +396,63 @@ void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::
     }
 }
 
-long GetCombinations(std::vector<double> nums)
+long GetCombinations(std::vector<size_t> nums)
 {
-    long combinations = 0;
+    unsigned long int n         = nums.size();
+    unsigned long int n2        = n / 2;
+    unsigned long int numUnique = 1;
+    unsigned long int numCombinations;
+
     std::sort(nums.begin(), nums.end());
-    std::set<std::multiset<double>> super_set;
+    std::vector<int> numReps;
 
-    do
+    double testVal = nums[0];
+    numReps.push_back(1);
+
+    for (std::size_t i = 1; i < n; ++i)
     {
-        std::multiset<double> multi_set;
+        if (nums[i] != testVal)
+        {
+            numReps.push_back(1);
+            testVal = nums[i];
+            ++numUnique;
+        }
+        else
+        {
+            ++numReps[numUnique - 1];
+        }
+    }
 
-        for (unsigned int i = 0; i < nums.size() / 2; ++i)
-            multi_set.insert(nums[i]);
+    int                 myMax, r = n2 + 1;
+    std::vector<double> triangleVec(r);
+    std::vector<double> temp(r);
+    double              tempSum;
 
-        auto el = (super_set.insert(multi_set));
+    myMax = r;
+    if (myMax > numReps[0] + 1) myMax = numReps[0] + 1;
 
-        if (el.second) ++combinations;
+    for (int i = 0; i < myMax; ++i)
+        triangleVec[i] = 1;
 
-    } while (std::next_permutation(nums.begin(), nums.end()));
+    temp = triangleVec;
 
-    return combinations;
+    for (std::size_t k = 1; k < numUnique; ++k)
+    {
+        for (int i = n2; i > 0; --i)
+        {
+            myMax = i - numReps[k];
+            if (myMax < 0) myMax = 0;
+
+            tempSum = 0;
+            for (int j = myMax; j <= i; ++j)
+                tempSum += triangleVec[j];
+
+            temp[i] = tempSum;
+        }
+        triangleVec = temp;
+    }
+
+    numCombinations = (unsigned long int)triangleVec[n2];
+
+    return numCombinations;
 }
