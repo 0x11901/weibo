@@ -269,10 +269,52 @@
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
 void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
 long GetCombinations(std::vector<size_t> nums);
+std::vector<std::vector<size_t>> newCombination(const std::vector<size_t> &n, ssize_t k);
+template <class RandIt> bool     next_k_permutation(RandIt first, RandIt mid, RandIt last)
+{
+    typedef typename std::iterator_traits<RandIt>::value_type value_type;
+
+    std::sort(mid, last, std::greater<value_type>());
+    return std::next_permutation(first, last);
+}
+
+void t()
+{
+    std::string sentence1 = " 2 ";
+    std::string sentence2 = " 2 ";
+    std::string sentence3 = " 3 ";
+    std::string sentence4 = " 4 ";
+
+    // Store all the elements in a container ( here a std::vector)
+    std::vector<std::string> myVectorOfStrings;
+    // In the vector we add all the sentences.
+    // Note : It is possible to do myVectorOfStrings.push_back("Some sentence");
+    myVectorOfStrings.push_back(sentence1);
+    myVectorOfStrings.push_back(sentence2);
+    myVectorOfStrings.push_back(sentence3);
+    myVectorOfStrings.push_back(sentence4);
+
+    // The elements must be sorted to output all the combinations
+    std::sort(myVectorOfStrings.begin(), myVectorOfStrings.end());
+
+    auto r = myVectorOfStrings.begin() + 2;
+
+    std::cout << "The 4! possible permutations with 4 elements:\n";
+    do
+    {
+        // This printing can be improved to handle any number of sentences, not only four.
+        std::cout << myVectorOfStrings[0] << ' ' << myVectorOfStrings[1] << ' ' << myVectorOfStrings[2] << ' '
+                  << myVectorOfStrings[3] << '\n';
+    } while (next_k_permutation(myVectorOfStrings.begin(), r, myVectorOfStrings.end()));
+
+    std::cout << "After loop: " << myVectorOfStrings[0] << ' ' << myVectorOfStrings[1] << ' ' << myVectorOfStrings[2]
+              << ' ' << myVectorOfStrings[3] << '\n';
+}
 
 int main()
 {
-    std::vector<size_t> vector{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    t();
+    std::vector<size_t> vector{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
     std::clock_t c_start, c_end;
 
@@ -406,7 +448,7 @@ long GetCombinations(std::vector<size_t> nums)
     std::sort(nums.begin(), nums.end());
     std::vector<int> numReps;
 
-    double testVal = nums[0];
+    size_t testVal = nums[0];
     numReps.push_back(1);
 
     for (std::size_t i = 1; i < n; ++i)
@@ -424,9 +466,9 @@ long GetCombinations(std::vector<size_t> nums)
     }
 
     int                 myMax, r = n2 + 1;
-    std::vector<double> triangleVec(r);
-    std::vector<double> temp(r);
-    double              tempSum;
+    std::vector<size_t> triangleVec(r);
+    std::vector<size_t> temp(r);
+    size_t              tempSum;
 
     myMax = r;
     if (myMax > numReps[0] + 1) myMax = numReps[0] + 1;
@@ -452,7 +494,7 @@ long GetCombinations(std::vector<size_t> nums)
         triangleVec = temp;
     }
 
-    numCombinations = (unsigned long int)triangleVec[n2];
+    numCombinations = (size_t)triangleVec[n2];
 
     return numCombinations;
 }
