@@ -2014,21 +2014,22 @@ void Judge::exhaustiveFourWithPair(std::vector<std::vector<size_t>> &        ret
 void Judge::appendBombs(std::vector<std::vector<size_t>> &ret, const std::unordered_map<size_t, size_t> &ranks) const
 {
     std::vector<size_t> temp;
+    std::vector<size_t> t;
+
     for (const auto &rank : ranks)
     {
-        if (rank.second == 4)
-        {
-            temp.clear();
-            for (int i = 0; i < 4; ++i)
-            {
-                temp.push_back(rank.first);
-            }
-
-            ret.push_back(temp);
-        }
+        if (rank.second == 4) t.push_back(rank.first);
     }
 
-    std::sort(temp.begin(), temp.end());
+    std::sort(t.begin(), t.end());
+
+    for (auto item : t)
+    {
+        temp.clear();
+        for (int i = 0; i < 4; ++i)
+            temp.push_back(item);
+        ret.push_back(temp);
+    }
 
     if (Ruler::getInstance().isAsTrioAceBomb() && ranks.find(paiXingA) != ranks.end() && ranks.at(paiXingA) == 3)
     {
@@ -2188,6 +2189,8 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     if (handsCategory != HandsCategory::bomb)
     {
         appendBombs(ret, ranks);
+    } else {
+        std::sort(ret.begin(), ret.end());
     }
 
     // 将筛选出的组合结果还原为约定的实数
