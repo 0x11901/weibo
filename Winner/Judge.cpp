@@ -2027,6 +2027,9 @@ void Judge::appendBombs(std::vector<std::vector<size_t>> &ret, const std::unorde
             ret.push_back(temp);
         }
     }
+
+    std::sort(temp.begin(), temp.end());
+
     if (Ruler::getInstance().isAsTrioAceBomb() && ranks.find(paiXingA) != ranks.end() && ranks.at(paiXingA) == 3)
     {
         temp.clear();
@@ -2073,11 +2076,11 @@ std::vector<std::vector<size_t>> Judge::cardIntentions(const std::vector<size_t>
         if (filter.empty())
         {
             auto m = *std::min_element(values.begin(), values.end());
-            auto c = std::count(values.begin(), values.end(), m);
+            auto c = static_cast<size_t>(std::count(values.begin(), values.end(), m));
 
             std::vector<size_t> vector;
             vector.reserve(c);
-            for (int i = 0; i < c; ++i)
+            for (size_t i = 0; i < c; ++i)
             {
                 vector.push_back(m);
             }
@@ -2184,7 +2187,6 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     // 💣放在提示数组最后
     if (handsCategory != HandsCategory::bomb)
     {
-        // FIXME: 💣并未排序
         appendBombs(ret, ranks);
     }
 
