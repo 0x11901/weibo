@@ -395,18 +395,27 @@
 // //     }
 // // }
 
-#include <chrono>
+#include <algorithm>
+#include <forward_list>
 #include <iostream>
 
 int main()
 {
-    auto      now = std::chrono::high_resolution_clock::now();
-    long long ago = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+    std::forward_list<int> l = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-    std::cout << ago << std::endl;
-    ago = std::chrono::duration_cast<std::chrono::milliseconds>(
-              std::chrono::high_resolution_clock::now().time_since_epoch())
-              .count();
-    std::cout << ago << std::endl;
+    l.erase_after(l.before_begin()); // Removes first element
+
+    for (auto n : l)
+        std::cout << n << " ";
+    std::cout << '\n';
+
+    auto fi = std::find(l.begin(), l.end(), 5);
+
+    l.erase_after(fi);
+    l.remove(7);
+
+    for (auto n : l)
+        std::cout << n << " ";
+    std::cout << '\n';
     return 0;
 }
