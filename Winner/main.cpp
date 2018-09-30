@@ -396,26 +396,23 @@
 // // }
 
 #include <algorithm>
-#include <forward_list>
 #include <iostream>
+#include <list>
 
 int main()
 {
-    std::forward_list<int> l = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    std::list<int> l      = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    auto           search = std::find(l.begin(), l.end(), 1);
+    if (search != l.end())
+    {
+        l.erase(search);
+    }
 
-    l.erase_after(l.before_begin()); // Removes first element
-
-    for (auto n : l)
+    for (const auto &n : l)
+    {
         std::cout << n << " ";
-    std::cout << '\n';
+    }
 
-    auto fi = std::find(l.begin(), l.end(), 5);
-
-    l.erase_after(fi);
-    l.remove(7);
-
-    for (auto n : l)
-        std::cout << n << " ";
     std::cout << '\n';
     return 0;
 }
