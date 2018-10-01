@@ -23,11 +23,22 @@ public:
     static Ruler &getInstance();
 
     /**
+     * 通过设置 RoomConfigModel 更新Ruler，Ruler不持有 RoomConfigModel，也不管理传入 RoomConfigModel 的生命周期
+     * @param model
+     */
+
+    /**
      * 是否总是带两张牌
      * 如果用户选择三带二（强制）那么不能打出三带一和三不带，三顺也只能带2n张牌
      * @return 是否总是带两张牌
      */
     bool isAlwaysWithPair();
+
+    /**
+     * 当发生三带二时，带牌是否总是同一牌型
+     * @return
+     */
+    bool isKickerAlwaysSameRank();
 
     /**
      * 炸弹是否可以拆开，如不能在用户点击炸弹牌时，四张要同时提起
@@ -50,6 +61,7 @@ public:
 
 private:
     bool _isAlwaysWithPair;
+    bool _isKickerAlwaysSameRank;
     bool _isBombDetachable;
     bool _isAsTrioAceBomb;
     bool _isThreeOfHeartsFirst;
