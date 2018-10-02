@@ -341,7 +341,7 @@ private:
      * @param n 项数
      * @return 是否连续
      */
-    bool isContinuous(size_t a_1, size_t a_n, ssize_t n) const;
+    bool isContinuous(size_t a_1, size_t a_n, size_t n) const;
 
     /**
      * 是否是顺子

@@ -273,12 +273,12 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
                 if (vector.size() > 1)
                 {
                     std::sort(vector.begin(), vector.end());
-                    auto count = vector.size();
+                    ssize_t count = vector.size();
                     for (ssize_t i = 0; i < count - 1; ++i)
                     {
                         for (ssize_t j = count - 1; j > i; --j)
                         {
-                            ssize_t n = j - i + 1;
+                            auto n = static_cast<size_t>(j - i + 1);
                             if (isContinuous(vector[i], vector[j], n))
                             {
                                 auto size =
@@ -475,7 +475,7 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
         }
 
         std::sort(temp.begin(), temp.end());
-        auto size = temp.size();
+        ssize_t size = temp.size();
 
         // OPTIMIZE: 为了是实现："3334445555 展示为，444555 3335；以最大的牌型显示"，下面代码开始瞎写了
         std::vector<std::tuple<ssize_t, ssize_t, size_t, size_t>> woyebuzhidaowozaixieshenmele;
@@ -483,7 +483,7 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
         {
             for (ssize_t j = size - 1; j > i; --j)
             {
-                auto n = j - i + 1;
+                auto n = static_cast<size_t>(j - i + 1);
                 if (n < 2) continue;
                 if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
                 if (isContinuous(temp[i], temp[j], n))
@@ -878,7 +878,7 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
 {
     std::vector<std::vector<size_t>> ret;
 
-    if (n.empty() || k > n.size()) return ret;
+    if (n.empty() || k > static_cast<ssize_t>(n.size())) return ret;
 
     auto copy = n;
     std::sort(copy.begin(), copy.end());
@@ -898,7 +898,7 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
         ssize_t size = node.size();
         for (ssize_t j = size - 1; j >= size - flag; j--)
         {
-            if (node[j].size() <= k)
+            if (static_cast<ssize_t>(node[j].size()) <= k)
             {
                 node.push_back(node[j]);
             }
@@ -908,7 +908,7 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
             }
 
             node.back().push_back(i);
-            if (node.back().size() == k)
+            if (static_cast<ssize_t>(node.back().size()) == k)
             {
                 const auto &temp = node.back();
                 // OPTIMIZE: 应用回溯法优化
@@ -1045,7 +1045,7 @@ bool Judge::isContinuous(const std::vector<size_t> &vector) const
            == (vector.size() - 1) * 1;
 }
 
-bool Judge::isContinuous(size_t a_1, size_t a_n, ssize_t n) const
+bool Judge::isContinuous(size_t a_1, size_t a_n, size_t n) const
 {
     return a_n - a_1 == (n - 1) * 1;
 }
@@ -1095,21 +1095,21 @@ std::tuple<bool, HandsCategoryModel> Judge::isTrioChain(const std::unordered_map
         if (vector.size() > 1)
         {
             std::sort(vector.begin(), vector.end());
-            auto count = vector.size();
+            ssize_t count = vector.size();
             for (ssize_t i = 0; i < count - 1; ++i)
             {
                 for (ssize_t j = count - 1; j > i; --j)
                 {
-                    ssize_t n = j - i + 1;
-                    if (isContinuous(vector[i], vector[j], n))
+                    auto n = j - i + 1;
+                    if (isContinuous(vector[i], vector[j], static_cast<size_t>(n)))
                     {
                         // FIXME: 三顺的权重以等差数列的首项决定
                         // FIXME: 3334445555 展示为，444555 3335；以最大的牌型显示
                         // FIXME: 这里的权重判断出来会是3，有隐患
                         // OPTIMIZE: 此处并不好修改，所以暂时将三顺带一和三顺带二放在外面再计算一次权重
-                        size_t weight = vector[i];
-                        auto   size   = std::accumulate(ranks.begin(), ranks.end(), static_cast<size_t>(0), Functor());
-                        auto   x      = size - 3 * n;
+                        size_t  weight = vector[i];
+                        auto    size   = std::accumulate(ranks.begin(), ranks.end(), static_cast<size_t>(0), Functor());
+                        ssize_t x      = size - 3 * n;
                         if (x == 0)
                         {
                             return std::make_tuple<bool, HandsCategoryModel>(
@@ -1150,7 +1150,7 @@ size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands, HandsCategory
     }
 
     std::sort(temp.begin(), temp.end());
-    auto size = temp.size();
+    ssize_t size = temp.size();
 
     std::vector<std::tuple<ssize_t, ssize_t, size_t, size_t>> woyebuzhidaowozaixieshenmele;
     for (ssize_t i = 0; i < size - 1; ++i)
@@ -1158,8 +1158,9 @@ size_t Judge::getTrioChainWeight(const std::vector<size_t> &hands, HandsCategory
         for (ssize_t j = size - 1; j > i; --j)
         {
             auto n = j - i + 1;
-            if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != hands.size()) continue;
-            if (isContinuous(temp[i], temp[j], n))
+            if (n * (handsCategory == HandsCategory::trioChainWithSolo ? 4 : 5) != static_cast<ssize_t>(hands.size()))
+                continue;
+            if (isContinuous(temp[i], temp[j], static_cast<size_t>(n)))
             {
                 woyebuzhidaowozaixieshenmele.emplace_back(
                     std::tie<ssize_t, ssize_t, size_t, size_t>(i, j, temp[i], temp[j]));
@@ -1381,7 +1382,7 @@ void Judge::enumerateChain(std::vector<std::vector<size_t>> &ret, const std::uno
                 auto n = j - i + 1;
                 if (n < 5) continue;
 
-                if (isContinuous(t[i], t[j], n))
+                if (isContinuous(t[i], t[j], static_cast<size_t>(n)))
                 {
                     temp.clear();
 
@@ -1443,7 +1444,7 @@ void Judge::enumeratePairChain(std::vector<std::vector<size_t>> &        ret,
                 auto n = j - i + 1;
                 if (n < 2) continue;
 
-                if (isContinuous(t[i], t[j], n))
+                if (isContinuous(t[i], t[j], static_cast<size_t>(n)))
                 {
                     temp.clear();
 
@@ -1496,7 +1497,7 @@ void Judge::enumerateTrioChain(std::vector<std::vector<size_t>> &        ret,
                 auto n = j - i + 1;
                 if (n < 2) continue;
 
-                if (isContinuous(t[i], t[j], n))
+                if (isContinuous(t[i], t[j], static_cast<size_t>(n)))
                 {
                     temp.clear();
 
@@ -1700,9 +1701,9 @@ void Judge::exhaustiveChain(std::vector<std::vector<size_t>> &ret, const std::un
             for (ssize_t j = size - 1; j > i; --j)
             {
                 auto n = j - i + 1;
-                if (n != length || t[i] <= weight) continue;
+                if (n != static_cast<ssize_t>(length) || t[i] <= weight) continue;
 
-                if (isContinuous(t[i], t[j], n))
+                if (isContinuous(t[i], t[j], static_cast<size_t>(n)))
                 {
                     temp.clear();
 
@@ -1748,7 +1749,7 @@ void Judge::exhaustivePairChain(std::vector<std::vector<size_t>> &        ret,
         {
             for (ssize_t j = size - 1; j > i; --j)
             {
-                auto n = j - i + 1;
+                auto n = static_cast<size_t>(j - i + 1);
                 if (n != length || t[i] <= weight) continue;
 
                 if (isContinuous(t[i], t[j], n))
@@ -1793,7 +1794,7 @@ void Judge::exhaustiveTrioChain(std::vector<std::vector<size_t>> &        ret,
         {
             for (ssize_t j = size - 1; j > i; --j)
             {
-                auto n = j - i + 1;
+                auto n = static_cast<size_t>(j - i + 1);
                 if (n != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
@@ -1840,7 +1841,7 @@ void Judge::exhaustiveTrioChainWithSolo(std::vector<std::vector<size_t>> &      
         {
             for (ssize_t j = size - 1; j > i; --j)
             {
-                auto n = j - i + 1;
+                auto n = static_cast<size_t>(j - i + 1);
                 if (n != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
@@ -1895,7 +1896,7 @@ void Judge::exhaustiveTrioChainWithPair(std::vector<std::vector<size_t>> &      
         {
             for (ssize_t j = size - 1; j > i; --j)
             {
-                auto n = j - i + 1;
+                auto n = static_cast<size_t>(j - i + 1);
                 if (n != length) continue;
 
                 if (isContinuous(t[i], t[j], n))
@@ -2189,7 +2190,9 @@ std::vector<std::vector<size_t>> Judge::cardHint(const std::vector<size_t> &hand
     if (handsCategory != HandsCategory::bomb)
     {
         appendBombs(ret, ranks);
-    } else {
+    }
+    else
+    {
         std::sort(ret.begin(), ret.end());
     }
 
