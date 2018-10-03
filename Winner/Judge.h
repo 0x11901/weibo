@@ -591,6 +591,10 @@ public:
     void setTheHighestSingleCard(const std::vector<size_t> &                 hands,
                                  std::vector<std::vector<size_t>> &          vector,
                                  std::vector<std::vector<size_t>>::iterator &iterator);
+
+    bool canPlay(const std::vector<size_t> &hands, const HandsCategory &handsCategory) const;
+
+    bool canBeat(const std::vector<size_t> &hands) const;
 };
 PAGAMES_WINNER_POKER_END
 #endif // PAGAMES_WINNER_JUDGE_H
