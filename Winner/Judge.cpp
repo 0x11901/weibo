@@ -256,7 +256,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
     {
         return canPlay(hands, handsCategory);
     }
-    else // 跟出 beat
+    else // 跟出
     {
         return canBeat(hands);
     }
@@ -2207,8 +2207,10 @@ void Judge::setTheHighestSingleCard(const std::vector<size_t> &                 
 
 bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategory &handsCategory) const
 {
+    auto                               isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
+    std::unordered_map<size_t, size_t> ranks                  = zip(getCardRanks(hands));
+
     // 当强制三带二时，所有的带牌不满两张都无法出牌
-    // FIXME: 但是其中三顺又需要特殊处理，暂时先🦐写了
     if (Ruler::getInstance().isAlwaysWithPair())
     {
         if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
@@ -2217,8 +2219,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategory &hands
 
         if (handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo)
         {
-            std::unordered_map<size_t, size_t> ranks = zip(getCardRanks(hands));
-            std::vector<size_t>                vector;
+            std::vector<size_t> vector;
             for (const auto &rank : ranks)
             {
                 if (rank.second >= 3) vector.push_back(rank.first);
@@ -2235,12 +2236,42 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategory &hands
                         if (isContinuous(vector[i], vector[j], n))
                         {
                             auto size = std::accumulate(ranks.begin(), ranks.end(), static_cast<size_t>(0), Functor());
-                            if (size == 5 * n) return true;
+                            if (size == 5 * n)
+                            {
+                                if (isKickerAlwaysSameRank)
+                                {
+                                    auto copy = ranks;
+                                    for (size_t k = vector[i]; k <= vector[j]; ++k)
+                                    {
+                                        copy[k] == 4 ? (copy[k] = 1) : copy.erase(k);
+                                    }
+                                    for (const auto &item : copy)
+                                    {
+                                        if (item.second % 2 != 0) return false;
+                                    }
+                                }
+                                return true;
+                            }
                         }
                     }
                 }
             }
             return false;
+        }
+    }
+
+    if (isKickerAlwaysSameRank)
+    {
+        if (handsCategory == HandsCategory::trioWithPair)
+        {
+            return isSame(ranks, sanDaiEr1);
+        }
+        else if (handsCategory == HandsCategory::fourWithDualPair)
+        {
+            return isSame(ranks, siDaiEr1);
+        }
+        else if (handsCategory == HandsCategory::trioChainWithPair)
+        {
         }
     }
 
