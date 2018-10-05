@@ -592,7 +592,7 @@ public:
                                  std::vector<std::vector<size_t>> &          vector,
                                  std::vector<std::vector<size_t>>::iterator &iterator);
 
-    bool canPlay(const std::vector<size_t> &hands, const HandsCategory &handsCategory) const;
+    bool canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &handsCategoryModel) const;
 
     bool canBeat(const std::vector<size_t> &hands) const;
 };

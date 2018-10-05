@@ -254,7 +254,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, bool isStartingHand) const
 
     if (_currentHandsCategory.handsCategory.handsCategory == HandsCategory::anyLegalCategory) // 首出
     {
-        return canPlay(hands, handsCategory);
+        return canPlay(hands, handsCategoryModel);
     }
     else // 跟出
     {
@@ -2205,10 +2205,11 @@ void Judge::setTheHighestSingleCard(const std::vector<size_t> &                 
     }
 }
 
-bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategory &handsCategory) const
+bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &handsCategoryModel) const
 {
-    auto                               isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
-    std::unordered_map<size_t, size_t> ranks                  = zip(getCardRanks(hands));
+    const auto &handsCategory          = handsCategoryModel.handsCategory;
+    const auto  isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
+    const auto &ranks                  = zip(getCardRanks(hands));
 
     // 当强制三带二时，所有的带牌不满两张都无法出牌
     if (Ruler::getInstance().isAlwaysWithPair())
@@ -2272,6 +2273,19 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategory &hands
         }
         else if (handsCategory == HandsCategory::trioChainWithPair)
         {
+            auto copy   = ranks;
+            auto weight = handsCategoryModel.weight;
+            auto size   = handsCategoryModel.size;
+            auto j      = weight + size / 5;
+            for (size_t i = weight; i < j; ++i)
+            {
+                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
+            }
+            for (const auto &item : copy)
+            {
+                if (item.second % 2 != 0) return false;
+            }
+            return true;
         }
     }
 
