@@ -2208,8 +2208,8 @@ void Judge::setTheHighestSingleCard(const std::vector<size_t> &                 
 bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &handsCategoryModel) const
 {
     const auto &handsCategory          = handsCategoryModel.handsCategory;
-    const auto  isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
     const auto &ranks                  = zip(getCardRanks(hands));
+    const auto  isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
 
     // 当强制三带二时，所有的带牌不满两张都无法出牌
     if (Ruler::getInstance().isAlwaysWithPair())
@@ -2294,8 +2294,10 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &
 
 bool Judge::canBeat(const std::vector<size_t> &hands) const
 {
-    const auto &x = judgeHandsCategory(hands);
-    const auto &y = _currentHandsCategory.handsCategory;
+    const auto &x                      = judgeHandsCategory(hands);
+    const auto &y                      = _currentHandsCategory.handsCategory;
+    const auto &ranks                  = zip(hands);
+    const auto  isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
 
     if (x.handsCategory == HandsCategory::bomb)
     {
@@ -2308,12 +2310,39 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
 
     if (x.size != y.size) return false;
 
-    // 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
-    if (Ruler::getInstance().isBombDetachable())
+    if (isKickerAlwaysSameRank)
     {
-        if (x.handsCategory == HandsCategory::fourWithDualSolo && y.handsCategory == HandsCategory::trioWithPair)
+        if (x.handsCategory == HandsCategory::trioWithPair)
         {
-            return x.weight > y.weight;
+            if (!isSame(ranks, sanDaiEr1)) return false;
+        }
+        else if (x.handsCategory == HandsCategory::fourWithDualPair)
+        {
+            if (!isSame(ranks, siDaiEr1)) return false;
+        }
+        else if (x.handsCategory == HandsCategory::trioChainWithPair)
+        {
+            auto copy   = ranks;
+            auto weight = x.weight;
+            auto size   = x.size;
+            auto j      = weight + size / 5;
+            for (size_t i = weight; i < j; ++i)
+            {
+                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
+            }
+            for (const auto &item : copy)
+            {
+                if (item.second % 2 != 0) return false;
+            }
+        }
+    }
+    else
+    {
+        // 当炸弹可拆时且不强制带二张时，玩家出三带二，跟牌者出四带一也能出牌，总之特殊处理一下
+        if (Ruler::getInstance().isBombDetachable())
+        {
+            if (x.handsCategory == HandsCategory::fourWithDualSolo && y.handsCategory == HandsCategory::trioWithPair)
+                return x.weight > y.weight;
         }
     }
 
@@ -2322,8 +2351,22 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
         && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo
             || x.handsCategory == HandsCategory::trioChainWithPair))
     {
-        return getTrioChainWeight(hands, HandsCategory::trioChainWithPair)
-               > getTrioChainWeight(_currentHandsCategory.hands, HandsCategory::trioChainWithPair);
+        auto weight = getTrioChainWeight(hands, HandsCategory::trioChainWithPair);
+        if (isKickerAlwaysSameRank)
+        {
+            auto copy = ranks;
+            auto size = x.size;
+            auto j    = weight + size / 5;
+            for (size_t i = weight; i < j; ++i)
+            {
+                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
+            }
+            for (const auto &item : copy)
+            {
+                if (item.second % 2 != 0) return false;
+            }
+        }
+        return weight > getTrioChainWeight(_currentHandsCategory.hands, HandsCategory::trioChainWithPair);
     }
 
     if (y.handsCategory == HandsCategory::trioChainWithSolo && x.handsCategory == HandsCategory::trioChain)
@@ -2334,6 +2377,21 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
     if (y.handsCategory == HandsCategory::trioChainWithPair
         && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo))
     {
+        auto weight = getTrioChainWeight(hands, HandsCategory::trioChainWithPair);
+        if (isKickerAlwaysSameRank)
+        {
+            auto copy = ranks;
+            auto size = x.size;
+            auto j    = weight + size / 5;
+            for (size_t i = weight; i < j; ++i)
+            {
+                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
+            }
+            for (const auto &item : copy)
+            {
+                if (item.second % 2 != 0) return false;
+            }
+        }
         return getTrioChainWeight(hands, HandsCategory::trioChainWithPair) > y.weight;
     }
 
