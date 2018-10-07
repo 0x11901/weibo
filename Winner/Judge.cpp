@@ -850,6 +850,22 @@ void Judge::withKicker(std::vector<std::vector<size_t>> &ret,
 {
     auto y = this->combination(combination, kicker);
 
+    if (Ruler::getInstance().isKickerAlwaysSameRank() && (kicker % 2 == 0))
+    {
+        y.erase(std::remove_if(y.begin(),
+                               y.end(),
+                               [](const std::vector<size_t> &$0) {
+                                   std::vector<size_t> __u;
+                                   std::unique_copy($0.begin(), $0.end(), std::back_inserter(__u));
+                                   for (size_t __t : __u)
+                                   {
+                                       if (std::count($0.begin(), $0.end(), __t) % 2 != 0) return true;
+                                   }
+                                   return false;
+                               }),
+                y.end());
+    }
+
     for (const auto &z : y)
     {
         auto copy = primal;
@@ -865,6 +881,22 @@ void Judge::withKickerContainsTarget(std::vector<std::vector<size_t>> &ret,
                                      ssize_t                           kicker) const
 {
     auto y = this->combination(combination, kicker);
+
+    if (Ruler::getInstance().isKickerAlwaysSameRank() && (kicker % 2 == 0))
+    {
+        y.erase(std::remove_if(y.begin(),
+                               y.end(),
+                               [](const std::vector<size_t> &$0) {
+                                   std::vector<size_t> __u;
+                                   std::unique_copy($0.begin(), $0.end(), std::back_inserter(__u));
+                                   for (size_t __t : __u)
+                                   {
+                                       if (std::count($0.begin(), $0.end(), __t) % 2 != 0) return true;
+                                   }
+                                   return false;
+                               }),
+                y.end());
+    }
 
     for (const auto &z : y)
     {
