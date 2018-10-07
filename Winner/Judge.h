@@ -592,8 +592,19 @@ public:
                                  std::vector<std::vector<size_t>> &          vector,
                                  std::vector<std::vector<size_t>>::iterator &iterator);
 
+    /**
+     * 能否出牌
+     * @param hands 用户想要打出的牌
+     * @param handsCategoryModel 想要打出的牌的具体牌型信息
+     * @return 能否打出
+     */
     bool canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &handsCategoryModel) const;
 
+    /**
+     * 能否跟牌
+     * @param hands 用户想跟的牌
+     * @return 能否跟牌
+     */
     bool canBeat(const std::vector<size_t> &hands) const;
 };
 PAGAMES_WINNER_POKER_END

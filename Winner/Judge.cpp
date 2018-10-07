@@ -848,7 +848,7 @@ void Judge::withKicker(std::vector<std::vector<size_t>> &ret,
                        const std::vector<size_t> &       primal,
                        ssize_t                           kicker) const
 {
-    const auto &y = this->combination(combination, kicker);
+    auto y = this->combination(combination, kicker);
 
     for (const auto &z : y)
     {
@@ -864,7 +864,7 @@ void Judge::withKickerContainsTarget(std::vector<std::vector<size_t>> &ret,
                                      const std::vector<size_t> &       primal,
                                      ssize_t                           kicker) const
 {
-    const auto &y = this->combination(combination, kicker);
+    auto y = this->combination(combination, kicker);
 
     for (const auto &z : y)
     {
