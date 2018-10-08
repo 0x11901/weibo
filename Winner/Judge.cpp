@@ -2328,7 +2328,7 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
 {
     const auto &x                      = judgeHandsCategory(hands);
     const auto &y                      = _currentHandsCategory.handsCategory;
-    const auto &ranks                  = zip(hands);
+    const auto &ranks                  = zip(getCardRanks(hands));
     const auto  isKickerAlwaysSameRank = Ruler::getInstance().isKickerAlwaysSameRank();
 
     if (x.handsCategory == HandsCategory::bomb)
