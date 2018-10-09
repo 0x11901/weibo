@@ -216,18 +216,18 @@ int main()
     // std::cout << ss.str();
 
 #pragma mark - 测试can play
-    std::stringstream   ss;
-    std::vector<size_t> weight        = {};
-    std::vector<size_t> handsCategory = {};
-    weight                            = { 3, 3, 3, 4, 4 };
-    handsCategory                     = { 3, 3, 3, 4, 4 };
-
-    std::vector<size_t> hands = { 4, 4, 4, 5, 5 };
-
-    Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
-    auto can = Judge::getInstance().canPlay(test(hands));
-
-    std::cout << can << std::endl;
+    // std::stringstream   ss;
+    // std::vector<size_t> weight        = {};
+    // std::vector<size_t> handsCategory = {};
+    // weight                            = { 3, 3, 3, 4, 4 };
+    // handsCategory                     = { 3, 3, 3, 4, 4 };
+    //
+    // std::vector<size_t> hands = { 4, 4, 4, 5, 5 };
+    //
+    // Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
+    // auto can = Judge::getInstance().canPlay(test(hands));
+    //
+    // std::cout << can << std::endl;
 
 #pragma mark - 测试is pass
     // std::stringstream   ss;
@@ -235,16 +235,11 @@ int main()
     // std::vector<size_t> handsCategory = {};
     // weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9 };
     // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 8, 9 };
-    // weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 11, 12, 13 };
-    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 11, 12, 13 };
-    // weight                            = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
-    // handsCategory                     = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7 };
+    // weight                            = { 3, 3, 3, 4, 4 };
+    // handsCategory                     = { 3, 3, 3, 4, 4 };
     //
     // std::vector<size_t> hands = {};
-    // hands                     = { 3, 3 };
-    // hands                     = { 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 13 };
-    // hands                     = { 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10 };
-    // hands                     = { 3, 4, 5, 6, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 12 };
+    // hands                     = { 3, 4, 5, 6, 8, 8, 8 };
     //
     // Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
     // auto pass = Judge::getInstance().isPass(test(hands));
