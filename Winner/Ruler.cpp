@@ -16,7 +16,7 @@ Ruler::Ruler()
 {
     _isAlwaysWithPair       = true;
     _isKickerAlwaysSameRank = true;
-    _isBombDetachable       = false;
+    _isBombDetachable       = true;
     _isAsTrioAceBomb        = true;
     _isThreeOfHeartsFirst   = true;
 }
