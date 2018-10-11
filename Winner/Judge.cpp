@@ -36,6 +36,17 @@ constexpr size_t hongTao3 = 771;
 #pragma mark - 函子
 struct Functor
 {
+    template <typename T> bool operator()(const T &$0) const
+    {
+        T v;
+        std::unique_copy($0.begin(), $0.end(), std::back_inserter(v));
+        for (const auto &i : v)
+        {
+            if (std::count($0.begin(), $0.end(), i) % 2 != 0) return true;
+        }
+        return false;
+    }
+
     template <typename T, typename U> T operator()(T $0, const U &$1) const
     {
         return $0 + $1.second;
@@ -852,18 +863,7 @@ void Judge::withKicker(std::vector<std::vector<size_t>> &ret,
 
     if (Ruler::getInstance().isKickerAlwaysSameRank() && (kicker % 2 == 0))
     {
-        y.erase(std::remove_if(y.begin(),
-                               y.end(),
-                               [](const std::vector<size_t> &$0) {
-                                   std::vector<size_t> __u;
-                                   std::unique_copy($0.begin(), $0.end(), std::back_inserter(__u));
-                                   for (size_t __t : __u)
-                                   {
-                                       if (std::count($0.begin(), $0.end(), __t) % 2 != 0) return true;
-                                   }
-                                   return false;
-                               }),
-                y.end());
+        y.erase(std::remove_if(y.begin(), y.end(), Functor()), y.end());
     }
 
     for (const auto &z : y)
@@ -884,18 +884,7 @@ void Judge::withKickerContainsTarget(std::vector<std::vector<size_t>> &ret,
 
     if (Ruler::getInstance().isKickerAlwaysSameRank() && (kicker % 2 == 0))
     {
-        y.erase(std::remove_if(y.begin(),
-                               y.end(),
-                               [](const std::vector<size_t> &$0) {
-                                   std::vector<size_t> __u;
-                                   std::unique_copy($0.begin(), $0.end(), std::back_inserter(__u));
-                                   for (size_t __t : __u)
-                                   {
-                                       if (std::count($0.begin(), $0.end(), __t) % 2 != 0) return true;
-                                   }
-                                   return false;
-                               }),
-                y.end());
+        y.erase(std::remove_if(y.begin(), y.end(), Functor()), y.end());
     }
 
     for (const auto &z : y)
@@ -2305,19 +2294,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &
         }
         else if (handsCategory == HandsCategory::trioChainWithPair)
         {
-            auto copy   = ranks;
-            auto weight = handsCategoryModel.weight;
-            auto size   = handsCategoryModel.size;
-            auto j      = weight + size / 5;
-            for (size_t i = weight; i < j; ++i)
-            {
-                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
-            }
-            for (const auto &item : copy)
-            {
-                if (item.second % 2 != 0) return false;
-            }
-            return true;
+            return !isKickerRankUnpaired(handsCategoryModel, ranks);
         }
     }
 
@@ -2354,18 +2331,7 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
         }
         else if (x.handsCategory == HandsCategory::trioChainWithPair)
         {
-            auto copy   = ranks;
-            auto weight = x.weight;
-            auto size   = x.size;
-            auto j      = weight + size / 5;
-            for (size_t i = weight; i < j; ++i)
-            {
-                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
-            }
-            for (const auto &item : copy)
-            {
-                if (item.second % 2 != 0) return false;
-            }
+            if (isKickerRankUnpaired(x, ranks)) return false;
         }
     }
     else
@@ -2386,17 +2352,7 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
         auto weight = getTrioChainWeight(hands, HandsCategory::trioChainWithPair);
         if (isKickerAlwaysSameRank)
         {
-            auto copy = ranks;
-            auto size = x.size;
-            auto j    = weight + size / 5;
-            for (size_t i = weight; i < j; ++i)
-            {
-                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
-            }
-            for (const auto &item : copy)
-            {
-                if (item.second % 2 != 0) return false;
-            }
+            if (isKickerRankUnpaired(x, ranks)) return false;
         }
         return weight > getTrioChainWeight(_currentHandsCategory.hands, HandsCategory::trioChainWithPair);
     }
@@ -2410,24 +2366,34 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
         && (x.handsCategory == HandsCategory::trioChain || x.handsCategory == HandsCategory::trioChainWithSolo))
     {
         auto weight = getTrioChainWeight(hands, HandsCategory::trioChainWithPair);
+        auto copy   = x;
+        copy.weight = weight;
         if (isKickerAlwaysSameRank)
         {
-            auto copy = ranks;
-            auto size = x.size;
-            auto j    = weight + size / 5;
-            for (size_t i = weight; i < j; ++i)
-            {
-                copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
-            }
-            for (const auto &item : copy)
-            {
-                if (item.second % 2 != 0) return false;
-            }
+            if (isKickerRankUnpaired(copy, ranks)) return false;
         }
         return getTrioChainWeight(hands, HandsCategory::trioChainWithPair) > y.weight;
     }
 
     return x.handsCategory == y.handsCategory && x.weight > y.weight;
+}
+
+bool Judge::isKickerRankUnpaired(const HandsCategoryModel &                handsCategoryModel,
+                                 const std::unordered_map<size_t, size_t> &ranks) const
+{
+    auto copy   = ranks;
+    auto weight = handsCategoryModel.weight;
+    auto size   = handsCategoryModel.size;
+    auto j      = weight + size / 5;
+    for (size_t i = weight; i < j; ++i)
+    {
+        copy[i] == 4 ? (copy[i] = 1) : copy.erase(i);
+    }
+    for (const auto &item : copy)
+    {
+        if (item.second % 2 != 0) return true;
+    }
+    return false;
 }
 
 PAGAMES_WINNER_POKER_END

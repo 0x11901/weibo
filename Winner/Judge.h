@@ -606,6 +606,15 @@ public:
      * @return 能否跟牌
      */
     bool canBeat(const std::vector<size_t> &hands) const;
+
+    /**
+     * 带牌是否不成对
+     * @param handsCategoryModel 牌型模型
+     * @param ranks 带判断牌型与数量的映射
+     * @return 是否不成对
+     */
+    bool isKickerRankUnpaired(const HandsCategoryModel &                handsCategoryModel,
+                              const std::unordered_map<size_t, size_t> &ranks) const;
 };
 PAGAMES_WINNER_POKER_END
 #endif // PAGAMES_WINNER_JUDGE_H
