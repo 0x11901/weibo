@@ -2235,9 +2235,7 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &
     // 当强制三带二时，所有的带牌不满两张都无法出牌
     if (Ruler::getInstance().isAlwaysWithPair())
     {
-        if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo
-            || handsCategory == HandsCategory::fourWithDualSolo)
-            return false;
+        if (handsCategory == HandsCategory::trio || handsCategory == HandsCategory::trioWithSolo) return false;
 
         if (handsCategory == HandsCategory::trioChain || handsCategory == HandsCategory::trioChainWithSolo)
         {
