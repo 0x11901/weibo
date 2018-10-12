@@ -424,6 +424,8 @@ std::vector<size_t> Judge::rearrangeHands(const std::vector<size_t> &hands) cons
             }
         }
 
+        if (woyebuzhidaowozaixieshenmele.empty()) return hands;
+
         const auto &max = std::max_element(woyebuzhidaowozaixieshenmele.begin(),
                                            woyebuzhidaowozaixieshenmele.end(),
                                            [](const std::tuple<ssize_t, ssize_t, size_t, size_t> &$0,
