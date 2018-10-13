@@ -10,5 +10,5 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-add_executable(Winner main.cpp Judge.cpp Judge.h Ruler.cpp Ruler.h WinnerPokerCommon.cpp WinnerPokerCommon.h)
-#add_executable(Winner main.cpp)
+#add_executable(Winner main.cpp Judge.cpp Judge.h Ruler.cpp Ruler.h WinnerPokerCommon.cpp WinnerPokerCommon.h)
+add_executable(Winner test.cpp)
