@@ -287,7 +287,8 @@ private:
     void withKicker(std::vector<std::vector<size_t>> &ret,
                     const std::vector<size_t> &       combination,
                     const std::vector<size_t> &       primal,
-                    ssize_t                           kicker) const;
+                    ssize_t                           kicker,
+                    bool                              filterPairs) const;
 
     /**
      * 追加带牌，且包含提示中必须包含的牌
@@ -299,7 +300,8 @@ private:
     void withKickerContainsTarget(std::vector<std::vector<size_t>> &ret,
                                   const std::vector<size_t> &       combination,
                                   const std::vector<size_t> &       primal,
-                                  ssize_t                           kicker) const;
+                                  ssize_t                           kicker,
+                                  bool                              filterPairs) const;
 
     /**
      * 将处理过的手牌向量，恢复为未处理过的手牌

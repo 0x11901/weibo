@@ -859,11 +859,12 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
 void Judge::withKicker(std::vector<std::vector<size_t>> &ret,
                        const std::vector<size_t> &       combination,
                        const std::vector<size_t> &       primal,
-                       ssize_t                           kicker) const
+                       ssize_t                           kicker,
+                       bool                              filterPairs) const
 {
     auto y = this->combination(combination, kicker);
 
-    if (Ruler::getInstance().isKickerAlwaysSameRank() && (kicker % 2 == 0))
+    if (Ruler::getInstance().isKickerAlwaysSameRank() && filterPairs)
     {
         y.erase(std::remove_if(y.begin(), y.end(), Functor()), y.end());
     }
@@ -880,11 +881,12 @@ void Judge::withKicker(std::vector<std::vector<size_t>> &ret,
 void Judge::withKickerContainsTarget(std::vector<std::vector<size_t>> &ret,
                                      const std::vector<size_t> &       combination,
                                      const std::vector<size_t> &       primal,
-                                     ssize_t                           kicker) const
+                                     ssize_t                           kicker,
+                                     bool                              filterPairs) const
 {
     auto y = this->combination(combination, kicker);
 
-    if (Ruler::getInstance().isKickerAlwaysSameRank() && (kicker % 2 == 0))
+    if (Ruler::getInstance().isKickerAlwaysSameRank() && filterPairs)
     {
         y.erase(std::remove_if(y.begin(), y.end(), Functor()), y.end());
     }
@@ -1243,11 +1245,11 @@ void Judge::enumerateTrio(std::vector<std::vector<size_t>> &ret, const std::unor
             //三带一
             if (!isAlwaysWithPair)
             {
-                withKickerContainsTarget(ret, x, temp, 1);
+                withKickerContainsTarget(ret, x, temp, 1, false);
             }
 
             //三带二
-            withKickerContainsTarget(ret, x, temp, 2);
+            withKickerContainsTarget(ret, x, temp, 2, true);
         }
     }
 }
@@ -1282,11 +1284,11 @@ void Judge::enumerateFour(std::vector<std::vector<size_t>> &ret, const std::unor
             // 四带一
             if (isAlwaysWithPair)
             {
-                withKickerContainsTarget(ret, x, temp, 1);
+                withKickerContainsTarget(ret, x, temp, 1, false);
             }
 
             // 四带二
-            withKickerContainsTarget(ret, x, temp, 2);
+            withKickerContainsTarget(ret, x, temp, 2, false);
         }
     }
 }
@@ -1480,11 +1482,11 @@ void Judge::enumerateTrioChain(std::vector<std::vector<size_t>> &        ret,
 
                     if (!isAlwaysWithPair)
                     {
-                        withKickerContainsTarget(ret, x, temp, n);
+                        withKickerContainsTarget(ret, x, temp, n, false);
                     }
 
                     // 三顺带二
-                    withKickerContainsTarget(ret, x, temp, 2 * n);
+                    withKickerContainsTarget(ret, x, temp, 2 * n, true);
                 }
             }
         }
@@ -1569,7 +1571,7 @@ void Judge::exhaustiveTrioWithSolo(std::vector<std::vector<size_t>> &        ret
 
             const auto &x = unzip(others);
 
-            withKicker(ret, x, temp, 1);
+            withKicker(ret, x, temp, 1, false);
         }
     }
 }
@@ -1595,7 +1597,7 @@ void Judge::exhaustiveTrioWithPair(std::vector<std::vector<size_t>> &        ret
 
             const auto &x = unzip(others);
 
-            withKicker(ret, x, temp, 2);
+            withKicker(ret, x, temp, 2, true);
 
             // 四带一也算是三带二，当炸弹可拆时
             if (item.second == 4)
@@ -1806,7 +1808,7 @@ void Judge::exhaustiveTrioChainWithSolo(std::vector<std::vector<size_t>> &      
 
                     const auto &x = unzip(others);
 
-                    withKicker(ret, x, temp, n);
+                    withKicker(ret, x, temp, n, false);
                 }
             }
         }
@@ -1861,7 +1863,7 @@ void Judge::exhaustiveTrioChainWithPair(std::vector<std::vector<size_t>> &      
 
                     const auto &x = unzip(others);
 
-                    withKicker(ret, x, temp, 2 * n);
+                    withKicker(ret, x, temp, 2 * n, true);
                 }
             }
         }
@@ -1922,7 +1924,7 @@ void Judge::exhaustiveFourWithSolo(std::vector<std::vector<size_t>> &        ret
 
             const auto &x = unzip(others);
 
-            withKicker(ret, x, temp, 1);
+            withKicker(ret, x, temp, 1, false);
         }
     }
 }
@@ -1949,7 +1951,7 @@ void Judge::exhaustiveFourWithPair(std::vector<std::vector<size_t>> &        ret
 
             const auto &x = unzip(others);
 
-            withKicker(ret, x, temp, 2);
+            withKicker(ret, x, temp, 2, false);
         }
     }
 }
