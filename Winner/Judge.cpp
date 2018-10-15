@@ -2288,10 +2288,6 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &
         {
             return isSame(ranks, sanDaiEr1);
         }
-        else if (handsCategory == HandsCategory::fourWithDualPair)
-        {
-            return isSame(ranks, siDaiEr1);
-        }
         else if (handsCategory == HandsCategory::trioChainWithPair)
         {
             return !isKickerRankUnpaired(handsCategoryModel, ranks);
