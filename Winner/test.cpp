@@ -11,7 +11,7 @@ void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::
 
 int main()
 {
-    std::vector<size_t> vector{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    std::vector<size_t> vector{ 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 8, 9, 8, 9, 9 };
 
     std::clock_t c_start, c_end;
 
@@ -38,7 +38,7 @@ int main()
 
     auto                          lineL = 2;
     auto *                        out   = new int[lineL];
-    int                           arr[] = { 1, 2, 3, 4, 1 };
+    int                           arr[] = { 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 8, 9, 8, 9, 9 };
     std::vector<std::vector<int>> indexVec;
 
     c_start = std::clock();
