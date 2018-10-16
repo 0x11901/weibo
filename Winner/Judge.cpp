@@ -2383,10 +2383,6 @@ bool Judge::canBeat(const std::vector<size_t> &hands) const
         {
             if (!isSame(ranks, sanDaiEr1)) return false;
         }
-        else if (x.handsCategory == HandsCategory::fourWithDualPair)
-        {
-            if (!isSame(ranks, siDaiEr1)) return false;
-        }
         else if (x.handsCategory == HandsCategory::trioChainWithPair)
         {
             if (isKickerRankUnpaired(x, ranks)) return false;
