@@ -277,6 +277,14 @@ private:
     std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k) const;
 
     /**
+     * 从给定个数的元素中取出指定个数的元素，进行组合
+     * @param n 参与组合的元素的一维向量
+     * @param k 参与选择的元素个数
+     * @return 所有组合结果的二维向量
+     */
+    std::vector<std::vector<size_t>> combinationN2639(const std::vector<size_t> &n, ssize_t k) const;
+
+    /**
      * 追加带牌
      * @param ret 装有追加后结果的二维向量
      * @param combination 参与组合的元素的一维向量

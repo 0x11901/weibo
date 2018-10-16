@@ -33,6 +33,47 @@ constexpr size_t paiXing2 = 15;
 
 constexpr size_t hongTao3 = 771;
 
+#pragma mark - 模版
+template <class BidirIt> bool next_combination(BidirIt first1, BidirIt last1, BidirIt first2, BidirIt last2)
+{
+    if ((first1 == last1) || (first2 == last2)) return false;
+    BidirIt m1 = last1;
+    BidirIt m2 = last2;
+    --m2;
+    while (--m1 != first1 && !(*m1 < *m2))
+        ;
+    bool result = (m1 == first1) && !(*first1 < *m2);
+    if (!result)
+    {
+        while (first2 != m2 && !(*m1 < *first2))
+            ++first2;
+        first1 = m1;
+        std::iter_swap(first1, first2);
+        ++first1;
+        ++first2;
+    }
+    if ((first1 != last1) && (first2 != last2))
+    {
+        m1 = last1;
+        m2 = first2;
+        while ((m1 != first1) && (m2 != last2))
+        {
+            std::iter_swap(--m1, m2);
+            ++m2;
+        }
+        std::reverse(first1, m1);
+        std::reverse(first1, last1);
+        std::reverse(m2, last2);
+        std::reverse(first2, last2);
+    }
+    return !result;
+}
+
+template <class BidirIt> bool next_combination(BidirIt first, BidirIt middle, BidirIt last)
+{
+    return next_combination(first, middle, middle, last);
+}
+
 #pragma mark - 函子
 struct Functor
 {
@@ -852,6 +893,25 @@ std::vector<std::vector<size_t>> Judge::combination(const std::vector<size_t> &n
             }
         }
     }
+
+    return ret;
+}
+
+std::vector<std::vector<size_t>> Judge::combinationN2639(const std::vector<size_t> &n, ssize_t k) const
+{
+    std::vector<std::vector<size_t>> ret;
+    if (n.empty() || static_cast<size_t>(k) > n.size()) return ret;
+
+    auto copy = n;
+    std::sort(copy.begin(), copy.end());
+
+    auto it = next(copy.begin(), k);
+    do
+    {
+        std::vector<size_t> t;
+        std::copy(copy.begin(), it, std::back_inserter(t));
+        ret.push_back(t);
+    } while (next_combination(copy.begin(), it, copy.end()));
 
     return ret;
 }
