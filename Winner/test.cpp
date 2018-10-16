@@ -47,20 +47,16 @@ template <class BidirIt> bool next_combination(BidirIt first, BidirIt middle, Bi
 }
 
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
+std::vector<std::vector<size_t>> combinationN2639(const std::vector<size_t> &n, ssize_t k);
 void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
 
 int main()
 {
-    std::vector<size_t> vector{ 1, 2, 3, 4 };
+    std::vector<size_t> vector{ 4, 5, 3, 1, 1, 1, 2, 3, 4, 64, 657567, 567, 567 };
 
     std::clock_t c_start, c_end;
 
-    c_start = std::clock();
-    combination(vector, 2);
-    c_end = std::clock();
-    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
-
-    const auto &ret = combination(vector, 2);
+    const auto &ret = combination(vector, 4);
 
     std::stringstream ss;
     for (auto &&item : ret)
@@ -76,18 +72,19 @@ int main()
 
     std::cout << ss.str() << std::endl;
 
-    //     vector<unsigned int> row{ 40, 40, 40, 50, 50, 60, 100 };
-    //     auto                 it = next(row.begin(), 2);
-    //
-    //     do
-    //     {
-    //         copy(row.begin(), it, ostream_iterator<unsigned int>(cout, " "));
-    //         cout << endl;
-    //     } while (next_combination(row.begin(), it, row.end()));
+    c_start = std::clock();
+    combination(vector, 4);
+    c_end = std::clock();
+    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
 
-    auto                          lineL = 2;
+    c_start = std::clock();
+    combinationN2639(vector, 4);
+    c_end = std::clock();
+    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
+
+    auto                          lineL = 4;
     auto *                        out   = new int[lineL];
-    int                           arr[] = { 1, 2, 3, 4 };
+    int                           arr[] = { 4, 5, 3, 1, 1, 1, 2, 3, 4, 64, 657567, 567, 567};
     std::vector<std::vector<int>> indexVec;
 
     c_start = std::clock();
@@ -158,6 +155,24 @@ std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize
             }
         }
     }
+
+    return ret;
+}
+
+std::vector<std::vector<size_t>> combinationN2639(const std::vector<size_t> &n, ssize_t k)
+{
+    std::vector<std::vector<size_t>> ret;
+    if (n.empty() || static_cast<size_t>(k) > n.size()) return ret;
+
+    auto copy = n;
+    std::sort(copy.begin(), copy.end());
+
+    auto it = next(copy.begin(), k);
+    do
+    {
+        std::copy(copy.begin(), it, std::ostream_iterator<size_t>(std::cout, " "));
+        std::cout << std::endl;
+    } while (next_combination(copy.begin(), it, copy.end()));
 
     return ret;
 }
