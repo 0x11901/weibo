@@ -52,9 +52,14 @@ void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::
 
 int main()
 {
-    std::vector<size_t> vector{ 4, 5, 3, 1, 1, 1, 2, 3, 4, 64, 657567, 567, 567 };
+    std::vector<size_t> vector{ 1, 1, 1, 4, 4, 5, 6, 7, 8 };
 
     std::clock_t c_start, c_end;
+
+    c_start = std::clock();
+    combination(vector, 4);
+    c_end = std::clock();
+    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
 
     const auto &ret = combination(vector, 4);
 
@@ -73,18 +78,28 @@ int main()
     std::cout << ss.str() << std::endl;
 
     c_start = std::clock();
-    combination(vector, 4);
-    c_end = std::clock();
-    std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
-
-    c_start = std::clock();
     combinationN2639(vector, 4);
     c_end = std::clock();
     std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
 
+    const auto &retN2639 = combinationN2639(vector, 4);
+    ss.str("");
+    for (auto &&item : retN2639)
+    {
+        ss << "{ ";
+        for (auto &&n : item)
+        {
+            ss << n << ", ";
+        }
+        ss.seekp(-2, ss.end);
+        ss << " }" << std::endl;
+    }
+
+    std::cout << ss.str() << std::endl;
+
     auto                          lineL = 4;
     auto *                        out   = new int[lineL];
-    int                           arr[] = { 4, 5, 3, 1, 1, 1, 2, 3, 4, 64, 657567, 567, 567};
+    int                           arr[] = { 1, 1, 1, 4, 4, 5, 6, 7, 8 };
     std::vector<std::vector<int>> indexVec;
 
     c_start = std::clock();
@@ -170,8 +185,9 @@ std::vector<std::vector<size_t>> combinationN2639(const std::vector<size_t> &n, 
     auto it = next(copy.begin(), k);
     do
     {
-        std::copy(copy.begin(), it, std::ostream_iterator<size_t>(std::cout, " "));
-        std::cout << std::endl;
+        std::vector<size_t> t;
+        std::copy(copy.begin(), it, std::back_inserter(t));
+        ret.push_back(t);
     } while (next_combination(copy.begin(), it, copy.end()));
 
     return ret;
