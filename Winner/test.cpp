@@ -6,17 +6,57 @@
 #include <sstream>
 #include <vector>
 
+template <class BidirIt> bool next_combination(BidirIt first1, BidirIt last1, BidirIt first2, BidirIt last2)
+{
+    if ((first1 == last1) || (first2 == last2)) return false;
+    BidirIt m1 = last1;
+    BidirIt m2 = last2;
+    --m2;
+    while (--m1 != first1 && !(*m1 < *m2))
+        ;
+    bool result = (m1 == first1) && !(*first1 < *m2);
+    if (!result)
+    {
+        while (first2 != m2 && !(*m1 < *first2))
+            ++first2;
+        first1 = m1;
+        std::iter_swap(first1, first2);
+        ++first1;
+        ++first2;
+    }
+    if ((first1 != last1) && (first2 != last2))
+    {
+        m1 = last1;
+        m2 = first2;
+        while ((m1 != first1) && (m2 != last2))
+        {
+            std::iter_swap(--m1, m2);
+            ++m2;
+        }
+        std::reverse(first1, m1);
+        std::reverse(first1, last1);
+        std::reverse(m2, last2);
+        std::reverse(first2, last2);
+    }
+    return !result;
+}
+
+template <class BidirIt> bool next_combination(BidirIt first, BidirIt middle, BidirIt last)
+{
+    return next_combination(first, middle, middle, last);
+}
+
 std::vector<std::vector<size_t>> combination(const std::vector<size_t> &n, ssize_t k);
 void combination(int arr[], int m, int n, int out[], int outL, std::vector<std::vector<int>> &vec);
 
 int main()
 {
-    std::vector<size_t> vector{ 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 8, 9, 8, 9, 9 };
+    std::vector<size_t> vector{ 1, 2, 3, 4 };
 
     std::clock_t c_start, c_end;
 
     c_start = std::clock();
-    combination(vector, 4);
+    combination(vector, 2);
     c_end = std::clock();
     std::cout << std::fixed << std::setprecision(2) << "time used: " << c_end - c_start << std::endl;
 
@@ -36,9 +76,18 @@ int main()
 
     std::cout << ss.str() << std::endl;
 
+    //     vector<unsigned int> row{ 40, 40, 40, 50, 50, 60, 100 };
+    //     auto                 it = next(row.begin(), 2);
+    //
+    //     do
+    //     {
+    //         copy(row.begin(), it, ostream_iterator<unsigned int>(cout, " "));
+    //         cout << endl;
+    //     } while (next_combination(row.begin(), it, row.end()));
+
     auto                          lineL = 2;
     auto *                        out   = new int[lineL];
-    int                           arr[] = { 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 6, 7, 8, 9, 8, 9, 9 };
+    int                           arr[] = { 1, 2, 3, 4 };
     std::vector<std::vector<int>> indexVec;
 
     c_start = std::clock();
