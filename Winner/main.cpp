@@ -214,7 +214,7 @@ int main()
     std::vector<size_t> weight        = {};
     std::vector<size_t> handsCategory = {};
 
-    std::vector<size_t> hands = { 3, 3, 3, 4, 4, 4, 5, 5, 5, 7, 7, 7, 8, 8, 8 };
+    std::vector<size_t> hands = { 3, 3, 3, 4, 4, 4, 5, 5, 5,8 };
 
     Judge::getInstance().setCurrentHandsCategory(test(weight), test(handsCategory));
     auto can = Judge::getInstance().canPlay(test(hands));

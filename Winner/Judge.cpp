@@ -2352,7 +2352,44 @@ bool Judge::canPlay(const std::vector<size_t> &hands, const HandsCategoryModel &
         }
         else if (handsCategory == HandsCategory::trioChainWithPair)
         {
-            return !isKickerRankUnpaired(handsCategoryModel, ranks);
+            // 三顺可能会因为必带一对而造成权重偏移
+            std::vector<size_t> vector;
+            for (const auto &rank : ranks)
+            {
+                if (rank.second >= 3) vector.push_back(rank.first);
+            }
+            if (vector.size() > 1)
+            {
+                std::sort(vector.begin(), vector.end());
+                ssize_t count = vector.size();
+                for (ssize_t i = 0; i < count - 1; ++i)
+                {
+                    for (ssize_t j = count - 1; j > i; --j)
+                    {
+                        auto n = static_cast<size_t>(j - i + 1);
+                        if (isContinuous(vector[i], vector[j], n))
+                        {
+                            auto size = std::accumulate(ranks.begin(), ranks.end(), static_cast<size_t>(0), Functor());
+                            if (size == 5 * n)
+                            {
+                                auto copy = ranks;
+                                for (size_t k = vector[i]; k <= vector[j]; ++k)
+                                {
+                                    copy[k] == 4 ? (copy[k] = 1) : copy.erase(k);
+                                }
+                                for (const auto &item : copy)
+                                {
+                                    if (item.second % 2 != 0) goto trioChainWithPairKickerAlwaysSameRankContinue;
+                                }
+                                return true;
+                            trioChainWithPairKickerAlwaysSameRankContinue:
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 

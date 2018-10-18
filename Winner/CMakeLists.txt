@@ -3,8 +3,8 @@ project(Winner)
 
 set(CMAKE_CXX_STANDARD 11)
 
-#set(CMAKE_C_COMPILER "/usr/local/bin/gcc-4.9")
-#set(CMAKE_CXX_COMPILER "/usr/local/bin/g++-4.9")
+set(CMAKE_C_COMPILER "/usr/local/bin/gcc-4.9")
+set(CMAKE_CXX_COMPILER "/usr/local/bin/g++-4.9")
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
